@@ -2,7 +2,7 @@
 
 import { Slider } from "@mui/material";
 import { useEffect, useState } from "react";
-import { FaFileAlt } from "react-icons/fa";
+import { FaFileAlt, FaSpinner } from "react-icons/fa";
 
 interface LoanData {
   name: string;
@@ -13,7 +13,7 @@ interface LoanData {
 
 export default function LoanSection() {
   const [loanData, setLoanData] = useState<LoanData>({
-    name: "",
+    name: "Empréstimo MALEcaixa",
     amount: 60000,
     months: 12,
     interestRate: 0.25,
@@ -44,6 +44,7 @@ export default function LoanSection() {
       return () => clearTimeout(timer);
     }
   }, [alert]);
+
   const handleSliderChange =
     (field: keyof LoanData) => (_: Event, value: number | number[]) => {
       if (typeof value === "number") {
@@ -52,11 +53,6 @@ export default function LoanSection() {
     };
 
   const gerarRelatorio = async () => {
-    if (!name.trim()) {
-      window.alert("Por favor, insira o nome do cliente.");
-      return;
-    }
-
     setIsLoading(true);
     try {
       const response = await fetch("/api/relatorio", {
@@ -86,7 +82,7 @@ export default function LoanSection() {
     } finally {
       setIsLoading(false);
       setLoanData({
-        name: "",
+        name: "Empréstimo MALEcaixa",
         amount: 5000,
         months: 1,
         interestRate: 0.25,
@@ -143,6 +139,17 @@ export default function LoanSection() {
           <div className="p-10 space-y-6">
             {/* Nome com validação */}
             <div>
+              {alert.show && (
+                <div
+                  className={`p-3 mb-4 rounded-lg text-sm ${
+                    alert.type === "success"
+                      ? "bg-green-100 text-green-800 border border-green-200"
+                      : "bg-red-100 text-red-800 border border-red-200"
+                  }`}
+                >
+                  {alert.message}
+                </div>
+              )}
               <div className="flex justify-between items-center mb-1">
                 <label
                   htmlFor="name"
@@ -290,33 +297,7 @@ export default function LoanSection() {
             {/* Botão com feedback */}
             <div className="space-y-2">
               <button
-                onClick={async () => {
-                  if (!name.trim()) {
-                    setNameError("Por favor, insira o nome do cliente");
-                    return;
-                  }
-
-                  try {
-                    setIsLoading(true);
-                    await gerarRelatorio();
-
-                    // Mostrar mensagem de sucesso
-                    setAlert({
-                      show: true,
-                      message: "Plano de amortização gerado com sucesso!",
-                      type: "success",
-                    });
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                  } catch (error) {
-                    setAlert({
-                      show: true,
-                      message: "Erro ao gerar o plano. Tente novamente.",
-                      type: "error",
-                    });
-                  } finally {
-                    setIsLoading(false);
-                  }
-                }}
+                onClick={gerarRelatorio}
                 disabled={isLoading}
                 className={`w-full ${
                   isLoading
@@ -326,26 +307,7 @@ export default function LoanSection() {
               >
                 {isLoading ? (
                   <>
-                    <svg
-                      className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
+                    <FaSpinner className="animate-spin" />
                     <span>Gerando...</span>
                   </>
                 ) : (
@@ -357,17 +319,6 @@ export default function LoanSection() {
               </button>
 
               {/* Mensagem de alerta */}
-              {alert.show && (
-                <div
-                  className={`p-3 rounded-lg text-sm ${
-                    alert.type === "success"
-                      ? "bg-green-100 text-green-800 border border-green-200"
-                      : "bg-red-100 text-red-800 border border-red-200"
-                  }`}
-                >
-                  {alert.message}
-                </div>
-              )}
             </div>
           </div>
         </div>

@@ -48,6 +48,7 @@ export default function Navbar(): JSX.Element {
     handleScroll(); // Verificar a seção inicial
 
     return () => window.removeEventListener("scroll", handleScroll);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const mobileMenuVariants: Variants = {

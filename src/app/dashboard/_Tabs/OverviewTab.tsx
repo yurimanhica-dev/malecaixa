@@ -17,6 +17,7 @@ import StatCard from "./_component/_OverviewTab/StatCard";
 
 interface Account {
   id: number;
+  accountNumber: string;
   loanPurpose: string;
   requestDate: string;
   approvedAmount: number;
@@ -24,10 +25,13 @@ interface Account {
   remainingBalance: number;
   interestRate: number;
   monthlyPayment: number;
+  principalPaid: number;
+  interestPaid: number;
   dueDate: string;
-  status: string;
+  paymentFrequency: string;
+  status?: string;
   lateFee?: number;
-  progress?: number;
+  accountManager: string;
 }
 
 interface Props {

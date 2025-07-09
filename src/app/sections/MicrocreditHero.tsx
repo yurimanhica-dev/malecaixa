@@ -74,6 +74,7 @@ export default function MicrocreditHero() {
       if (isAutoPlaying) nextSlide();
     }, 20000);
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex, isAutoPlaying]);
 
   // Animação de fundo suave

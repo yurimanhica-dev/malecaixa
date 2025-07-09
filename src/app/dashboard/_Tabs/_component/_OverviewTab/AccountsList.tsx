@@ -1,4 +1,3 @@
-import { Account } from "@/app/dashboard/_Tabs/OverviewTab";
 import { formatDate, formatMZN } from "@/app/lib/utils";
 
 import {
@@ -11,6 +10,25 @@ import {
 } from "lucide-react";
 import { FC } from "react";
 
+interface Account {
+  id: number;
+  accountNumber: string;
+  loanPurpose: string;
+  requestDate: string;
+  approvedAmount: number;
+  paidAmount: number;
+  remainingBalance: number;
+  interestRate: number;
+  monthlyPayment: number;
+  principalPaid: number;
+  interestPaid: number;
+  dueDate: string;
+  paymentFrequency: string;
+  status?: string;
+  lateFee?: number;
+  accountManager: string;
+}
+
 interface AccountsListProps {
   accounts: Account[];
   stats: {
@@ -22,6 +40,7 @@ interface AccountsListProps {
   statusConfig: {
     [key: string]: {
       color: string;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       icon: any;
       label: string;
     };
@@ -56,7 +75,7 @@ const AccountsList: FC<AccountsListProps> = ({
 
       <div className="divide-y divide-gray-100">
         {accounts.map((account) => {
-          const status = statusConfig[account.status];
+          const status = statusConfig[account?.status ?? ""];
           const progress = Math.min(
             100,
             Math.round((account.paidAmount / account.approvedAmount) * 100)
@@ -182,6 +201,7 @@ const StatusBadge = ({
   </span>
 );
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Detail = ({ icon: Icon, text }: { icon: any; text: string }) => (
   <span className="text-xs text-gray-500 flex items-center">
     <Icon className="h-3 w-3 mr-1" />

@@ -6,6 +6,7 @@
   --color-secondary: #fed400;
   --color-hover: #009ae3;
   --color-holding: #825d46;
+  --color-gradient: #0066cc;
 }
 
 @layer base {

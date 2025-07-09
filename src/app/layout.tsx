@@ -9,8 +9,47 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "MALEcaixa",
-  icons: "/icon.png",
+  title: "MALEcaixa - Soluções Financeiras Inteligentes",
+  description:
+    "Especializada em gestão de empréstimos e créditos, oferecemos soluções financeiras seguras e acessíveis para particulares e empresas em Moçambique.",
+  keywords: [
+    "empréstimos",
+    "crédito",
+    "financiamento",
+    "Moçambique",
+    "soluções financeiras",
+  ],
+  authors: [{ name: "MALE Holding", url: "https://www.maleholding.co.mz" }],
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+  openGraph: {
+    title: "MALEcaixa - Crédito e Financiamento em Moçambique",
+    description:
+      "Soluções de crédito inteligentes para impulsionar pessoas e negócios em Moçambique. Processos rápidos e seguros.",
+    url: "https://malecaixa.vercel.app",
+    siteName: "MALEcaixa",
+    locale: "pt_MZ",
+    type: "website",
+    images: [
+      {
+        url: "/icon.png",
+        width: 1200,
+        height: 630,
+        alt: "MALEcaixa - Sua Parceira Financeira em Moçambique",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MALEcaixa - Soluções de Crédito",
+    description:
+      "Gestão profissional de empréstimos e créditos com segurança, rapidez e responsabilidade.",
+    images: ["/icon.png"],
+    creator: "@malesoftware",
+  },
+  metadataBase: new URL("https://malecaixa.vercel.app"),
 };
 
 export default function RootLayout({

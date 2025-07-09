@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import ServiceCard from "../components/ServiceCard";
 
@@ -123,23 +122,18 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section id="servicos" className="bg-gray-50 py-16 min-w-fit">
-      <div className="max-w-6xl mx-auto flex flex-col items-center c-space">
+    <section id="servicos" className="bg-gray-50 py-20 min-w-fit min-h-screen">
+      <div className="max-w-6xl mx-auto flex flex-col md:items-center items-start c-space">
         <span className="inline-block text-primary mb-4 px-4 py-1 text-sm border border-gray-300 rounded-full font-medium uppercase tracking-wider">
           Nossos Serviços
         </span>
-        <motion.p
-          className="text-4xl lg:text-5xl font-semibold text-center mb-12"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
+        <h2 className="text-3xl text-gray-800 lg:text-5xl  font-extrabold md:text-center mb-12 lg:mb-16">
           Soluções financeiras adaptadas às suas necessidades
-        </motion.p>
+        </h2>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4 lg:px-8 xl:px-14">
-        {services.map((service, index) => (
-          <ServiceCard key={index} {...service} />
+        {services.map((service) => (
+          <ServiceCard key={service.number} {...service} />
         ))}
       </div>
     </section>

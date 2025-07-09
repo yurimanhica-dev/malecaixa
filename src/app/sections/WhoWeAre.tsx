@@ -1,6 +1,7 @@
 "use client";
 
 import { Slider } from "@mui/material";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaFileAlt, FaSpinner } from "react-icons/fa";
 
@@ -18,6 +19,7 @@ export default function LoanSection() {
     months: 12,
     interestRate: 0.25,
   });
+
   const [isLoading, setIsLoading] = useState(false);
   const [nameError, setNameError] = useState("");
 
@@ -68,6 +70,7 @@ export default function LoanSection() {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
+        window.open(url, "_blank");
         a.download = `MaleCaixa_Simulacao_${name.replace(/\s+/g, "_")}.pdf`;
         document.body.appendChild(a);
         a.click();
@@ -91,46 +94,48 @@ export default function LoanSection() {
   };
 
   return (
-    <section className="bg-gray-50 py-10 pb-30 c-space min-w-fit">
-      <div className="container mx-auto flex flex-col lg:flex-row justify-center gap-6 lg:gap-12">
+    <section className="bg-gray-50  pb-20 c-space min-w-fit">
+      <div className="container max-w-6xl mx-auto flex flex-col md:flex-row justify-center lg:gap-14 gap-4">
         {/* Informações */}
         <div>
-          <div className="flex flex-col lg:items-start items-center">
+          <div className="flex flex-col items-start">
             <span className="inline-block text-primary mb-4 px-4 py-1 text-sm border border-gray-300 rounded-full font-medium uppercase tracking-wider">
               QUEM SOMOS
             </span>
           </div>
-          <h2 className="text-4xl text-center lg:text-start font-bold lg:max-w-xl text-gray-800 mb-6 leading-tight">
-            Somos uma empresa pertecente a MALE{""}
-            <span className="text-holding">group</span>, oferecemos empréstimos{" "}
-            <span className="text-primary">Personalizados</span>,{""}{" "}
-            <span className="text-secondary">Flexíveis</span> e{" "}
-            <span className="text-primary">Rápidos</span>.
+          <h2 className="text-3xl text-gray-800 lg:text-5xl font-extrabold text-start mb-6">
+            Somos uma empresa que surgiu da{" "}
+            <Link
+              href="https://maleholding.vercel.app"
+              target="_blank"
+              className="text-holding text-2xl lg:text-4xl underline"
+            >
+              MALEgroup.
+            </Link>
           </h2>
-          <p className="text-lg text-gray-800 mb-8 text-center lg:text-start max-w-2xl">
-            Obtenha o financiamento ideal com taxas acessíveis, aprovação rápida
-            e planos personalizados. Connosco o crescimento do seu negócio está
-            ao seu alcance.
+          <p className="text-lg text-gray-800 mb-8 text-start max-w-2xl">
+            Surgimos em 2007 com a missão de manter o capital em circulação para
+            pessoas e empresas, fortalecendo a economia e promovendo
+            estabilidade. Apoiamos o crescimento com crédito acessível, seguro e
+            responsável.
           </p>
-          <h3 className="text-xl font-semibold text-center lg:text-start text-gray-800 mb-4">
+          <h3 className="text-xl font-semibold text-start text-gray-800 mb-6">
             Por que escolher a MALECaixa?
           </h3>
-          <ul className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:grid-cols-1 text-sm text-gray-800 mb-10">
+          <ul className="grid grid-cols-1  gap-3   text-gray-800 mb-10">
             <li>✓ Dados seguros e protegidos;</li>
             <li>✓ Apoio em cada etapa;</li>
             <li>✓ Consulta da sua situação financeira em tempo real;</li>
             <li>✓ Taxas competitivas e acessíveis;</li>
             <li>✓ Planos flexíveis e adaptáveis;</li>
-            <li className="md:text-nowrap">
-              ✓ Processo de aprovação simplificado;
-            </li>
+            <li>✓ Processo de aprovação simplificado;</li>
           </ul>
         </div>
 
         {/* Simulador */}
-        <div className="lg:max-w-lg min-w-sm mx-auto w-full bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
+        <div className="md:max-w-lg h-fit min-w-sm mx-auto w-full bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
           {/* Cabeçalho com gradiente */}
-          <div className="bg-gradient-to-r from-secondary to-secondary/80 p-6">
+          <div className="bg-gradient-to-r from-[#0066CC] to-primary p-6">
             <h3 className="text-xl text-center font-semibold text-white">
               Simule o seu crédito
             </h3>
@@ -295,7 +300,7 @@ export default function LoanSection() {
             </div>
 
             {/* Botão com feedback */}
-            <div className="space-y-2">
+            <div>
               <button
                 onClick={gerarRelatorio}
                 disabled={isLoading}

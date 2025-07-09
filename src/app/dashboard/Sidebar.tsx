@@ -52,12 +52,6 @@ const Sidebar = ({
       }
     };
 
-    const handleLogout = () => {
-      // Implement logout logic here
-      console.log("User logged out");
-      onToggle();
-    };
-
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("keydown", handleEscape);
 
@@ -182,10 +176,7 @@ const Sidebar = ({
                 </button>
               </li>
               <li>
-                <button
-                  onClick={handleLogout}
-                  className="w-full text-left px-4 py-3 rounded-lg text-sm flex items-center gap-3 hover:bg-gray-50 text-red-600 hover:text-red-700 transition-colors"
-                >
+                <button className="w-full text-left px-4 py-3 rounded-lg text-sm flex items-center gap-3 hover:bg-gray-50 text-red-600 hover:text-red-700 transition-colors">
                   <LogOut className="h-5 w-5 text-red-500" />
                   <span>Sair</span>
                 </button>

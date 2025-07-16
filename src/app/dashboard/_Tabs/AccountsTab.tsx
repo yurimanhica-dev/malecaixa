@@ -101,7 +101,7 @@ const AccountsTab: FC<Props> = ({ accounts, onViewAccount }) => {
           return (
             <div
               key={account.id}
-              className="bg-white shadow-md overflow-hidden"
+              className="bg-white shadow-md rounded-2xl overflow-hidden"
             >
               {/* Cabeçalho da Conta */}
               <div className="p-4 border-b">

@@ -27,17 +27,17 @@ const CreditDistribution: FC<CreditDistributionProps> = ({
   const performance = total > 0 ? Math.round((paid / total) * 100) : 0;
 
   return (
-    <div className="md:col-span-2 bg-white p-5 rounded-xl shadow-xs border border-gray-100">
-      <div className="flex items-center justify-between mb-4">
-        <div>
-          <h3 className="font-medium text-gray-700">
+    <div className="md:col-span-2 bg-white dark:bg-gray-900 p-5 rounded-xl shadow-xs border border-gray-100 dark:border-gray-700">
+      <div className="flex flex-col justify-between items-start md:flex-row md:items-center mb-4 gap-4">
+        <div className="flex justify-between items-center md:flex-col md:items-start w-full md:w-auto mb-2 md:mb-0">
+          <h3 className="font-medium text-gray-700 dark:text-gray-300 text-nowrap">
             Distribuição de Créditos
           </h3>
-          <span className="text-gray-800">
+          <span className="text-gray-800 dark:text-gray-200">
             <strong>Total:</strong> {total}
           </span>
         </div>
-        <div className="flex items-center gap-2 text-sm text-gray-500">
+        <div className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
           <span className="w-2 h-2 rounded-full bg-emerald-500" />
           <span>Quitados</span>
           <span className="w-2 h-2 rounded-full bg-amber-500 ml-2" />
@@ -51,10 +51,14 @@ const CreditDistribution: FC<CreditDistributionProps> = ({
         {/* Performance barra */}
         <div className="space-y-2">
           <div className="flex items-center justify-between text-sm">
-            <span className="text-gray-500">Performance</span>
-            <span className="font-medium">{performance}%</span>
+            <span className="text-gray-500 dark:text-gray-400">
+              Performance
+            </span>
+            <span className="font-medium dark:text-gray-200">
+              {performance}%
+            </span>
           </div>
-          <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+          <div className="h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-emerald-500 to-amber-500"
               style={{ width: `${performance}%` }}
@@ -79,6 +83,12 @@ const CreditDistribution: FC<CreditDistributionProps> = ({
                 ))}
               </Pie>
               <Tooltip
+                contentStyle={{
+                  backgroundColor: "rgb(31, 41, 55)",
+                  borderColor: "rgb(55, 65, 81)",
+                  borderRadius: "0.5rem",
+                }}
+                itemStyle={{ color: "white" }}
                 formatter={(value: number, name: string) => [
                   `${value} (${Math.round((value / total) * 100)}%)`,
                   name,

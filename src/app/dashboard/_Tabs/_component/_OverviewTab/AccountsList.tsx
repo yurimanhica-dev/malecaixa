@@ -54,26 +54,26 @@ const AccountsList: FC<AccountsListProps> = ({
   statusConfig,
 }) => {
   return (
-    <div className="bg-white rounded-xl shadow-xs overflow-hidden border border-gray-100">
-      <div className="p-5 border-b border-gray-100 flex justify-between items-center">
-        <div>
-          <h2 className="font-semibold text-gray-800 flex items-center gap-2">
-            <Banknote className="h-5 w-5 text-primary" />
+    <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm overflow-hidden border border-gray-200 dark:border-gray-800">
+      <div className="p-5 gap-2 border-b border-gray-200 dark:border-gray-800 flex flex-col justify-between items-start md:flex-row md:items-center">
+        <div className="">
+          <h2 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
+            <Banknote className="h-5 w-5 text-primary-600 dark:text-primary-400" />
             Meus Créditos
           </h2>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             {accounts.length} crédito{accounts.length !== 1 ? "s" : ""}{" "}
             registado{accounts.length !== 1 ? "s" : ""}
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <StatusBadge color="emerald" count={stats.paid} label="Quitado" />
           <StatusBadge color="amber" count={stats.pending} label="Andamento" />
-          <StatusBadge color="red" count={stats.overdue} label="em Mora" />
+          <StatusBadge color="rose" count={stats.overdue} label="em Mora" />
         </div>
       </div>
 
-      <div className="divide-y divide-gray-100">
+      <div className="divide-y divide-gray-200 dark:divide-gray-800">
         {accounts.map((account) => {
           const status = statusConfig[account?.status ?? ""];
           const progress = Math.min(
@@ -87,7 +87,7 @@ const AccountsList: FC<AccountsListProps> = ({
               role="button"
               tabIndex={0}
               onClick={() => onViewAccount(account.id)}
-              className="p-5 hover:bg-gray-50 cursor-pointer transition-colors group"
+              className="p-5 hover:bg-gray-50 dark:hover:bg-gray-800/60 cursor-pointer transition-colors group"
             >
               <div className="flex flex-col md:flex-row justify-between gap-4">
                 <div className="flex-1">
@@ -96,12 +96,12 @@ const AccountsList: FC<AccountsListProps> = ({
                       className={`p-2 rounded-lg ${status.color.replace(
                         "text",
                         "bg"
-                      )} bg-opacity-10`}
+                      )} bg-opacity-10 dark:bg-opacity-20`}
                     >
-                      <status.icon className="h-5 w-5" />
+                      <status.icon className="h-5 w-5 dark:text-gray-500" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-gray-800 group-hover:text-primary">
+                      <h3 className="font-medium text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400">
                         {account.loanPurpose}
                       </h3>
                       <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1">
@@ -124,12 +124,14 @@ const AccountsList: FC<AccountsListProps> = ({
 
                 <div className="md:w-72">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-medium text-gray-500">
+                    <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
                       Progresso
                     </span>
-                    <span className="text-xs font-semibold">{progress}%</span>
+                    <span className="text-xs font-semibold dark:text-gray-200">
+                      {progress}%
+                    </span>
                   </div>
-                  <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
                     <div
                       className={`h-full ${
                         account.status === "paid"
@@ -156,19 +158,19 @@ const AccountsList: FC<AccountsListProps> = ({
                 </div>
 
                 <div className="flex items-center justify-end md:pl-4">
-                  <button className="text-gray-400 group-hover:text-primary">
+                  <button className="text-gray-400 dark:text-gray-500 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                     <ChevronRight className="h-5 w-5" />
                   </button>
                 </div>
               </div>
 
               {account.lateFee && account.lateFee > 0 && (
-                <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between">
-                  <span className="text-xs font-medium text-rose-500 flex items-center">
-                    <AlertCircle className="h-3 w-3 mr-1" />
+                <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-800 flex items-center justify-between">
+                  <span className="text-xs font-medium text-rose-600 dark:text-rose-400 flex items-center">
+                    <AlertCircle className="h-3 w-3 mr-1.5" />
                     Multa por atraso
                   </span>
-                  <span className="text-xs font-semibold">
+                  <span className="text-xs font-semibold text-rose-600 dark:text-rose-400">
                     +{formatMZN(account.lateFee)}
                   </span>
                 </div>
@@ -183,7 +185,7 @@ const AccountsList: FC<AccountsListProps> = ({
 
 export default AccountsList;
 
-// Subcomponentes auxiliares
+// Subcomponents
 const StatusBadge = ({
   color,
   count,
@@ -194,17 +196,19 @@ const StatusBadge = ({
   label: string;
 }) => (
   <span
-    className={`text-xs bg-gray-100 px-2 py-1 rounded-full flex items-center gap-1`}
+    className={`text-xs bg-gray-100 dark:bg-gray-800 px-2.5 py-1 rounded-full flex items-center gap-1.5 transition-colors`}
   >
     <span className={`w-2 h-2 rounded-full bg-${color}-500`} />
-    {count} {label}
+    <span className="text-gray-800 dark:text-gray-200">
+      {count} {label}
+    </span>
   </span>
 );
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Detail = ({ icon: Icon, text }: { icon: any; text: string }) => (
-  <span className="text-xs text-gray-500 flex items-center">
-    <Icon className="h-3 w-3 mr-1" />
+  <span className="text-xs text-gray-600 dark:text-gray-400 flex items-center">
+    <Icon className="h-3 w-3 mr-1.5 opacity-70" />
     {text}
   </span>
 );
@@ -219,7 +223,9 @@ const Info = ({
   right?: boolean;
 }) => (
   <div className={right ? "text-right" : ""}>
-    <p className="text-xs text-gray-500">{label}</p>
-    <p className="text-sm font-medium">{value}</p>
+    <p className="text-xs text-gray-600 dark:text-gray-400">{label}</p>
+    <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+      {value}
+    </p>
   </div>
 );

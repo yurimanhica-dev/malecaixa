@@ -9,23 +9,16 @@ import {
   Wallet,
   X,
 } from "lucide-react";
-import { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { Dispatch, SetStateAction, useRef } from "react";
 
 interface SidebarProps {
   activeTab: string;
   setActiveTab: Dispatch<SetStateAction<string>>;
-  visible: boolean;
   user: { name: string; email: string };
   onToggle: () => void;
 }
 
-const Sidebar = ({
-  activeTab,
-  setActiveTab,
-  visible,
-  user,
-  onToggle,
-}: SidebarProps) => {
+const Sidebar = ({ activeTab, setActiveTab, user, onToggle }: SidebarProps) => {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const tabs = [
     { key: "overview", label: "Visão Geral", icon: LayoutDashboard },
@@ -34,33 +27,36 @@ const Sidebar = ({
     { key: "profile", label: "Meu Perfil", icon: User },
   ];
 
-  // Fechar sidebar ao clicar fora ou pressionar ESC
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        sidebarRef.current &&
-        !sidebarRef.current.contains(event.target as Node) &&
-        visible
-      ) {
-        onToggle();
-      }
-    };
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     if (
+  //       sidebarRef.current &&
+  //       !sidebarRef.current.contains(event.target as Node)
+  //     ) {
+  //       onToggle();
+  //     }
+  //   };
 
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && visible) {
-        onToggle();
-      }
-    };
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, [onToggle]);
 
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEscape);
+  //   const handleEscape = (event: KeyboardEvent) => {
+  //     if (event.key === "Escape" && visible) {
+  //       onToggle();
+  //     }
+  //   };
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, [visible, onToggle]);
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   document.addEventListener("keydown", handleEscape);
 
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //     document.removeEventListener("keydown", handleEscape);
+  //   };
+  // }, [visible, onToggle]);
   const handleTabClick = (tabKey: string) => {
     setActiveTab(tabKey);
     if (window.innerWidth < 1024) {
@@ -71,35 +67,36 @@ const Sidebar = ({
   return (
     <>
       {/* Mobile Overlay */}
-      {visible && (
-        <div className="fixed inset-0 bg-black/50 lg:hidden z-30 backdrop-blur-sm transition-opacity duration-300" />
-      )}
+      {/* {visible && ( */}
+      <div className="fixed inset-0 bg-black/50 lg:hidden z-20 backdrop-blur-sm transition-opacity duration-300" />
+      {/* )} */}
 
+      {/* visible ? "translate-x-0" : "-translate-x-full lg:translate-x-0" */}
       {/* Sidebar */}
       <aside
         ref={sidebarRef}
-        className={`fixed lg:relative inset-y-0 left-0 w-72 bg-white shadow-xl z-40 transition-all duration-300 ease-in-out transform ${
-          visible ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        }`}
+        className={`sticky  max-h-screen min-h-screen lg:fixed inset-y-0 left-0 w-72 bg-white dark:bg-gray-900 shadow-xl z-20 transition-all duration-300 ease-in-out transform`}
         aria-label="Sidebar"
       >
-        <div className="flex flex-col h-full p-5 border-r border-gray-100">
+        <div className="flex flex-col h-full p-5 border-r border-gray-100 dark:border-gray-800">
           {/* Mobile Header */}
           <div className="flex items-center justify-between lg:hidden mb-8">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary-600 to-primary-400 flex items-center justify-center text-white font-semibold">
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-semibold">
                 {user.name.charAt(0)}
               </div>
               <div>
-                <h3 className="font-medium text-sm">{user.name}</h3>
-                <p className="text-xs text-gray-500 truncate max-w-[120px]">
+                <h3 className="font-medium text-sm dark:text-gray-200">
+                  {user.name}
+                </h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400 truncate max-w-[120px]">
                   {user.email}
                 </p>
               </div>
             </div>
             <button
               onClick={onToggle}
-              className="p-1.5 rounded-md hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-colors"
+              className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
               aria-label="Fechar menu"
             >
               <X className="h-5 w-5" />
@@ -107,19 +104,20 @@ const Sidebar = ({
           </div>
 
           {/* Desktop User Info */}
-          <div className="hidden lg:block mb-8">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary-600 to-primary-400 flex items-center justify-center text-white font-semibold">
-                {user.name.charAt(0)}
-              </div>
-              <div>
-                <h3 className="font-medium text-sm">{user.name}</h3>
-                <p className="text-xs text-gray-500 truncate max-w-[120px]">
-                  {user.email}
-                </p>
-              </div>
+          <div className="hidden lg:flex items-center gap-3 mb-8">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-semibold">
+              {user.name.charAt(0)}
+            </div>
+            <div>
+              <h3 className="font-medium text-sm dark:text-gray-200">
+                {user.name}
+              </h3>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                {user.email}
+              </p>
             </div>
           </div>
+
           {/* Main Navigation */}
           <nav className="flex-1">
             <ul className="space-y-1">
@@ -132,19 +130,21 @@ const Sidebar = ({
                       onClick={() => handleTabClick(tab.key)}
                       className={`w-full text-left px-4 py-3 rounded-lg text-sm flex items-center gap-3 transition-all ${
                         isActive
-                          ? "bg-primary/30 text-primary font-medium shadow-xs"
-                          : "hover:bg-primary/50 text-gray-700 hover:text-primary"
+                          ? "bg-primary/50 dark:bg-primary/30 text-white dark:text-gray-100 font-medium shadow-xs"
+                          : "hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-gray-50 dark:hover:text-gray-100"
                       }`}
                       aria-current={isActive ? "page" : undefined}
                     >
                       <Icon
                         className={`h-5 w-5 ${
-                          isActive ? "text-primary-600" : "text-secondary "
+                          isActive
+                            ? "text-primary dark:text-primary"
+                            : "text-gray-500 dark:text-gray-400"
                         }`}
                       />
                       <span>{tab.label}</span>
                       {isActive && (
-                        <div className="ml-auto w-1.5 h-1.5 rounded-full bg-primary/60" />
+                        <div className="ml-auto w-1.5 h-1.5 rounded-full bg-primary-200 dark:bg-primary-100" />
                       )}
                     </button>
                   </li>
@@ -154,30 +154,30 @@ const Sidebar = ({
           </nav>
 
           {/* Bottom Section */}
-          <div className="mt-auto pt-4 border-t border-gray-100">
+          <div className="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800">
             <ul className="space-y-1">
               <li>
                 <button
                   onClick={() => handleTabClick("settings")}
                   className={`w-full text-left px-4 py-3 rounded-lg text-sm flex items-center gap-3 transition-colors ${
                     activeTab === "settings"
-                      ? "bg-primary-50 text-primary-600 font-medium"
-                      : "hover:bg-gray-50 text-gray-700 hover:text-gray-900"
+                      ? "bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-200 font-medium"
+                      : "hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-gray-50 dark:hover:text-gray-100"
                   }`}
                 >
                   <Settings
                     className={`h-5 w-5 ${
                       activeTab === "settings"
-                        ? "text-primary-600"
-                        : "text-gray-500"
+                        ? "text-primary-600 dark:text-primary-200"
+                        : "text-gray-500 dark:text-gray-400"
                     }`}
                   />
                   <span>Configurações</span>
                 </button>
               </li>
               <li>
-                <button className="w-full text-left px-4 py-3 rounded-lg text-sm flex items-center gap-3 hover:bg-gray-50 text-red-600 hover:text-red-700 transition-colors">
-                  <LogOut className="h-5 w-5 text-red-500" />
+                <button className="w-full text-left px-4 py-3 rounded-lg text-sm flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-800 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors">
+                  <LogOut className="h-5 w-5 text-red-500 dark:text-red-400" />
                   <span>Sair</span>
                 </button>
               </li>
@@ -187,15 +187,15 @@ const Sidebar = ({
       </aside>
 
       {/* Mobile Menu Button (only visible when sidebar is hidden) */}
-      {!visible && (
-        <button
-          onClick={onToggle}
-          className="fixed lg:hidden bottom-6 right-6 z-30 p-3 bg-primary-600 text-white rounded-full shadow-lg hover:bg-primary-700 transition-colors"
-          aria-label="Abrir menu"
-        >
-          <Menu className="h-6 w-6" />
-        </button>
-      )}
+      {/* {!visible && ( */}
+      <button
+        onClick={onToggle}
+        className="fixed lg:hidden bottom-6 right-6 z-50 p-3 bg-primary/60 hover:bg-primary/70 text-white rounded-full shadow-lg transition-colors"
+        aria-label="Abrir menu"
+      >
+        <Menu className="h-6 w-6" />
+      </button>
+      {/* )} */}
     </>
   );
 };

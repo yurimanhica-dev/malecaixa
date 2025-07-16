@@ -31,7 +31,7 @@ const Dashboard = () => {
       loanPurpose: "Expansão do negócio de materiais de construção",
       requestDate: "2023-05-15",
       approvedAmount: 2500000,
-      paidAmount: 1250000,
+      paidAmount: 2500000,
       remainingBalance: 0,
       interestRate: 20,
       monthlyPayment: 187500,
@@ -48,9 +48,9 @@ const Dashboard = () => {
       loanPurpose: "Compra de equipamentos agrícolas",
       requestDate: "2024-01-10",
       approvedAmount: 3500000, // 3.500.000 MT
-      paidAmount: 2100000, // 2.100.000 MT
+      paidAmount: 1500000, // 2.100.000 MT
       remainingBalance: 1400000, // 1.400.000 MT
-      interestRate: 25,
+      interestRate: 35,
       monthlyPayment: 262500, // 262.500 MT
       principalPaid: 1500000, // 1.500.000 MT
       interestPaid: 600000, // 600.000 MT
@@ -58,6 +58,23 @@ const Dashboard = () => {
       paymentFrequency: "trimestral",
       status: "overdue",
       lateFee: 52500, // 52.500 MT
+      accountManager: "João Macuácua",
+    },
+    {
+      id: 3,
+      accountNumber: "MCB-2024-00378",
+      loanPurpose: "Reabilitação de casa de familia",
+      requestDate: "2024-01-10",
+      approvedAmount: 3500000, // 3.500.000 MT
+      paidAmount: 2100000, // 2.100.000 MT
+      remainingBalance: 1400000, // 1.400.000 MT
+      interestRate: 25,
+      monthlyPayment: 258500, // 262.500 MT
+      principalPaid: 1500000, // 1.500.000 MT
+      interestPaid: 600000, // 600.000 MT
+      dueDate: "2026-01-10",
+      paymentFrequency: "semestral",
+      status: "pending",
       accountManager: "João Macuácua",
     },
   ];
@@ -73,29 +90,29 @@ const Dashboard = () => {
     router.push(`/dashboard/accounts/${id}`);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100">
+    <div className="min-h-screen flex flex-col bg-gray-80 dark:bg-gray-800">
       <Header
         onToggleSidebar={() => setSidebarVisible(!sidebarVisible)}
+        
         sidebarVisible={sidebarVisible}
       />
 
       <div className="flex flex-1">
         {/* Sidebar com animação e responsivo */}
         <aside
-          className={`bg-white shadow-md  transition-all duration-300 ease-in-out
+          className={`bg-white shadow-md  max-h-screen  min-h-screen  transition-all duration-300 ease-in-out
             ${sidebarVisible ? "w-64" : "w-0"} overflow-hidden`}
         >
           <Sidebar
             activeTab={activeTab}
-            setActiveTab={setActiveTab}
-            visible={sidebarVisible}
             user={userData}
+            setActiveTab={setActiveTab}
             onToggle={() => setSidebarVisible(!sidebarVisible)}
           />
         </aside>
 
         {/* Conteúdo principal */}
-        <main className="flex-1 p-8 overflow-y-auto">
+        <main className="flex-1 p-8 overflow-y-hidden">
           {activeTab === "overview" && (
             <OverviewTab
               accounts={accounts}

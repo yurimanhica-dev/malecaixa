@@ -68,7 +68,7 @@ const Sidebar = ({ activeTab, setActiveTab, user, onToggle }: SidebarProps) => {
     <>
       {/* Mobile Overlay */}
       {/* {visible && ( */}
-      <div className="fixed inset-0 bg-black/50 lg:hidden z-20 backdrop-blur-sm transition-opacity duration-300" />
+      {/* <div className="fixed inset-0 bg-black/50 lg:hidden z-20 backdrop-blur-sm transition-opacity duration-300" /> */}
       {/* )} */}
 
       {/* visible ? "translate-x-0" : "-translate-x-full lg:translate-x-0" */}

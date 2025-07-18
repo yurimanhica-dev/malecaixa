@@ -28,7 +28,7 @@ export default function MemberAccess(): JSX.Element {
       items: [
         {
           label: "Member Login",
-          href: "/dashboard/login",
+          href: "/login",
           description: "Access your existing member account",
         },
       ],
@@ -38,7 +38,7 @@ export default function MemberAccess(): JSX.Element {
       items: [
         {
           label: "Sign Up",
-          href: "/dashboard/signup",
+          href: "/signup",
           description: "Create a new account",
         },
       ],

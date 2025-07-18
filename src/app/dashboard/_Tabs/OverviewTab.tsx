@@ -9,10 +9,10 @@ import {
   Smile,
 } from "lucide-react";
 import { FC } from "react";
-import AccountsList from "./_component/_OverviewTab/AccountsList";
-import CreditDistribution from "./_component/_OverviewTab/CreditDistribution";
-import FinancialSummary from "./_component/_OverviewTab/FinancialSummary";
-import StatCard from "./_component/_OverviewTab/StatCard";
+import AccountsList from "./_component/_OverviewTab/_components/AccountsList";
+import CreditDistribution from "./_component/_OverviewTab/_components/CreditDistribution";
+import FinancialSummary from "./_component/_OverviewTab/_components/FinancialSummary";
+import StatCard from "./_component/_OverviewTab/_components/StatCard";
 import TabsHeader from "./_component/TabsHeader";
 
 interface Account {
@@ -80,7 +80,7 @@ const AccountsTab: FC<Props> = ({
   };
 
   return (
-    <div className="space-y-6 overflow-hidden ml-8">
+    <div className="space-y-6 overflow-hidden lg:ml-8">
       <TabsHeader
         title="Visão Geral"
         description="📊 Monitorize e administre a sua carteira de créditos de forma eficiente"
@@ -94,7 +94,7 @@ const AccountsTab: FC<Props> = ({
       ) : (
         <>
           {/* Dashboard Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {(
               [
                 {

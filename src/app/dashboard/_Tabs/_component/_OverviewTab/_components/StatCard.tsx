@@ -1,9 +1,9 @@
 import { FC } from "react";
-
+import { IconType } from "react-icons";
 interface StatCardProps {
   title: string;
   value: number;
-  icon: React.ElementType;
+  icon: IconType;
   trend: "positive" | "negative" | "neutral";
   color: string;
   totalBase: number;

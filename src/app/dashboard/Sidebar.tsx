@@ -75,7 +75,7 @@ const Sidebar = ({ activeTab, setActiveTab, user, onToggle }: SidebarProps) => {
       {/* Sidebar */}
       <aside
         ref={sidebarRef}
-        className={`sticky  max-h-screen min-h-screen lg:fixed inset-y-0 left-0 w-72 bg-white dark:bg-gray-900 shadow-xl z-20 transition-all duration-300 ease-in-out transform`}
+        className={`min-h-screen lg:fixed inset-y-0 left-0 w-72 bg-white dark:bg-gray-900 shadow-xl z-20 transition-all duration-300 ease-in-out transform`}
         aria-label="Sidebar"
       >
         <div className="flex flex-col h-full p-5 border-r border-gray-100 dark:border-gray-800">

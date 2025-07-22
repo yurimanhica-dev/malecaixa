@@ -60,10 +60,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${dmSans.className} bg-gray-100 antialiased min-w-[350px] 
+        className={`${dmSans.className}  antialiased 
         [&::-webkit-scrollbar]:w-4 [&::-webkit-scrollbar]:h-2 
         [&::-webkit-scrollbar-thumb]:bg-primary 
-        [&::-webkit-scrollbar-track]:bg-zinc-100`}
+        [&::-webkit-scrollbar-track]:bg-zinc-100 w-full`}
       >
         {children}
       </body>

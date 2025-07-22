@@ -107,7 +107,7 @@ export default function MicrocreditHero() {
   return (
     <section
       id="home"
-      className="min-w-fit relative h-[90vh] w-full overflow-hidden c-space  bg-gray-900"
+      className="min-w-fit relative h-[90vh] w-full overflow-hidden bg-gray-900"
     >
       {/* Fundo com overlay gradiente profissional */}
       <AnimatePresence>
@@ -134,8 +134,8 @@ export default function MicrocreditHero() {
       </AnimatePresence>
 
       {/* Conteúdo com hierarquia visual clara */}
-      <div className="absolute inset-0 pt-18 z-10 flex items-center">
-        <div className="container c-space">
+      <div className="absolute max-w-7xl c-space mx-auto inset-0 pt-18 z-10 flex items-center">
+        <div className="">
           <AnimatePresence mode="wait">
             <motion.div
               key={`content-${slides[currentIndex].id}`}
@@ -147,7 +147,7 @@ export default function MicrocreditHero() {
             >
               {/* Título com peso visual adequado */}
               <div className="flex flex-col gap-8">
-                <h1 className="text-4xl  md:text-6xl lg:text-7xl sm:max-w-md lg:max-w-3xl uppercase font-bold font-sans text-white ">
+                <h1 className="text-4xl sm:text-6xl lg:text-7xl sm:max-w-md lg:max-w-3xl uppercase font-bold font-sans text-white ">
                   {slides[currentIndex].title}
                 </h1>
 
@@ -165,7 +165,7 @@ export default function MicrocreditHero() {
 
       {/* Controles de navegação discretos mas acessíveis */}
       <div className="absolute bottom-8 left-0 right-0 z-20">
-        <div className="container mx-auto px-6 md:px-12 lg:px-24 flex justify-between items-center">
+        <div className="max-w-screen-xl px-4 mx-auto flex justify-between items-center">
           {/* Indicadores com feedback visual claro */}
           <div className="flex space-x-2">
             {slides.map((_, index) => (

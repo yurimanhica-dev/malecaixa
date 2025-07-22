@@ -1,4 +1,3 @@
-// components/DashboardStats.tsx
 import { CreditCard, Frown, Loader, Smile } from "lucide-react";
 import { FC, useEffect, useState } from "react";
 import StatCard from "./StatCard";

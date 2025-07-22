@@ -18,6 +18,7 @@ export default function Navbar(): JSX.Element {
   const navItems: NavItem[] = [
     { name: "Home", href: "#home" },
     { name: "Sobre", href: "#sobre" },
+    { name: "Simulação", href: "#simulacao" },
     { name: "Serviços", href: "#servicos" },
     { name: "Contactos", href: "#contactos" },
   ];
@@ -48,7 +49,7 @@ export default function Navbar(): JSX.Element {
     handleScroll(); // Verificar a seção inicial
 
     return () => window.removeEventListener("scroll", handleScroll);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const mobileMenuVariants: Variants = {
@@ -76,14 +77,14 @@ export default function Navbar(): JSX.Element {
   const toggleMenu = (): void => setIsOpen(!isOpen);
 
   return (
-    <nav className="bg-white min-w-fit shadow-md shadow-primary/70 sticky top-0 z-50 py-2 backdrop-blur-md transition-all duration-300 ease-in-out">
-      <div className="max-w-7xl mx-auto c-space">
+    <nav className="bg-white min-w-fit w-full shadow-md shadow-primary/70 sticky top-0 z-50 py-2 backdrop-blur-md transition-all  duration-300 ease-in-out">
+      <div className="mx-auto max-w-screen-xl c-space">
         <div className="flex justify-between h-14">
           {/* Logo e menu desktop */}
           <motion.div className="relative w-[160px] h-[48px]">
             <Link href="#home" className="flex items-center w-full h-full">
               <Image
-                src="/logo.png"
+                src="/logos.png"
                 alt="MALEcaixa Logo"
                 fill
                 priority

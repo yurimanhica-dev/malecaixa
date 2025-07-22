@@ -1,333 +1,104 @@
 "use client";
 
-import { Slider } from "@mui/material";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { FaFileAlt, FaSpinner } from "react-icons/fa";
+import { motion } from "framer-motion";
+import { CheckCircle } from "lucide-react";
+import Simulacao from "../components/Simulacao";
 
-interface LoanData {
-  name: string;
-  amount: number;
-  months: number;
-  interestRate: number;
-}
-
-export default function LoanSection() {
-  const [loanData, setLoanData] = useState<LoanData>({
-    name: "Empréstimo MALEcaixa",
-    amount: 60000,
-    months: 12,
-    interestRate: 0.25,
-  });
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [nameError, setNameError] = useState("");
-
-  const [alert, setAlert] = useState({
-    show: false,
-    message: "",
-    type: "", // "success" ou "error"
-  });
-
-  const { name, amount, months, interestRate } = loanData;
-  const monthlyPayment = ((amount * (1 + interestRate)) / months).toFixed(0);
-  const totalPayback = (amount * (1 + interestRate)).toFixed(0);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setLoanData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  useEffect(() => {
-    if (alert.show) {
-      const timer = setTimeout(() => {
-        setAlert({ ...alert, show: false });
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [alert]);
-
-  const handleSliderChange =
-    (field: keyof LoanData) => (_: Event, value: number | number[]) => {
-      if (typeof value === "number") {
-        setLoanData((prev) => ({ ...prev, [field]: value }));
-      }
-    };
-
-  const gerarRelatorio = async () => {
-    setIsLoading(true);
-    try {
-      const response = await fetch("/api/relatorio", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(loanData),
-      });
-
-      if (!response.ok) throw new Error("Erro ao gerar o relatório.");
-
-      if (response.headers.get("content-type")?.includes("application/pdf")) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        window.open(url, "_blank");
-        a.download = `MaleCaixa_Simulacao_${name.replace(/\s+/g, "_")}.pdf`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      } else {
-        window.alert("Relatório gerado com sucesso!");
-      }
-    } catch (error) {
-      window.alert("Erro ao gerar o plano. Tente novamente.");
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-      setLoanData({
-        name: "Empréstimo MALEcaixa",
-        amount: 5000,
-        months: 1,
-        interestRate: 0.25,
-      });
-    }
-  };
+const LoanSection = () => {
+  const benefits = [
+    "Dados seguros e protegidos",
+    "Apoio em cada etapa",
+    "Consulta da sua situação financeira em tempo real",
+    "Taxas competitivas e acessíveis",
+    "Planos flexíveis e adaptáveis",
+    "Processo de aprovação simplificado",
+  ];
 
   return (
-    <section className="bg-gray-50  pb-20 c-space min-w-fit">
-      <div className="container max-w-6xl mx-auto flex flex-col md:flex-row justify-center lg:gap-14 gap-4">
-        {/* Informações */}
-        <div>
-          <div className="flex flex-col items-start">
-            <span className="inline-block text-primary mb-4 px-4 py-1 text-sm border border-gray-300 rounded-full font-medium uppercase tracking-wider">
-              QUEM SOMOS
-            </span>
-          </div>
-          <h2 className="text-3xl text-gray-800 lg:text-5xl font-extrabold text-start mb-6">
-            Somos uma empresa que surgiu da{" "}
-            <Link
-              href="https://maleholding.vercel.app"
-              target="_blank"
-              className="text-holding text-2xl lg:text-4xl underline"
+    <section id="simulacao" className="relative bg-white py-20 overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-0 left-0 w-64 h-64 bg-[var(--color-primary)] rounded-full filter blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-64 h-64 bg-[var(--color-secondary)] rounded-full filter blur-3xl" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="space-y-6"
+          >
+            <motion.span
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="inline-block uppercase tracking-wider text-white px-3 py-1 text-sm font-medium rounded-full bg-[var(--color-secondary)]"
             >
-              MALEgroup.
-            </Link>
-          </h2>
-          <p className="text-lg text-gray-800 mb-8 text-start max-w-2xl">
-            Surgimos em 2007 com a missão de manter o capital em circulação para
-            pessoas e empresas, fortalecendo a economia e promovendo
-            estabilidade. Apoiamos o crescimento com crédito acessível, seguro e
-            responsável.
-          </p>
-          <h3 className="text-xl font-semibold text-start text-gray-800 mb-6">
-            Por que escolher a MALECaixa?
-          </h3>
-          <ul className="grid grid-cols-1  gap-3   text-gray-800 mb-10">
-            <li>✓ Dados seguros e protegidos;</li>
-            <li>✓ Apoio em cada etapa;</li>
-            <li>✓ Consulta da sua situação financeira em tempo real;</li>
-            <li>✓ Taxas competitivas e acessíveis;</li>
-            <li>✓ Planos flexíveis e adaptáveis;</li>
-            <li>✓ Processo de aprovação simplificado;</li>
-          </ul>
-        </div>
+              QUEM SOMOS
+            </motion.span>
 
-        {/* Simulador */}
-        <div className="md:max-w-lg h-fit min-w-sm mx-auto w-full bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
-          {/* Cabeçalho com gradiente */}
-          <div className="bg-gradient-to-r from-[#0066CC] to-primary p-6">
-            <h3 className="text-xl text-center font-semibold text-white">
-              Simule o seu crédito
-            </h3>
-          </div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl uppercase md:text-4xl font-bold text-primary leading-tight"
+            >
+              MALECAIXA
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="text-lg text-gray-600 max-w-2xl leading-relaxed"
+            >
+              Surgimos com a missão de manter o capital em circulação para
+              pessoas e empresas, fortalecendo a economia e promovendo
+              estabilidade. Apoiamos o crescimento com crédito acessível, seguro
+              e responsável.
+            </motion.p>
 
-          <div className="p-10 space-y-6">
-            {/* Nome com validação */}
-            <div>
-              {alert.show && (
-                <div
-                  className={`p-3 mb-4 rounded-lg text-sm ${
-                    alert.type === "success"
-                      ? "bg-green-100 text-green-800 border border-green-200"
-                      : "bg-red-100 text-red-800 border border-red-200"
-                  }`}
-                >
-                  {alert.message}
-                </div>
-              )}
-              <div className="flex justify-between items-center mb-1">
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Nome do Cliente
-                </label>
-                {nameError && (
-                  <span className="text-xs text-red-500">{nameError}</span>
-                )}
-              </div>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                value={name}
-                onChange={handleInputChange}
-                onBlur={() => {
-                  if (!name.trim()) setNameError("Por favor, insira o nome");
-                  else setNameError("");
-                }}
-                className={`w-full px-4 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all ${
-                  nameError ? "border-red-500" : "border-gray-300"
-                }`}
-                placeholder="Digite o nome completo"
-              />
-            </div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              <h3 className="text-xl font-semibold text-gray-700 mb-6">
+                Por que escolher o nosso plano?
+              </h3>
 
-            {/* Valor do Empréstimo */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Valor do Empréstimo:{" "}
-                <span className="font-semibold text-primary">
-                  {amount.toLocaleString()} MZN
-                </span>
-              </label>
-              <Slider
-                value={amount}
-                onChange={handleSliderChange("amount")}
-                min={5000}
-                max={100000}
-                step={500}
-                valueLabelDisplay="auto"
-                valueLabelFormat={(v) => `${v.toLocaleString()} MZN`}
-                sx={{
-                  color: "#009FEB",
-                  "& .MuiSlider-thumb": {
-                    backgroundColor: "#FED400",
-                    "&:hover": {
-                      boxShadow: "0 0 0 8px rgba(254, 212, 0, 0.16)",
-                    },
-                  },
-                  "& .MuiSlider-valueLabel": {
-                    backgroundColor: "#009FEB",
-                    color: "white",
-                    borderRadius: "4px",
-                  },
-                }}
-              />
-              <div className="flex justify-between text-xs text-gray-500 mt-1">
-                <span>10.000 MZN</span>
-                <span>100.000 MZN</span>
-              </div>
-            </div>
+              <ul className="grid grid-cols-1 gap-4 w-full">
+                {benefits.map((benefit, index) => (
+                  <motion.li
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 * index }}
+                    viewport={{ once: true }}
+                    className="flex items-start gap-3 text-gray-700 "
+                  >
+                    <motion.div className="flex items-center gap-2 p-2 bg-primary shadow-md shadow-primary/20 backdrop-blur-sm w-full">
+                      <CheckCircle className="w-4 h-4 mt-0.5 text-[var(--color-secondary)] " />
+                      <blockquote className="text-gray-100 text-sm leading-relaxed border-l-4 border-secondary pl-4 md:pl-6">
+                        &ldquo;{benefit}&rdquo;
+                      </blockquote>
+                    </motion.div>
+                    {/* <span>{benefit}</span> */}
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+          </motion.div>
 
-            {/* Prazo */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Prazo:{" "}
-                <span className="font-semibold text-primary">
-                  {months} {months === 1 ? "Mês" : "Meses"}
-                </span>
-              </label>
-              <Slider
-                value={months}
-                onChange={handleSliderChange("months")}
-                min={1}
-                max={12}
-                marks={[
-                  { value: 1, label: "1" },
-                  { value: 6, label: "6" },
-                  { value: 12, label: "12" },
-                ]}
-                step={1}
-                valueLabelDisplay="auto"
-                valueLabelFormat={(v) => `${v} ${v === 1 ? "Mês" : "Meses"}`}
-                sx={{
-                  color: "#009FEB",
-                  "& .MuiSlider-thumb": {
-                    backgroundColor: "#FED400",
-                  },
-                  "& .MuiSlider-markLabel": {
-                    fontSize: "0.75rem",
-                    color: "#6B7280",
-                  },
-                  "& .MuiSlider-valueLabel": {
-                    backgroundColor: "#009FEB",
-                    color: "white",
-                    borderRadius: "4px",
-                  },
-                }}
-              />
-            </div>
-
-            {/* Resumo */}
-            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <p className="text-gray-600">Valor do Empréstimo</p>
-                  <p className="font-semibold text-primary">
-                    {amount.toLocaleString()} MZN
-                  </p>
-                </div>
-                <div>
-                  <p className="text-gray-600">Prazo</p>
-                  <p className="font-semibold text-primary">
-                    {months} {months === 1 ? "Mês" : "Meses"}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-gray-600">Taxa de Juros</p>
-                  <p className="font-semibold text-primary">
-                    {interestRate}% anual
-                  </p>
-                </div>
-                <div>
-                  <p className="text-gray-600">Pagamento Mensal</p>
-                  <p className="font-semibold text-primary">
-                    {parseInt(monthlyPayment).toLocaleString()} MZN
-                  </p>
-                </div>
-              </div>
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <div className="flex justify-between">
-                  <span className="text-gray-600 font-medium">
-                    Total a Pagar
-                  </span>
-                  <span className="font-bold text-lg text-[#009FEB]">
-                    {parseInt(totalPayback).toLocaleString()} MZN
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Botão com feedback */}
-            <div>
-              <button
-                onClick={gerarRelatorio}
-                disabled={isLoading}
-                className={`w-full ${
-                  isLoading
-                    ? "bg-primary/80 cursor-wait"
-                    : "bg-gradient-to-r from-[#009FEB] to-[#0066CC]"
-                } text-white py-3 rounded-lg font-semibold flex items-center cursor-pointer justify-center space-x-2 transition-all shadow-md hover:shadow-lg active:scale-[0.98]`}
-              >
-                {isLoading ? (
-                  <>
-                    <FaSpinner className="animate-spin" />
-                    <span>Gerando...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Gerar Plano de Amortização</span>
-                    <FaFileAlt className="text-[#FED400]" />
-                  </>
-                )}
-              </button>
-
-              {/* Mensagem de alerta */}
-            </div>
-          </div>
+          {/* Loan Calculator - Placeholder for your simulator */}
+          <Simulacao />
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default LoanSection;

@@ -1,17 +1,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap");
 @import "tailwindcss";
 
 @theme {
   --color-primary: #009feb;
   --color-secondary: #fed400;
+  --color-tertiary: #ffcd00;
   --color-hover: #009ae3;
-  --color-holding: #825d46;
   --color-gradient: #0066cc;
 }
 
 @layer base {
+  .font-Gothic {
+    font-family: "Special Gothic Expanded One", sans-serif;
+  }
+  .font-Bebas {
+    font-family: "Bebas Neue", sans-serif;
+  }
   .c-space {
-    @apply sm:px-10 px-5 lg:px-15;
+    @apply lg:px-10 px-5;
   }
   .container p:nth-child(even) {
     @apply text-secondary group-hover:text-white transition-colors duration-300 delay-100;

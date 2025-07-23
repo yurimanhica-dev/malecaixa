@@ -107,7 +107,7 @@ export default function MicrocreditHero() {
   return (
     <section
       id="home"
-      className="min-w-fit relative md:h-[90vh] h-[80vh] w-full overflow-hidden bg-gray-900"
+      className="min-w-fit relative h-[90vh] w-full overflow-hidden bg-gray-900"
     >
       {/* Fundo com overlay gradiente profissional */}
       <AnimatePresence>

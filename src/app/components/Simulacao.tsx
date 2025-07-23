@@ -92,11 +92,11 @@ const Simulacao = () => {
   };
 
   return (
-    <div className="md:max-w-3xl h-fit min-w-sm mx-auto w-full bg-white shadow-lg overflow-hidden">
+    <div className="md:max-w-3xl mb-10 rounded-2xl h-fit min-w-sm mx-auto w-full bg-white shadow-lg overflow-hidden">
       {/* Cabeçalho com gradiente */}
       <div className="bg-primary p-6">
-        <h3 className="text-2xl text-center font-bebas uppercase font-bold text-white">
-          Simule o seu crédito
+        <h3 className="text-2xl text-center font-bold text-white">
+          Simulação de Crédito
         </h3>
       </div>
 
@@ -279,7 +279,6 @@ const Simulacao = () => {
               </>
             )}
           </button>
-
           {/* Mensagem de alerta */}
         </div>
       </div>

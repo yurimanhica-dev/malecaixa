@@ -48,7 +48,7 @@ const OurStory = () => {
             className="space-y-6"
           >
             <motion.div variants={item}>
-              <span className="inline-block uppercase tracking-wider text-white px-3 py-1 text-sm font-medium rounded-full bg-[var(--color-secondary)] ">
+              <span className="inline-block uppercase tracking-wider text-gray-700 px-3 py-1 text-sm font-medium rounded-full bg-[var(--color-secondary)] ">
                 Nossa História
               </span>
             </motion.div>

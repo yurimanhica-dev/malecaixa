@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Phone } from "lucide-react";
 import ContactSection from "./ContactSection";
 
 export default function TransitionCTA() {
@@ -38,29 +37,31 @@ export default function TransitionCTA() {
           <div className="flex flex-wrap justify-center gap-4 mb-16"> */}
 
           {/* Contact quick links */}
-          <div className="border-t border-gray-800 pt-12">
+          <div className="border-t  border-gray-800 pt-12">
             <h3 className="text-sm uppercase tracking-wider text-gray-400 mb-4">
               Fale conosco diretamente
             </h3>
-            <div className="flex flex-wrap justify-center gap-6">
-              <a
-                href="tel:+258841234567"
-                className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
-              >
-                <Phone className="w-5 h-5" />
-                +258 84 123 4567
-              </a>
-              <a
-                href="mailto:info@malecaixa.co.mz"
-                className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
-              >
-                <Mail className="w-5 h-5" />
-                info@malecaixa.co.mz
-              </a>
+            <div className="flex items-center justify-center gap-4">
+              {/* <FaPhoneAlt className="w-5 h-5" /> */}
+              <div className="flex flex-wrap justify-center gap-6">
+                <a
+                  href="tel:+258841234567"
+                  className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
+                >
+                  (+258) 84 123 4567
+                </a>
+                |
+                <a
+                  href="tel:+258214149911"
+                  className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
+                >
+                  (+258) 21 414 9911
+                </a>
+              </div>
             </div>
-            <h2 className=" tracking-wider text-gray-400 mt-4">
+            {/* <h2 className=" tracking-wider text-gray-400 mt-4">
               © {new Date().getFullYear()} MALECaixa. Todos direitos reservados.
-            </h2>
+            </h2> */}
           </div>
         </motion.div>
       </div>

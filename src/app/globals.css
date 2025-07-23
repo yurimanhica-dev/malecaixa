@@ -11,7 +11,25 @@
 }
 
 @layer base {
-  .font-Gothic {
+  @keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* .title-underline::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 30%;
+    background-color: #0f172a; /* Tailwind's slate-900 */
+
+  */ .font-Gothic {
     font-family: "Special Gothic Expanded One", sans-serif;
   }
   .font-Bebas {
@@ -22,5 +40,21 @@
   }
   .container p:nth-child(even) {
     @apply text-secondary group-hover:text-white transition-colors duration-300 delay-100;
+  }
+
+  @keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  .animate-slide {
+    animation: slide 30s linear infinite;
+    will-change: transform;
+  }
+  .pause-slide {
+    animation-play-state: paused;
   }
 }

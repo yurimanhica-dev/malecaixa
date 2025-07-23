@@ -15,7 +15,10 @@ const LoanSection = () => {
   ];
 
   return (
-    <section id="simulacao" className="relative bg-white py-20 overflow-hidden">
+    <section
+      id="simulacao"
+      className="relative bg-white lg:py-15  overflow-hidden"
+    >
       {/* Decorative elements */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-64 h-64 bg-[var(--color-primary)] rounded-full filter blur-3xl" />
@@ -36,29 +39,20 @@ const LoanSection = () => {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="inline-block uppercase tracking-wider text-white px-3 py-1 text-sm font-medium rounded-full bg-[var(--color-secondary)]"
+              className="inline-block uppercase tracking-wider text-gray-700 px-3 pt-1.5 pb-1 text-sm font-medium rounded-full bg-[var(--color-secondary)]"
             >
               QUEM SOMOS
             </motion.span>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-3xl uppercase md:text-4xl font-bold text-primary leading-tight"
-            >
-              MALECAIXA
-            </motion.h2>
             <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
               className="text-lg text-gray-600 max-w-2xl leading-relaxed"
             >
-              Surgimos com a missão de manter o capital em circulação para
-              pessoas e empresas, fortalecendo a economia e promovendo
-              estabilidade. Apoiamos o crescimento com crédito acessível, seguro
-              e responsável.
+              Uma microcrédito que surgiu com a missão de manter o capital em
+              circulação para pessoas e empresas, fortalecendo a economia e
+              promovendo estabilidade. Apoiamos o crescimento com crédito
+              acessível, seguro e responsável.
             </motion.p>
 
             <motion.div
@@ -66,8 +60,8 @@ const LoanSection = () => {
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              <h3 className="text-xl font-semibold text-gray-700 mb-6">
-                Por que escolher o nosso plano?
+              <h3 className="text-xl font-semibold text-gray-800 mb-6">
+                Por que escolher os nossos serviços?
               </h3>
 
               <ul className="grid grid-cols-1 gap-4 w-full">

@@ -9,64 +9,62 @@ const ContactSection = () => {
 
   return (
     <section id="contact" className="py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto c-space">
         {/* Tab Navigation */}
         <div className="flex justify-center mb-12">
           <div className="inline-flex p-1 shadow-sm border border-gray-200">
             <button
               onClick={() => setActiveTab("location")}
-              className={`px-6 py-3 rounded-md text-sm font-medium flex items-center gap-2 transition-all duration-00 ease-in-out ${
+              className={`px-6 py-3 text-start rounded-md text-sm font-medium flex items-center gap-2 transition-all duration-00 ease-in-out ${
                 activeTab === "location"
                   ? "bg-[var(--color-primary)] text-white"
                   : "text-gray-200 cursor-pointer "
               }`}
             >
               <MapPin className="w-5 h-5" />
-              Ver Localização
+              Localização
             </button>
             <button
               onClick={() => setActiveTab("form")}
-              className={`px-6 py-3 rounded-md text-sm font-medium flex items-center gap-2 transition-all duration-600 ease-in-out ${
+              className={`px-6 py-3 text-start rounded-md text-sm font-medium flex items-center gap-2 transition-all duration-600 ease-in-out ${
                 activeTab === "form"
                   ? "bg-[var(--color-primary)] text-white"
                   : "text-gray-100 cursor-pointer"
               }`}
             >
               <Mail className="w-5 h-5" />
-              Enviar Mensagem
+              Mensagem
             </button>
           </div>
         </div>
 
         {/* Content */}
-        <div className="bg-white shadow-lg overflow-hidden border border-gray-200">
+        <div className="bg-gray-900 shadow-lg overflow-hidden border border-gray-200">
           {activeTab === "location" ? (
             <div className="grid md:grid-cols-2">
               {/* Contact Info */}
               <div className="p-8 text-start md:p-10">
-                <h3 className="text-2xl uppercase font-bold text-secondary mb-6">
+                <h3 className="text-2xl uppercase font-bold text-gray-100 mb-6">
                   Encontre-nos
                 </h3>
 
                 <div className="space-y-4">
-                  <div className="flex gap-2 text-[var(--color-primary)]">
+                  {/* <div className="flex gap-2 text-[var(--color-primary)]">
                     <MapPin className="w-5 h-5 text-[var(--color-primary)]" />
-                    <h4 className="font-medium text-gray-900 ">Localização</h4>
-                  </div>
+                    <h4 className="font-medium ">Localização</h4>
+                  </div> */}
                   <div>
-                    <p className="text-gray-700">Rua Frei do Amaro, nr.56</p>
-                    <p className="text-gray-700">Malhangalene, Maputo</p>
-                    <p className="text-gray-700">Moçambique</p>
+                    <p className="text-gray-100">Rua Frei do Amaro, nr.56</p>
+                    <p className="text-gray-100">Malhangalene, Maputo</p>
+                    <p className="text-gray-100">Moçambique</p>
                   </div>
 
                   <div className="flex gap-2 text-[var(--color-primary)]">
                     <Clock className="w-5 h-5" />
-                    <h4 className="font-medium text-gray-900 ">
-                      Horário de Atendimento
-                    </h4>
+                    <h4 className="font-medium ">Horário de Atendimento</h4>
                   </div>
                   <div>
-                    <div className="text-gray-700">
+                    <div className="text-gray-100">
                       <p>Segunda - Sexta: 08:00 - 17:00</p>
                       <p>Sábado - Domingo: Fechado</p>
                     </div>

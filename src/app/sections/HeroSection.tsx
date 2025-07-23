@@ -52,7 +52,7 @@ const HeroSection = () => {
   return (
     <section
       id="sobre"
-      className="relative bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-gradient)] overflow-hidden"
+      className="relative bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-gradient)]"
     >
       {/* Background decorative elements */}
       <div className="absolute inset-0 opacity-10">
@@ -69,7 +69,7 @@ const HeroSection = () => {
           className="relative z-10"
         >
           <motion.div variants={itemVariants}>
-            <span className="inline-block uppercase tracking-wider text-gray-700 px-3 py-1 text-sm font-medium rounded-full bg-[var(--color-secondary)] mb-4">
+            <span className="inline-block uppercase tracking-wider text-gray-700 px-3 pt-1.5 pb-1 text-sm font-medium rounded-full bg-[var(--color-secondary)] mb-4">
               Desde 2012
             </span>
           </motion.div>
@@ -152,7 +152,7 @@ const HeroSection = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)/70 to-transparent" />
 
           {/* Decorative badge */}
-          <div className="absolute bottom-6 left-6 bg-[var(--color-secondary)] text-gray-700 px-4 py-2 rounded-full font-medium shadow-lg">
+          <div className="absolute bottom-6 left-6 bg-[var(--color-secondary)] text-gray-700 px-4 pt-1.5 pb-1 rounded-full font-medium shadow-lg">
             +2000 Clientes
           </div>
         </motion.div>
@@ -160,11 +160,11 @@ const HeroSection = () => {
 
       {/* Scrolling indicator */}
       <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        animate={{ y: [0, 70, 0] }}
+        transition={{ repeat: Infinity, duration: 10 }}
+        className="absolute z-40  bottom-8 left-1/2 transform -translate-x-1/2"
       >
-        <div className="w-8 h-8 border-r-2 border-b-2 border-white rotate-45" />
+        <div className="w-8 h-8 border-r-2 border-b-2 border-secondary rotate-45" />
       </motion.div>
     </section>
   );

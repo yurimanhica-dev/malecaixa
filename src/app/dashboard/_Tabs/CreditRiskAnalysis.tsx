@@ -160,7 +160,7 @@ export const CreditRiskAnalysis = () => {
       color: "orange",
       trend: "stable",
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [riskMetrics]);
 
   // Cores profissionais do setor financeiro

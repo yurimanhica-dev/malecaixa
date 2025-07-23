@@ -19,14 +19,14 @@ export default function Navbar(): JSX.Element {
     { name: "Home", href: "#home" },
     { name: "Sobre", href: "#sobre" },
     { name: "Simulação", href: "#simulacao" },
-    { name: "Serviços", href: "#servicos" },
+    { name: "Soluções", href: "#solucoes" },
     { name: "Contactos", href: "#contactos" },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
       const sections = navItems.map((item) => item.href.substring(1));
-      const scrollPosition = window.scrollY + 100;
+      const scrollPosition = window.scrollY;
 
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -78,7 +78,7 @@ export default function Navbar(): JSX.Element {
 
   return (
     <nav className="bg-white min-w-fit w-full shadow-md shadow-primary/70 sticky top-0 z-50 py-2 backdrop-blur-md transition-all  duration-300 ease-in-out">
-      <div className="mx-auto max-w-screen-xl c-space">
+      <div className="mx-auto max-w-screen-xl c-space ">
         <div className="flex justify-between h-14">
           {/* Logo e menu desktop */}
           <motion.div className="relative w-[160px] h-[48px]">

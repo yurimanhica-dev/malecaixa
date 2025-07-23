@@ -11,27 +11,27 @@ const Testimonials = () => {
   const testimonials = [
     {
       quote:
-        "Com este crédito, pude expandir meu negócio e contratar dois funcionários da comunidade.",
+        "Com este crédito, pude expandir meu negócio e alcancar novos clientes.",
       author: "Maria Silva",
-      role: "Microempreendedora",
+      role: "Micro-empreendedora",
       location: "Maputo",
-      image: "/testimonials/bgagr.jpeg",
+      image: "/testimonials/Micro-empreendedora.jpg",
     },
     {
       quote:
         "O processo foi simples e rápido, consegui comprar mais stock para minha loja.",
-      author: "Carlos Mondlane",
+      author: "Denilson Mondlane",
       role: "Pequeno comerciante",
       location: "Beira",
-      image: "/testimonials/bg.jpg",
+      image: "/testimonials/shop.jpg",
     },
     {
       quote:
         "Finalmente realizei o sonho de ter minha própria padaria com ajuda do crédito acessível.",
-      author: "Ana Muchanga",
+      author: "Antonio Muchanga",
       role: "Proprietária de padaria",
       location: "Nampula",
-      image: "/testimonials/bgfam.jpg",
+      image: "/testimonials/padaria.jpg",
     },
   ];
 
@@ -82,7 +82,9 @@ const Testimonials = () => {
 
       {/* Content Section - Takes 60% of card height */}
       <div className="p-6 md:p-8 flex flex-col flex-grow">
-        <h3 className="text-xl font-semibold mb-2">Depoimentos</h3>
+        <h3 className="text-xl font-semibold mb-2 text-secondary">
+          Depoimentos
+        </h3>
 
         <AnimatePresence mode="wait">
           <motion.div

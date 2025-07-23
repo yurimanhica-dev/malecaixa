@@ -21,15 +21,6 @@ export default function MicrocreditHero() {
   const slides: Slide[] = [
     {
       id: 1,
-      image: "/bg2.jpg",
-      title: "Financiamento Acessível para Seu Negócio",
-      description:
-        "Oferecemos soluções de microcrédito com condições justas, prazos flexíveis e aprovação simplificada. Ideal para quem precisa impulsionar o seu negócio com agilidade, segurança e transparência.",
-      ctaText: "Solicitar Agora",
-      ctaLink: "/apply",
-    },
-    {
-      id: 2,
       image: "/bgfam.jpg",
       title: "Soluções Financeiras para Sua Família",
       description:
@@ -37,6 +28,15 @@ export default function MicrocreditHero() {
       ctaText: "Proteja o Futuro da Sua Família",
       ctaLink: "/financiamento-familiar",
       // Opcional: adicionar ícone ou tag
+    },
+    {
+      id: 2,
+      image: "/testimonials/shop.jpg",
+      title: "Financiamos Acessível para Seu Negócio",
+      description:
+        "Oferecemos soluções de microcrédito com condições justas, prazos flexíveis e aprovação simplificada. Ideal para quem precisa impulsionar o seu negócio com agilidade, segurança e transparência.",
+      ctaText: "Solicitar Agora",
+      ctaLink: "/apply",
     },
     {
       id: 3,
@@ -107,7 +107,7 @@ export default function MicrocreditHero() {
   return (
     <section
       id="home"
-      className="min-w-fit relative h-[90vh] w-full overflow-hidden bg-gray-900"
+      className="min-w-fit relative md:h-[90vh] h-[80vh] w-full overflow-hidden bg-gray-900"
     >
       {/* Fundo com overlay gradiente profissional */}
       <AnimatePresence>
@@ -147,7 +147,7 @@ export default function MicrocreditHero() {
             >
               {/* Título com peso visual adequado */}
               <div className="flex flex-col gap-8">
-                <h1 className="text-4xl sm:text-6xl lg:text-7xl sm:max-w-md lg:max-w-3xl uppercase font-bold font-sans text-white ">
+                <h1 className="text-5xl lg:text-7xl sm:max-w-md lg:max-w-3xl uppercase font-bold font-sans text-white ">
                   {slides[currentIndex].title}
                 </h1>
 
@@ -165,7 +165,7 @@ export default function MicrocreditHero() {
 
       {/* Controles de navegação discretos mas acessíveis */}
       <div className="absolute bottom-8 left-0 right-0 z-20">
-        <div className="max-w-screen-xl px-4 mx-auto flex justify-between items-center">
+        <div className="max-w-7xl c-space mx-auto flex justify-between items-center">
           {/* Indicadores com feedback visual claro */}
           <div className="flex space-x-2">
             {slides.map((_, index) => (

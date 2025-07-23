@@ -1,3 +1,5 @@
+import FAQSection from "./sections/FAQSection";
+import FinancialSolutions from "./sections/FinancialSolutions";
 import HeroSection from "./sections/HeroSection";
 import ImpactSection from "./sections/ImpactSection";
 import MicrocreditHero from "./sections/MicrocreditHero";
@@ -5,7 +7,6 @@ import Navbar from "./sections/Navbar";
 import OurStory from "./sections/OurStory";
 import TransitionCTA from "./sections/TransitionCTA";
 import LoanSection from "./sections/WhoWeAre";
-import ServicesSection from "./sessaodeoutraspaginas/ServicesSections";
 
 export default function Home() {
   return (
@@ -16,9 +17,11 @@ export default function Home() {
       <HeroSection />
       <ImpactSection />
       <LoanSection />
-      <ServicesSection />
+      <FinancialSolutions />
+      <FAQSection />
       <TransitionCTA />
       {/*<ValuesSection />
+      <ServicesSection />
       <WhyChooseUs />
       <WhoWeAre /> */}
     </section>

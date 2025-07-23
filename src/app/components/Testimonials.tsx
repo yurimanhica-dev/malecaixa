@@ -3,10 +3,12 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react"; // Adicionei o useEffect
 
 const Testimonials = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [autoPlay, setAutoPlay] = useState(true); // Estado para controlar o auto-play
+  const autoPlayInterval = 5000; // 5 segundos
 
   const testimonials = [
     {
@@ -41,10 +43,34 @@ const Testimonials = () => {
     );
   };
 
+  // Função para voltar ao depoimento anterior
   const prevTestimonial = () => {
     setCurrentTestimonial((prev) =>
       prev === 0 ? testimonials.length - 1 : prev - 1
     );
+  };
+
+  // Efeito para o auto-play
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+
+    if (autoPlay) {
+      interval = setInterval(() => {
+        nextTestimonial();
+      }, autoPlayInterval);
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [autoPlay, currentTestimonial]); // Adicionei currentTestimonial às dependências
+
+  // Pausa o auto-play quando o usuário interage
+  const handleUserInteraction = (navigationFn: () => void) => {
+    setAutoPlay(false);
+    navigationFn();
+    // Opcional: pode reiniciar o auto-play após algum tempo
+    setTimeout(() => setAutoPlay(true), autoPlayInterval * 2);
   };
 
   return (
@@ -55,7 +81,7 @@ const Testimonials = () => {
       viewport={{ once: true }}
       className="bg-[var(--color-primary)] text-white min-w-[300px] rounded-2xl shadow-2xl h-full flex flex-col overflow-hidden"
     >
-      {/* Image Section - Takes 40% of card height */}
+      {/* Image Section */}
       <div className="relative h-56 md:h-64 w-full">
         <AnimatePresence mode="wait">
           <motion.div
@@ -74,13 +100,12 @@ const Testimonials = () => {
               sizes="(max-width: 768px) 100vw, 50vw"
               priority
             />
-            {/* Gradient overlay */}
             <div className="absolute inset-0 rounded-b-3xl bg-gradient-to-t from-[var(--color-primary)] to-transparent opacity-40" />
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Content Section - Takes 60% of card height */}
+      {/* Content Section */}
       <div className="p-6 md:p-8 flex flex-col flex-grow">
         <h3 className="text-xl font-semibold mb-2 text-secondary">
           Depoimentos
@@ -88,7 +113,7 @@ const Testimonials = () => {
 
         <AnimatePresence mode="wait">
           <motion.div
-            key={currentTestimonial}
+            key={`content-${currentTestimonial}`}
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -30 }}
@@ -114,7 +139,7 @@ const Testimonials = () => {
         {/* Navigation Controls */}
         <div className="flex justify-between items-center mt-6 pt-4 border-t border-white/20">
           <button
-            onClick={prevTestimonial}
+            onClick={() => handleUserInteraction(prevTestimonial)}
             className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             aria-label="Anterior"
           >
@@ -125,7 +150,10 @@ const Testimonials = () => {
             {testimonials.map((_, idx) => (
               <button
                 key={idx}
-                onClick={() => setCurrentTestimonial(idx)}
+                onClick={() => {
+                  setAutoPlay(false);
+                  setCurrentTestimonial(idx);
+                }}
                 className={`w-3 h-2 rounded-full transition-all ${
                   idx === currentTestimonial
                     ? "bg-[var(--color-secondary)] w-6"
@@ -137,7 +165,7 @@ const Testimonials = () => {
           </div>
 
           <button
-            onClick={nextTestimonial}
+            onClick={() => handleUserInteraction(nextTestimonial)}
             className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             aria-label="Próximo"
           >

@@ -42,7 +42,7 @@ const ImpactSection = () => {
   return (
     <section
       id="simulacao"
-      className="relative -z-10 py-20 bg-white text-gray-800 overflow-hidden"
+      className="relative py-20 bg-white text-gray-800 overflow-hidden"
     >
       {/* Decorative blobs */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">

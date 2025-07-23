@@ -32,7 +32,7 @@ export default function MicrocreditHero() {
     {
       id: 2,
       image: "/testimonials/shop.jpg",
-      title: "Financiamos Acessível para Seu Negócio",
+      title: "Financiamento Acessível para Seu Negócio",
       description:
         "Oferecemos soluções de microcrédito com condições justas, prazos flexíveis e aprovação simplificada. Ideal para quem precisa impulsionar o seu negócio com agilidade, segurança e transparência.",
       ctaText: "Solicitar Agora",
@@ -134,7 +134,7 @@ export default function MicrocreditHero() {
       </AnimatePresence>
 
       {/* Conteúdo com hierarquia visual clara */}
-      <div className="absolute max-w-7xl c-space mx-auto inset-0 pt-18 z-10 flex items-center">
+      <div className="absolute max-w-7xl -mt-14 c-space mx-auto inset-0 pt-18 z-10 flex items-center">
         <div className="">
           <AnimatePresence mode="wait">
             <motion.div

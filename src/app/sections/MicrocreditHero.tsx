@@ -31,7 +31,7 @@ export default function MicrocreditHero() {
     },
     {
       id: 2,
-      image: "/testimonials/shop.jpg",
+      image: "/testimonials/comer.jpg",
       title: "Financiamento Acessível para Seu Negócio",
       description:
         "Oferecemos soluções de microcrédito com condições justas, prazos flexíveis e aprovação simplificada. Ideal para quem precisa impulsionar o seu negócio com agilidade, segurança e transparência.",
@@ -86,7 +86,7 @@ export default function MicrocreditHero() {
     },
     exit: {
       opacity: 0,
-      transition: { duration: 1.2, ease: [0.33, 1, 0.68, 1] },
+      transition: { duration: 1.3, ease: [0.33, 1, 0.68, 1] },
     },
   };
 
@@ -107,7 +107,7 @@ export default function MicrocreditHero() {
   return (
     <section
       id="home"
-      className="min-w-fit relative h-[90vh] w-full overflow-hidden bg-gray-900"
+      className="relative min-h-[90vh] w-full overflow-hidden min-w-fit"
     >
       {/* Fundo com overlay gradiente profissional */}
       <AnimatePresence>
@@ -117,26 +117,25 @@ export default function MicrocreditHero() {
           initial="enter"
           animate="center"
           exit="exit"
-          className="absolute inset-0 w-full h-full overflow-hidden"
+          className="absolute inset-0 w-full h-full overflow-hidden -z-10"
         >
-          <motion.div
-            initial={{ scale: 1, y: 0 }}
-            animate={{ scale: 1.05, y: -10 }}
-            transition={{ duration: 10, ease: "easeInOut" }}
-            className="w-full h-full bg-cover bg-center"
-            style={{
-              backgroundImage: `url(${slides[currentIndex].image})`,
-              backgroundPosition: "start center",
-            }}
+          <motion.img
+            key={`bg-${slides[currentIndex].id}`}
+            src={slides[currentIndex].image}
+            alt="Imagem de fundo"
+            initial={{ scale: 1 }}
+            animate={{ scale: 1.05 }}
+            transition={{ duration: 15, ease: "easeInOut" }}
+            className="parallax-bg "
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-gray-900/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90  to-transparent z-0" />
         </motion.div>
       </AnimatePresence>
 
       {/* Conteúdo com hierarquia visual clara */}
       <div className="absolute max-w-7xl -mt-14 c-space mx-auto inset-0 pt-18 z-10 flex items-center">
         <div className="">
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             <motion.div
               key={`content-${slides[currentIndex].id}`}
               initial="hidden"
@@ -147,7 +146,7 @@ export default function MicrocreditHero() {
             >
               {/* Título com peso visual adequado */}
               <div className="flex flex-col gap-8">
-                <h1 className="text-5xl lg:text-7xl sm:max-w-md lg:max-w-3xl uppercase font-bold font-sans text-white ">
+                <h1 className="text-4xl lg:text-7xl sm:max-w-md lg:max-w-3xl uppercase font-bold font-sans text-white ">
                   {slides[currentIndex].title}
                 </h1>
 

@@ -203,7 +203,7 @@ const SignupForm = () => {
             <p className="text-xs text-gray-500">
               Já possui uma conta?{" "}
               <Link
-                href="/dashboard/login"
+                href="/login"
                 className="font-medium text-primary hover:text-primary/80"
               >
                 Faça login aqui

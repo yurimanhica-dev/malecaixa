@@ -7,7 +7,7 @@ export default function TransitionCTA() {
   return (
     <section
       id="contactos"
-      className="relative bg-gray-900 text-white py-20 pb-10 overflow-hidden"
+      className="relative bg-gray-900 text-white py-20 pb-10 overflow-hidden min-w-fit"
     >
       {/* Decorative elements */}
       <div className="absolute inset-0 opacity-10">

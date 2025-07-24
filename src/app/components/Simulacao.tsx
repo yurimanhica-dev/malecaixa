@@ -1,48 +1,56 @@
+"use client";
+
 import { Slider } from "@mui/material";
 import { useEffect, useState } from "react";
-import { FaFileAlt, FaSpinner } from "react-icons/fa";
+import { FaHandshake } from "react-icons/fa";
+import {
+  CREDIT_TYPES,
+  calculateMonthlyPayment,
+  calculateTotalPayback,
+  validateCreditRequest,
+} from "../utils/creditCalculations";
+import CreditRequestForm from "./CreditRequestForm";
 
 interface LoanData {
-  name: string;
+  creditTypeId: number;
   amount: number;
   months: number;
-  interestRate: number;
 }
 
 const Simulacao = () => {
   const [loanData, setLoanData] = useState<LoanData>({
-    name: "Empréstimo MALEcaixa",
-    amount: 60000,
-    months: 12,
-    interestRate: 0.25,
+    creditTypeId: CREDIT_TYPES[0].id,
+    amount: CREDIT_TYPES[0].minAmount,
+    months: CREDIT_TYPES[0].minMonths,
   });
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [nameError, setNameError] = useState("");
+  const [validationError, setValidationError] = useState<string | null>(null);
+  const [showRequestForm, setShowRequestForm] = useState(false);
 
-  const [alert, setAlert] = useState({
-    show: false,
-    message: "",
-    type: "", // "success" ou "error"
-  });
-
-  const { name, amount, months, interestRate } = loanData;
-  const monthlyPayment = ((amount * (1 + interestRate)) / months).toFixed(0);
-  const totalPayback = (amount * (1 + interestRate)).toFixed(0);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setLoanData((prev) => ({ ...prev, [name]: value }));
-  };
+  const currentCreditType = CREDIT_TYPES.find(
+    (credit) => credit.id === loanData.creditTypeId
+  )!;
+  const monthlyPayment = calculateMonthlyPayment(
+    loanData.amount,
+    loanData.months,
+    loanData.creditTypeId
+  );
+  const totalPayback = calculateTotalPayback(
+    loanData.amount,
+    loanData.months,
+    loanData.creditTypeId
+  );
+  const interestRate = currentCreditType.interestRates[loanData.months] || 0;
 
   useEffect(() => {
-    if (alert.show) {
-      const timer = setTimeout(() => {
-        setAlert({ ...alert, show: false });
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [alert]);
+    // Validar sempre que os dados mudarem
+    const error = validateCreditRequest(
+      loanData.amount,
+      loanData.months,
+      loanData.creditTypeId
+    );
+    setValidationError(error);
+  }, [loanData]);
 
   const handleSliderChange =
     (field: keyof LoanData) => (_: Event, value: number | number[]) => {
@@ -51,49 +59,28 @@ const Simulacao = () => {
       }
     };
 
-  const gerarRelatorio = async () => {
-    setIsLoading(true);
-    try {
-      const response = await fetch("/api/relatorio", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(loanData),
-      });
+  const handleCreditTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newCreditTypeId = parseInt(e.target.value);
+    const newCreditType = CREDIT_TYPES.find(
+      (credit) => credit.id === newCreditTypeId
+    )!;
 
-      if (!response.ok) throw new Error("Erro ao gerar o relatório.");
-      if (response.ok) {
-        setLoanData({
-          name: "Empréstimo MALEcaixa",
-          amount: 5000,
-          months: 1,
-          interestRate: 0.25,
-        });
-      }
-      if (response.headers.get("content-type")?.includes("application/pdf")) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        window.open(url, "_blank");
-        a.download = `MaleCaixa_Simulacao_${name.replace(/\s+/g, "_")}.pdf`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      } else {
-        window.alert("Relatório gerado com sucesso!");
-      }
-    } catch (error) {
-      window.alert("Erro ao gerar o plano. Tente novamente.");
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
+    setLoanData({
+      creditTypeId: newCreditTypeId,
+      amount: newCreditType.minAmount,
+      months: newCreditType.minMonths,
+    });
+  };
+
+  const getMonthMarks = () => {
+    return Object.keys(currentCreditType.interestRates).map((month) => ({
+      value: parseInt(month),
+      label: month.toString(),
+    }));
   };
 
   return (
     <div className="md:max-w-3xl mb-10 rounded-2xl h-fit min-w-sm mx-auto w-full bg-white shadow-lg overflow-hidden">
-      {/* Cabeçalho com gradiente */}
       <div className="bg-primary p-6">
         <h3 className="text-2xl text-center font-bold text-white">
           Simulação de Crédito
@@ -101,45 +88,22 @@ const Simulacao = () => {
       </div>
 
       <div className="p-10 space-y-6">
-        {/* Nome com validação */}
+        {/* Tipo de Crédito */}
         <div>
-          {alert.show && (
-            <div
-              className={`p-3 mb-4 rounded-lg text-sm ${
-                alert.type === "success"
-                  ? "bg-green-100 text-green-800 border border-green-200"
-                  : "bg-red-100 text-red-800 border border-red-200"
-              }`}
-            >
-              {alert.message}
-            </div>
-          )}
-          <div className="flex justify-between items-center mb-1">
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Nome do Cliente
-            </label>
-            {nameError && (
-              <span className="text-xs text-red-500">{nameError}</span>
-            )}
-          </div>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            value={name}
-            onChange={handleInputChange}
-            onBlur={() => {
-              if (!name.trim()) setNameError("Por favor, insira o nome");
-              else setNameError("");
-            }}
-            className={`w-full px-4 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all ${
-              nameError ? "border-red-500" : "border-gray-300"
-            }`}
-            placeholder="Digite o nome completo"
-          />
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Tipo de Crédito
+          </label>
+          <select
+            value={loanData.creditTypeId}
+            onChange={handleCreditTypeChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
+          >
+            {CREDIT_TYPES.map((credit) => (
+              <option key={credit.id} value={credit.id}>
+                {credit.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* Valor do Empréstimo */}
@@ -147,15 +111,19 @@ const Simulacao = () => {
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Valor do Empréstimo:{" "}
             <span className="font-semibold font-sans text-primary">
-              {amount.toLocaleString()} MZN
+              {loanData.amount.toLocaleString()} MZN
+            </span>
+            <span className="text-xs text-gray-500 ml-2">
+              (Mín: {currentCreditType.minAmount.toLocaleString()} MZN, Máx:{" "}
+              {currentCreditType.maxAmount.toLocaleString()} MZN)
             </span>
           </label>
           <Slider
-            value={amount}
+            value={loanData.amount}
             onChange={handleSliderChange("amount")}
-            min={5000}
-            max={100000}
-            step={500}
+            min={currentCreditType.minAmount}
+            max={currentCreditType.maxAmount}
+            step={1000}
             valueLabelDisplay="auto"
             valueLabelFormat={(v) => `${v.toLocaleString()} MZN`}
             sx={{
@@ -173,10 +141,6 @@ const Simulacao = () => {
               },
             }}
           />
-          <div className="flex font-sans justify-between text-xs text-gray-500 mt-1">
-            <span>10.000 MZN</span>
-            <span>100.000 MZN</span>
-          </div>
         </div>
 
         {/* Prazo */}
@@ -184,20 +148,20 @@ const Simulacao = () => {
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Prazo:{" "}
             <span className="font-semibold font-sans text-primary">
-              {months} {months === 1 ? "Mês" : "Meses"}
+              {loanData.months} {loanData.months === 1 ? "Mês" : "Meses"}
+            </span>
+            <span className="text-xs text-gray-500 ml-2">
+              (Mín: {currentCreditType.minMonths}, Máx:{" "}
+              {currentCreditType.maxMonths})
             </span>
           </label>
           <Slider
-            value={months}
+            value={loanData.months}
             onChange={handleSliderChange("months")}
-            min={1}
-            max={12}
-            marks={[
-              { value: 1, label: "1" },
-              { value: 6, label: "6" },
-              { value: 12, label: "12" },
-            ]}
-            step={1}
+            min={currentCreditType.minMonths}
+            max={currentCreditType.maxMonths}
+            marks={getMonthMarks()}
+            step={null}
             valueLabelDisplay="auto"
             valueLabelFormat={(v) => `${v} ${v === 1 ? "Mês" : "Meses"}`}
             sx={{
@@ -222,27 +186,36 @@ const Simulacao = () => {
         <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
+              <p className="text-gray-600">Tipo de Crédito</p>
+              <p className="font-semibold font-sans text-primary">
+                {currentCreditType.name}
+              </p>
+            </div>
+            <div>
               <p className="text-gray-600">Valor do Empréstimo</p>
               <p className="font-semibold font-sans text-primary">
-                {amount.toLocaleString()} MZN
+                {loanData.amount.toLocaleString()} MZN
               </p>
             </div>
             <div>
               <p className="text-gray-600">Prazo</p>
               <p className="font-semibold font-sans text-primary">
-                {months} {months === 1 ? "Mês" : "Meses"}
+                {loanData.months} {loanData.months === 1 ? "Mês" : "Meses"}
               </p>
             </div>
             <div>
               <p className="text-gray-600">Taxa de Juros</p>
               <p className="font-semibold font-sans text-primary">
-                {interestRate}% anual
+                {(interestRate * 100).toFixed(0)}% anual
               </p>
             </div>
             <div>
               <p className="text-gray-600">Pagamento Mensal</p>
               <p className="font-semibold font-sans text-primary">
-                {parseInt(monthlyPayment).toLocaleString()} MZN
+                {monthlyPayment.toLocaleString(undefined, {
+                  maximumFractionDigits: 0,
+                })}{" "}
+                MZN
               </p>
             </div>
           </div>
@@ -250,38 +223,46 @@ const Simulacao = () => {
             <div className="flex justify-between">
               <span className="text-gray-600 font-medium">Total a Pagar</span>
               <span className="font-bold text-lg font-sans text-[#009FEB]">
-                {parseInt(totalPayback).toLocaleString()} MZN
+                {totalPayback.toLocaleString(undefined, {
+                  maximumFractionDigits: 0,
+                })}{" "}
+                MZN
               </span>
             </div>
           </div>
         </div>
 
-        {/* Botão com feedback */}
+        {/* Botão para solicitar crédito */}
         <div>
           <button
-            onClick={gerarRelatorio}
-            disabled={isLoading}
+            onClick={() => setShowRequestForm(true)}
+            disabled={!!validationError}
             className={`w-full ${
-              isLoading
-                ? "bg-primary/80 cursor-wait"
+              validationError
+                ? "bg-gray-400 cursor-not-allowed"
                 : "bg-gradient-to-r from-[#009FEB] to-[#0066CC]"
-            } text-white py-3 rounded-lg font-semibold flex items-center cursor-pointer justify-center space-x-2 transition-all shadow-md hover:shadow-lg active:scale-[0.98]`}
+            } text-white py-3 rounded-lg font-semibold flex items-center justify-center space-x-2 transition-all shadow-md hover:shadow-lg active:scale-[0.98]`}
           >
-            {isLoading ? (
-              <>
-                <FaSpinner className="animate-spin" />
-                <span>Gerando...</span>
-              </>
-            ) : (
-              <>
-                <span>Gerar Plano de Amortização</span>
-                <FaFileAlt className="text-[#FED400]" />
-              </>
-            )}
+            <span>Aderir ao Crédito</span>
+            <FaHandshake className="text-[#FED400]" />
           </button>
-          {/* Mensagem de alerta */}
+          {validationError && (
+            <p className="mt-2 text-sm text-red-600">{validationError}</p>
+          )}
         </div>
       </div>
+
+      {/* Modal de solicitação de crédito */}
+      {showRequestForm && (
+        <CreditRequestForm
+          onClose={() => setShowRequestForm(false)}
+          initialData={{
+            creditTypeId: loanData.creditTypeId,
+            amount: loanData.amount,
+            months: loanData.months,
+          }}
+        />
+      )}
     </div>
   );
 };

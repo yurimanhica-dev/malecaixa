@@ -40,10 +40,7 @@ const ImpactSection = () => {
   ];
 
   return (
-    <section
-      id="simulacao"
-      className="relative py-20 bg-white text-gray-800 overflow-hidden"
-    >
+    <section className="relative py-20 bg-white text-gray-800 overflow-hidden min-w-fit">
       {/* Decorative blobs */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div className="absolute top-1/4 -left-20 w-64 h-64 bg-[var(--color-primary)] rounded-full blur-3xl" />
@@ -71,7 +68,7 @@ const ImpactSection = () => {
             </motion.span>
 
             <h2 className="text-4xl md:text-5xl font-sans font-bold leading-tight">
-              Transformando realidades em Moçambique.
+              Transformando realidades em Moçambique
             </h2>
 
             <p className="text-lg text-gray-600 max-w-2xl">
@@ -92,7 +89,7 @@ const ImpactSection = () => {
                 >
                   <div className="flex items-center flex-col md:flex-row justify-between gap-4">
                     <div className="flex items-center gap-4">
-                      <div className="p-3 rounded-xl bg-[var(--color-primary)]/15 text-[var(--color-primary)] text-lg">
+                      <div className="p-3 rounded-xl  text-[var(--color-secondary)] text-lg">
                         {stat.icon}
                       </div>
                       <span className="text-sm text-gray-500 font-medium tracking-wide">

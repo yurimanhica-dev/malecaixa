@@ -8,7 +8,7 @@ import { useEffect, useState } from "react"; // Adicionei o useEffect
 const Testimonials = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true); // Estado para controlar o auto-play
-  const autoPlayInterval = 5000; // 5 segundos
+  const autoPlayInterval = 10000; // 10 segundos
 
   const testimonials = [
     {
@@ -29,11 +29,18 @@ const Testimonials = () => {
     },
     {
       quote:
-        "Finalmente realizei o sonho de ter minha própria padaria com ajuda do crédito acessível.",
+        "Realizei o sonho de ter minha própria padaria com ajuda do crédito acessível.",
       author: "Antonio Muchanga",
       role: "Proprietária de padaria",
       location: "Nampula",
       image: "/testimonials/padaria.jpg",
+    },
+    {
+      quote: "Com o crédito, consegui melhorar a minha produção na machamba.",
+      author: "Manuel Cossa",
+      role: "Camponês",
+      location: "Chókwè",
+      image: "/testimonials/campones.jpg",
     },
   ];
 
@@ -83,20 +90,20 @@ const Testimonials = () => {
     >
       {/* Image Section */}
       <div className="relative h-56 md:h-64 w-full">
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           <motion.div
             key={`image-${currentTestimonial}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="absolute inset-0"
+            className="absolute inset-0 "
           >
             <Image
               src={testimonials[currentTestimonial].image}
               alt={`Foto de ${testimonials[currentTestimonial].author}`}
               fill
-              className="object-cover"
+              className="object-cover object-top"
               sizes="(max-width: 768px) 100vw, 50vw"
               priority
             />

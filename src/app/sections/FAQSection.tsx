@@ -40,7 +40,7 @@ const FAQSection = () => {
   };
 
   return (
-    <section id="contactos" className="py-20">
+    <section id="contactos" className="py-20 bg-white min-w-fit">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -51,11 +51,11 @@ const FAQSection = () => {
         >
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)] mb-4">
             <HelpCircle className="w-5 h-5 mr-2" />
-            <span className="text-sm font-medium uppercase tracking-wider">
+            <span className="text-sm font-medium uppercase  tracking-wider">
               FAQ
             </span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-secondary mb-4">
             Perguntas Frequentes
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -76,7 +76,7 @@ const FAQSection = () => {
             >
               <motion.button
                 onClick={() => toggleFAQ(index)}
-                className={`w-full text-left px-6 py-5 bg-white rounded-t-lg shadow-xs hover:shadow-sm transition-all duration-300 flex justify-between items-center ${
+                className={`w-full text-left px-6 py-5 bg-primary/10 rounded-t-lg shadow-xs hover:shadow-sm transition-all duration-300 flex justify-between items-center ${
                   activeIndex === index ? "shadow-md" : ""
                 }`}
                 whileHover={{ scale: 1.01 }}
@@ -84,14 +84,14 @@ const FAQSection = () => {
                 aria-expanded={activeIndex === index}
                 aria-controls={`faq-content-${index}`}
               >
-                <h3 className="text-lg font-medium text-gray-900">
+                <h3 className="text-lg font-medium text-primary">
                   {faq.question}
                 </h3>
                 <motion.div
                   animate={{ rotate: activeIndex === index ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <ChevronDown className="w-5 h-5 text-[var(--color-primary)]" />
+                  <ChevronDown className="w-6 h-6 text-primary" />
                 </motion.div>
               </motion.button>
 

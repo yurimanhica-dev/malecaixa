@@ -6,12 +6,21 @@ import { useEffect, useState } from "react";
 const FinancialSolutions = () => {
   const services = [
     {
+      title: "Microcrédito",
+      description: "Soluções acessíveis para pequenos empreendedores.",
+      icon: "/servicos/iconb6.png",
+      backgroundImage: "/servicos/microLoans.jpg",
+      number: "01",
+      color: "text-primary",
+    },
+    {
       title: "Empréstimos Pessoais",
       description:
         "Condições flexíveis e taxas competitivas adaptadas às suas necessidades.",
       icon: "/servicos/iconb1.png",
       backgroundImage: "/servicos/personaLoans.jpg",
-      number: "01",
+      number: "02",
+      color: "text-secondary",
     },
     {
       title: "Emergência Já",
@@ -19,28 +28,25 @@ const FinancialSolutions = () => {
         "Soluções rápidas e confiáveis para quando você mais precisa.",
       icon: "/servicos/iconb2.png",
       backgroundImage: "/servicos/emergencyLoans.jpeg",
-      number: "02",
-    },
-    {
-      title: "Crédito Educacional",
-      description: "Financiamento estudantil para planejar seu futuro.",
-      icon: "/servicos/iconb4.png",
-      backgroundImage: "/servicos/studentLoans.jpg",
       number: "03",
+      color: "text-primary",
     },
+
     {
       title: "Crédito Imobiliário",
       description: "Condições flexíveis para a casa dos seus sonhos.",
       icon: "/servicos/iconb5.png",
       backgroundImage: "/servicos/houseLoans.jpg",
       number: "04",
+      color: "text-secondary",
     },
     {
-      title: "Microcrédito",
-      description: "Soluções acessíveis para pequenos empreendedores.",
-      icon: "/servicos/iconb6.png",
-      backgroundImage: "/servicos/microLoans.jpg",
+      title: "Crédito Educacional",
+      description: "Financiamento estudantil para planejar seu futuro.",
+      icon: "/servicos/iconb4.png",
+      backgroundImage: "/servicos/studentLoans.jpg",
       number: "05",
+      color: "text-primary",
     },
   ];
 
@@ -73,12 +79,12 @@ const FinancialSolutions = () => {
   return (
     <section
       id="solucoes"
-      className="py-12 md:py-20 bg-primary overflow-hidden"
+      className="py-12 md:py-20 bg-primary overflow-hidden min-w-fit"
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4">
         <div className="mb-8 md:mb-12 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-100 mb-3 md:mb-4 title-underline">
-            Soluções Financeiras Sob Medida
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-100 mb-3 md:mb-4 title-underline">
+            Soluções Disponíveis
           </h2>
           <p className="text-base md:text-lg text-secondary max-w-3xl mx-auto">
             Descubra a solução perfeita para suas necessidades financeiras
@@ -97,12 +103,14 @@ const FinancialSolutions = () => {
                       alt={services[currentIndex].title}
                       fill
                       className="object-cover"
-                      quality={85}
+                      quality={100}
                       sizes="100vw"
                       priority
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                    <div className="absolute top-3 right-3 bg-white text-gray-700 font-bold rounded-full w-8 h-8 flex items-center justify-center shadow">
+                    <div
+                      className={`absolute top-3 right-3 bg-white font-bold rounded-full w-8 h-8 flex items-center justify-center shadow ${services[currentIndex].color}`}
+                    >
                       {services[currentIndex].number}
                     </div>
                   </div>
@@ -138,7 +146,7 @@ const FinancialSolutions = () => {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-gray-800"
+                  className="h-6 w-6 text-primary"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -163,7 +171,7 @@ const FinancialSolutions = () => {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-gray-800"
+                  className="h-6 w-6 text-primary"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -181,8 +189,8 @@ const FinancialSolutions = () => {
         </div>
 
         {/* Desktop View */}
-        <div className="hidden md:block relative group w-full overflow-hidden">
-          <div className="flex max-w-7xl animate-slide group-hover:animate-none">
+        <div className="hidden md:block relative group overflow-hidden">
+          <div className="flex max-w-screen-xl animate-slide group-hover:animate-none ">
             {[...services, ...services].map((service, index) => (
               <div
                 key={index}

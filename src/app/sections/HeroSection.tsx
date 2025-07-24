@@ -52,7 +52,7 @@ const HeroSection = () => {
   return (
     <section
       id="sobre"
-      className="relative bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-gradient)]"
+      className="relative bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-gradient)] min-w-fit"
     >
       {/* Background decorative elements */}
       <div className="absolute inset-0 opacity-10">
@@ -120,7 +120,7 @@ const HeroSection = () => {
               whileTap={{ scale: 0.98 }}
               className="px-8 py-3 bg-[var(--color-secondary)] hover:bg-[var(--color-secondary)/90 text-gray-700 font-medium rounded-lg transition-all duration-300 shadow-lg"
             >
-              Simular o seu crédito
+              <a href="#simulacao">Simule o seu crédito</a>
             </motion.button>
             <motion.button
               variants={itemVariants}
@@ -128,7 +128,7 @@ const HeroSection = () => {
               whileTap={{ scale: 0.98 }}
               className="px-8 py-3 bg-transparent border-2 border-white text-white hover:bg-white/10 font-medium rounded-lg transition-all duration-300"
             >
-              Conheça nossa história
+              <a href="#sobre">Conheça nossa história</a>
             </motion.button>
           </motion.div>
         </motion.div>

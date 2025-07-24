@@ -13,7 +13,7 @@ interface NavItem {
 
 export default function Navbar(): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [activeSection, setActiveSection] = useState<string>("");
+  const [activeSection, setActiveSection] = useState<string>("#home");
 
   const navItems: NavItem[] = [
     { name: "Home", href: "#home" },
@@ -26,7 +26,8 @@ export default function Navbar(): JSX.Element {
   useEffect(() => {
     const handleScroll = () => {
       const sections = navItems.map((item) => item.href.substring(1));
-      const scrollPosition = window.scrollY;
+      const scrollPosition =
+        window.scrollY || document.documentElement.scrollTop;
 
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -78,7 +79,7 @@ export default function Navbar(): JSX.Element {
 
   return (
     <nav className="bg-white min-w-fit w-full shadow-md shadow-primary/70 sticky top-0 z-50 py-2 backdrop-blur-md transition-all  duration-300 ease-in-out">
-      <div className="mx-auto max-w-screen-xl c-space ">
+      <div className="mx-auto max-w-screen-xl px-4 lg:px-8">
         <div className="flex justify-between h-14">
           {/* Logo e menu desktop */}
           <motion.div className="relative w-[160px] h-[48px]">
@@ -94,45 +95,45 @@ export default function Navbar(): JSX.Element {
             </Link>
           </motion.div>
 
-          <div className="hidden md:flex md:ml-6 md:items-center md:space-x-3 lg:space-x-10">
-            {navItems.map((item) => (
-              <motion.div
-                key={item.name}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="relative"
-              >
-                <Link
-                  href={item.href}
-                  className={`px-1 uppercase py-2 rounded-md text-sm font-medium text-gray-800 hover:text-hover transition ${
-                    activeSection === item.href ? "text-primary" : ""
-                  }`}
-                  onClick={() => setActiveSection(item.href)}
+          <div className="flex mt-3 items-end gap-3 space-x-4 md:space-x-6 lg:space-x-8 flex-col">
+            <div className="hidden md:flex md:items-center md:space-x-5 lg:space-x-10">
+              {navItems.map((item) => (
+                <motion.div
+                  key={item.name}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative"
                 >
-                  {item.name}
-                  {activeSection === item.href && (
-                    <motion.div
-                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
-                      layoutId="activeSection"
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 30,
-                      }}
-                    />
-                  )}
-                </Link>
+                  <Link
+                    href={item.href}
+                    className={`px-1 uppercase py-2 rounded-md text-sm font-medium text-gray-800 hover:text-hover transition ${
+                      activeSection === item.href ? "text-primary" : ""
+                    }`}
+                    onClick={() => setActiveSection(item.href)}
+                  >
+                    {item.name}
+                    {activeSection === item.href && (
+                      <motion.div
+                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
+                        layoutId="activeSection"
+                        transition={{
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 30,
+                        }}
+                      />
+                    )}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+            {/* Botões desktop */}
+            <div className="hidden md:flex md:items-center md:space-x-8">
+              <motion.div whileTap={{ scale: 1 }}>
+                <MemberAccess />
               </motion.div>
-            ))}
+            </div>
           </div>
-
-          {/* Botões desktop */}
-          <div className="hidden md:flex md:items-center md:space-x-8">
-            <motion.div whileTap={{ scale: 1 }}>
-              <MemberAccess />
-            </motion.div>
-          </div>
-
           {/* Botão Mobile */}
           <div className="md:hidden flex items-center">
             <motion.button

@@ -8,7 +8,7 @@ const ContactSection = () => {
   const [activeTab, setActiveTab] = useState<"location" | "form">("location");
 
   return (
-    <section id="contact" className="py-8">
+    <section id="contact" className="py-8 min-w-fit">
       <div className="max-w-7xl mx-auto c-space">
         {/* Tab Navigation */}
         <div className="flex justify-center mb-12">

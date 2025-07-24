@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
+import AppWrapper from "./components/AppWrapper";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -60,13 +61,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${dmSans.className}  antialiased 
-        [&::-webkit-scrollbar]:w-4 [&::-webkit-scrollbar]:h-2 
-        [&::-webkit-scrollbar-thumb]:bg-primary 
-        [&::-webkit-scrollbar-track]:bg-zinc-100 w-full`}
+        className={`${dmSans.className} min-w-fit [&::-webkit-scrollbar]:hidden antialiased 
+        `}
       >
-        {children}
+        <AppWrapper>{children}</AppWrapper>
       </body>
     </html>
   );
 }
+
+// [&::-webkit-scrollbar]:w-4 [&::-webkit-scrollbar]:h-2
+//         [&::-webkit-scrollbar-thumb]:bg-primary
+//         [&::-webkit-scrollbar-track]:bg-zinc-100

@@ -1,6 +1,8 @@
+import Link from "next/link";
+
 const LearnMoreButton = () => {
   return (
-    <div className="flex">
+    <Link href="#simulacao" className="flex">
       <button className="group relative inline-flex items-center cursor-pointer outline-none border-0 bg-transparent p-0 text-inherit font-inherit w-[220px] h-12 overflow-hidden rounded-full">
         {/* Circle background that expands */}
         <span className="absolute left-0 top-0 bottom-0 w-12 h-12 bg-primary rounded-full transition-all duration-450 ease-[cubic-bezier(0.65,0,0.076,1)] group-hover:w-full group-hover:rounded-none z-0"></span>
@@ -17,7 +19,7 @@ const LearnMoreButton = () => {
           Simular uma solicitação
         </span>
       </button>
-    </div>
+    </Link>
   );
 };
 

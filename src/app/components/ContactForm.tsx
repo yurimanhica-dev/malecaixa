@@ -172,18 +172,11 @@ const ContactForm = () => {
               className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary appearance-none"
             >
               <option value="">Selecione um assunto</option>
-              <option value="Pedido de Crédito">Pedido de Crédito</option>
               <option value="Acompanhamento de Pedido">
                 Acompanhamento de Pedido
               </option>
               <option value="Informações sobre Condições e Taxas">
-                Informações sobre Condições e Taxas
-              </option>
-              <option value="Dúvidas sobre Pagamentos">
-                Dúvidas sobre Pagamentos
-              </option>
-              <option value="Atualização de Dados Pessoais">
-                Atualização de Dados Pessoais
+                Informações sobre Condições e Pagamentos
               </option>
               <option value="Reclamação ou Problema">
                 Reclamação ou Problema

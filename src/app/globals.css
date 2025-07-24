@@ -11,30 +11,6 @@
 }
 
 @layer base {
-  @keyframes slide {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-
-  /* .title-underline::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 3px;
-    width: 30%;
-    background-color: #0f172a; /* Tailwind's slate-900 */
-
-  */ .font-Gothic {
-    font-family: "Special Gothic Expanded One", sans-serif;
-  }
-  .font-Bebas {
-    font-family: "Bebas Neue", sans-serif;
-  }
   .c-space {
     @apply lg:px-10 px-5;
   }
@@ -56,5 +32,19 @@
   }
   .pause-slide {
     animation-play-state: paused;
+  }
+  /* styles/globals.css */
+
+  .parallax-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120vh;
+    object-fit: cover;
+    object-position: center;
+    z-index: -10;
+    transform: translateZ(0);
+    will-change: transform;
   }
 }

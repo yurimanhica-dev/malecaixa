@@ -31,7 +31,7 @@ export default function MicrocreditHero() {
     },
     {
       id: 2,
-      image: "/testimonials/comer.jpg",
+      image: "/how-covid-relief-will-impact-taxes.png",
       title: "Financiamento Acessível para Seu Negócio",
       description:
         "Oferecemos soluções de microcrédito com condições justas, prazos flexíveis e aprovação simplificada. Ideal para quem precisa impulsionar o seu negócio com agilidade, segurança e transparência.",

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import AppWrapper from "./components/AppWrapper";
 import "./globals.css";
-
 const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
@@ -64,7 +64,10 @@ export default function RootLayout({
         className={`${dmSans.className} min-w-fit [&::-webkit-scrollbar]:hidden antialiased 
         `}
       >
-        <AppWrapper>{children}</AppWrapper>
+        <AppWrapper>
+          <Toaster position="bottom-center" />
+          {children}
+        </AppWrapper>
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { FaPaperPlane, FaSpinner } from "react-icons/fa";
 import {
   calculateTotalPayback,
@@ -33,8 +34,6 @@ export default function CreditRequestForm({
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [validationError, setValidationError] = useState("");
 
   const currentCreditType = CREDIT_TYPES.find(
@@ -76,8 +75,6 @@ export default function CreditRequestForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError("");
-    setSuccess("");
 
     try {
       if (validationError) {
@@ -101,13 +98,23 @@ export default function CreditRequestForm({
       });
 
       if (!response.ok) {
-        throw new Error("Erro ao enviar solicitação");
+        toast.success("Erro ao enviar solicitação", {
+          position: "bottom-center",
+          duration: 4000,
+        });
+        return;
       }
 
-      setSuccess("Solicitação enviada com sucesso!");
+      toast.success("Solicitação enviada com sucesso!", {
+        position: "bottom-center",
+        duration: 4000,
+      });
       setTimeout(onClose, 2000);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Ocorreu um erro");
+      toast.error(err instanceof Error ? err.message : "Ocorreu um erro", {
+        position: "bottom-center",
+        duration: 4000,
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -121,27 +128,15 @@ export default function CreditRequestForm({
         <div className="absolute bottom-0 right-20 w-64 h-64 bg-[var(--color-secondary)] rounded-full mix-blend-overlay filter blur-3xl" />
       </div>
 
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-md relative z-10">
-        <div className="bg-primary p-4 rounded-t-lg">
+      <div className="bg-white rounded-lg shadow-xl [&::-webkit-scrollbar]:hidden h-[80vh] overflow-y-scroll w-full max-w-md relative z-10">
+        <div className="fixed w-full max-w-md bg-primary p-4 rounded-t-lg">
           <h3 className="text-xl font-bold text-white text-center">
             Solicitação de Crédito
           </h3>
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-              {error}
-            </div>
-          )}
-
-          {success && (
-            <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
-              {success}
-            </div>
-          )}
-
-          <div>
+          <div className="mt-12">
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Tipo de Crédito *
             </label>
@@ -180,19 +175,6 @@ export default function CreditRequestForm({
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Instituição onde Trabalha (opcional)
-            </label>
-            <input
-              type="text"
-              name="institution"
-              value={formData.institution}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
               Contacto Telefónico *
             </label>
             <input
@@ -221,7 +203,7 @@ export default function CreditRequestForm({
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Salário Líquido Mensal (MZN) *
+              Líquido Mensal (MZN) *
             </label>
             <input
               type="number"
@@ -236,7 +218,7 @@ export default function CreditRequestForm({
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Montante Pretendido (MZN) *
+              Montante Pretendido (MZN) *{""}
               <span className="text-xs text-gray-500 ml-2">
                 (Mín: {currentCreditType.minAmount.toLocaleString()} MZN, Máx:{" "}
                 {currentCreditType.maxAmount.toLocaleString()} MZN)
@@ -289,14 +271,14 @@ export default function CreditRequestForm({
             )}
           </div>
 
-          <div className="flex justify-end space-x-3 pt-4">
+          <div className="flex flex-row-reverse gap-8 justify-between space-x-3 pt-4">
             <button
               type="button"
               onClick={onClose}
               className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
               disabled={isSubmitting}
             >
-              Cancelar
+              Voltar
             </button>
             <button
               type="submit"

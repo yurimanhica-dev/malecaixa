@@ -79,6 +79,21 @@ export function calculateMonthlyPayment(
   return totalAmount / months;
 }
 
+export function calculateEncargos(
+  amount: number,
+  months: number,
+  creditTypeId: number
+): number {
+  const terms = getCreditTerms(creditTypeId);
+  const interestRate =
+    terms.interestRates[months] ||
+    Math.max(...Object.values(terms.interestRates));
+
+  const totalAmount = amount * (1 + interestRate); // total com juros
+  const encargos = totalAmount * 0.02; // 2% sobre o total
+  return encargos;
+}
+
 export function calculateTotalPayback(
   amount: number,
   months: number,

@@ -31,9 +31,9 @@ const Testimonials = () => {
       quote:
         "Realizei o sonho de ter minha própria padaria com ajuda do crédito acessível.",
       author: "Antonio Muchanga",
-      role: "Proprietária de padaria",
+      role: "Proprietário de padaria",
       location: "Nampula",
-      image: "/testimonials/padaria.jpg",
+      image: "/testimonials/padaria.png",
     },
     {
       quote: "Com o crédito, consegui melhorar a minha produção na machamba.",

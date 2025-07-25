@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { FaHandshake } from "react-icons/fa";
 import {
   CREDIT_TYPES,
+  calculateEncargos,
   calculateMonthlyPayment,
   calculateTotalPayback,
   validateCreditRequest,
@@ -40,6 +41,13 @@ const Simulacao = () => {
     loanData.months,
     loanData.creditTypeId
   );
+
+  const totalEncargos = calculateEncargos(
+    loanData.amount,
+    loanData.months,
+    loanData.creditTypeId
+  );
+
   const interestRate = currentCreditType.interestRates[loanData.months] || 0;
 
   useEffect(() => {
@@ -80,7 +88,10 @@ const Simulacao = () => {
   };
 
   return (
-    <div className="md:max-w-3xl mb-10 rounded-2xl h-fit min-w-sm mx-auto w-full bg-white shadow-lg overflow-hidden">
+    <section
+      id="simulacao"
+      className="md:max-w-3xl mb-10 rounded-2xl h-fit min-w-sm mx-auto w-full bg-white shadow-lg overflow-hidden"
+    >
       <div className="bg-primary p-6">
         <h3 className="text-2xl text-center font-bold text-white">
           Simulação de Crédito
@@ -213,7 +224,16 @@ const Simulacao = () => {
               <p className="text-gray-600">Pagamento Mensal</p>
               <p className="font-semibold font-sans text-primary">
                 {monthlyPayment.toLocaleString(undefined, {
-                  maximumFractionDigits: 0,
+                  maximumFractionDigits: 2,
+                })}{" "}
+                MZN
+              </p>
+            </div>
+            <div>
+              <p className="text-gray-600">Encargos</p>
+              <p className="font-semibold font-sans text-primary">
+                {totalEncargos.toLocaleString(undefined, {
+                  maximumFractionDigits: 2,
                 })}{" "}
                 MZN
               </p>
@@ -224,7 +244,7 @@ const Simulacao = () => {
               <span className="text-gray-600 font-medium">Total a Pagar</span>
               <span className="font-bold text-lg font-sans text-[#009FEB]">
                 {totalPayback.toLocaleString(undefined, {
-                  maximumFractionDigits: 0,
+                  maximumFractionDigits: 2,
                 })}{" "}
                 MZN
               </span>
@@ -263,7 +283,7 @@ const Simulacao = () => {
           }}
         />
       )}
-    </div>
+    </section>
   );
 };
 

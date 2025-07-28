@@ -5,7 +5,7 @@ import AppWrapper from "./components/AppWrapper";
 import "./globals.css";
 const dmSans = DM_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["200", "300", "400", "600", "500", "700"],
   style: ["normal", "italic"],
 });
 

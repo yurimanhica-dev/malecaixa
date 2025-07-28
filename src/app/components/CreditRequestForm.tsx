@@ -128,35 +128,46 @@ export default function CreditRequestForm({
         <div className="absolute bottom-0 right-20 w-64 h-64 bg-[var(--color-secondary)] rounded-full mix-blend-overlay filter blur-3xl" />
       </div>
 
-      <div className="bg-white rounded-lg shadow-xl [&::-webkit-scrollbar]:hidden h-[80vh] overflow-y-scroll w-full max-w-md relative z-10">
-        <div className="fixed w-full max-w-md bg-primary p-4 rounded-t-lg">
+      <div className="bg-white rounded-lg shadow-xl [&::-webkit-scrollbar]:hidden h-[90vh] overflow-y-scroll w-full max-w-md relative z-10">
+        <div className="sticky top-0 w-full max-w-md bg-primary p-4 rounded-t-lg">
           <h3 className="text-xl font-bold text-white text-center">
             Solicitação de Crédito
           </h3>
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          <div className="mt-12">
+          <div className="">
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Tipo de Crédito *
             </label>
-            <select
-              name="creditTypeId"
-              value={formData.creditTypeId}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
-              required
-            >
-              {CREDIT_TYPES.map((credit) => (
-                <option
-                  className="border-none outline-none"
-                  key={credit.id}
-                  value={credit.id}
+            <div className="relative w-full">
+              <select
+                name="creditTypeId"
+                value={formData.creditTypeId}
+                onChange={handleChange}
+                className="w-full px-3 py-2 pr-8 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all appearance-none"
+                required
+              >
+                {CREDIT_TYPES.map((credit) => (
+                  <option
+                    className="border-none outline-none"
+                    key={credit.id}
+                    value={credit.id}
+                  >
+                    {credit.name}
+                  </option>
+                ))}
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-700">
+                <svg
+                  className="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
                 >
-                  {credit.name}
-                </option>
-              ))}
-            </select>
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
           </div>
 
           <div>

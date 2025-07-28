@@ -5,18 +5,19 @@ import Image from "next/image";
 
 export default function MicrocreditLoading() {
   // Animação da barra de progresso
-  const progressAnimation: Variants = {
-    initial: { width: 0 },
-    animate: {
-      width: "100%",
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        repeatType: "reverse",
-        ease: "easeInOut",
-      },
-    },
-  };
+
+  // const progressAnimation: Variants = {
+  //   initial: { width: 0 },
+  //   animate: {
+  //     width: "100%",
+  //     transition: {
+  //       duration: 2,
+  //       repeat: Infinity,
+  //       repeatType: "reverse",
+  //       ease: "easeInOut",
+  //     },
+  //   },
+  // };
 
   // Animação do logo
   const logoAnimation: Variants = {
@@ -38,15 +39,15 @@ export default function MicrocreditLoading() {
       y: 0,
       opacity: 1,
       transition: {
-        delay: 0.1 * i,
-        duration: 0.6,
+        delay: 0.2 * i,
+        duration: 0.8,
         ease: "easeOut",
       },
     }),
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-gray-800 flex flex-col items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 bg-gray-100 flex flex-col items-center justify-center p-4">
       {/* Container principal */}
       <motion.div
         initial="initial"
@@ -58,9 +59,9 @@ export default function MicrocreditLoading() {
           variants={logoAnimation}
           className="mb-8 flex justify-center"
         >
-          <div className="relative">
+          <div className="relative h-40 w-40">
             {/* Anel externo animado */}
-            <motion.div
+            {/* <motion.div
               animate={{
                 rotate: 360,
                 transition: {
@@ -71,15 +72,14 @@ export default function MicrocreditLoading() {
               }}
               className="absolute -inset-2 border-2 border-primary border-opacity-30 rounded-full"
               style={{ borderTopColor: "transparent" }}
-            />
+            /> */}
 
             {/* Logo principal */}
             <Image
-              src="/logowhite.png"
+              src="/logos.png"
               alt="Microcrédito"
-              width={120}
-              height={120}
-              className="relative z-10"
+              fill
+              className="relative h-full w-full z-10 animate-pulse"
             />
 
             {/* Ponto de destaque */}
@@ -99,27 +99,27 @@ export default function MicrocreditLoading() {
         </motion.div>
 
         {/* Textos animados sequencialmente */}
-        <motion.h2
+        {/* <motion.h2
           variants={textAnimation}
           custom={1}
           className="text-2xl font-bold text-white mb-2"
         >
           Carregando Soluções Financeiras
-        </motion.h2>
+        </motion.h2> */}
 
         <motion.p
           variants={textAnimation}
           custom={2}
-          className="text-gray-300 mb-8"
+          className="text-gray-800 mb-8"
         >
-          Estamos preparando a melhor experiência para você
+          Preparando a melhor experiência.....
         </motion.p>
 
         {/* Barra de progresso premium */}
-        <motion.div
+        {/* <motion.div
           initial="initial"
           animate="animate"
-          className="h-2 bg-gray-800 rounded-full overflow-hidden mb-2"
+          className="h-2 bg-white rounded-full overflow-hidden mb-2"
         >
           <motion.div
             variants={progressAnimation}
@@ -128,10 +128,10 @@ export default function MicrocreditLoading() {
               boxShadow: "0 0 10px rgba(0, 159, 235, 0.5)",
             }}
           />
-        </motion.div>
+        </motion.div> */}
 
         {/* Status técnico */}
-        <motion.div
+        {/* <motion.div
           variants={textAnimation}
           custom={3}
           className="flex justify-between text-xs text-gray-400"
@@ -151,7 +151,7 @@ export default function MicrocreditLoading() {
             Conexão segura
           </span>
           <span>Carregando recursos...</span>
-        </motion.div>
+        </motion.div> */}
       </motion.div>
 
       {/* Efeito de partículas premium */}
@@ -169,15 +169,15 @@ export default function MicrocreditLoading() {
               x: Math.random() * 400 - 200,
               y: Math.random() * 400 - 200,
               transition: {
-                duration: 3 + Math.random() * 4,
+                duration: 6 + Math.random() * 4,
                 repeat: Infinity,
                 repeatType: "reverse",
               },
             }}
             className="absolute rounded-full"
             style={{
-              width: `${Math.random() * 8 + 2}px`,
-              height: `${Math.random() * 8 + 2}px`,
+              width: `${Math.random() * 16 + 2}px`,
+              height: `${Math.random() * 16 + 2}px`,
               backgroundColor: i % 2 === 0 ? "#009feb" : "#fed400",
             }}
           />

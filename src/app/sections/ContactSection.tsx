@@ -39,12 +39,12 @@ const ContactSection = () => {
         </div>
 
         {/* Content */}
-        <div className="bg-gray-900 shadow-lg overflow-hidden border border-gray-200">
+        <div className="bg-gray-900 shadow-lg overflow-hidden border text-gray-100 border-gray-200">
           {activeTab === "location" ? (
             <div className="grid md:grid-cols-2">
               {/* Contact Info */}
               <div className="p-8 text-start md:p-10">
-                <h3 className="text-2xl uppercase font-bold text-gray-100 mb-6">
+                <h3 className="text-2xl uppercase font-bold  mb-6">
                   Encontre-nos
                 </h3>
 
@@ -54,17 +54,17 @@ const ContactSection = () => {
                     <h4 className="font-medium ">Localização</h4>
                   </div> */}
                   <div>
-                    <p className="text-gray-100">Rua Frei do Amaro, nr.56</p>
-                    <p className="text-gray-100">Malhangalene, Maputo</p>
-                    <p className="text-gray-100">Moçambique</p>
+                    <p className="">Rua Frei do Amaro, nr.56</p>
+                    <p className="">Malhangalene, Maputo</p>
+                    <p className="">Moçambique</p>
                   </div>
 
-                  <div className="flex gap-2 text-[var(--color-primary)]">
+                  <div className="flex gap-2">
                     <Clock className="w-5 h-5" />
                     <h4 className="font-medium ">Horário de Atendimento</h4>
                   </div>
                   <div>
-                    <div className="text-gray-100">
+                    <div className="">
                       <p>Segunda - Sexta: 08:00 - 17:00</p>
                       <p>Sábado - Domingo: Fechado</p>
                     </div>

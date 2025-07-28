@@ -76,7 +76,7 @@ const HeroSection = () => {
 
           <motion.h1
             variants={itemVariants}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight"
           >
             Transformando sonhos em realidade há 13 anos
           </motion.h1>

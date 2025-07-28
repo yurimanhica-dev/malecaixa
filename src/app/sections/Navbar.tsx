@@ -127,12 +127,12 @@ export default function Navbar(): JSX.Element {
                 </motion.div>
               ))}
             </div>
-            {/* Botões desktop */}
             <div className="hidden md:flex md:items-center md:space-x-8">
               <motion.div whileTap={{ scale: 1 }}>
                 <MemberAccess />
               </motion.div>
             </div>
+            {/* Botões desktop */}
           </div>
           {/* Botão Mobile */}
           <div className="md:hidden flex items-center">

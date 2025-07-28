@@ -23,7 +23,7 @@ export default function TransitionCTA() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-6">
             Pronto para dar o próximo passo?
           </h2>
 
@@ -38,7 +38,7 @@ export default function TransitionCTA() {
 
           {/* Contact quick links */}
           <div className="border-t  border-gray-800 pt-12">
-            <h3 className="text-sm uppercase tracking-wider text-gray-400 mb-4">
+            <h3 className="text-sm uppercase font-semibold tracking-wider text-gray-400 mb-4">
               Fale conosco diretamente
             </h3>
             <div className="flex items-center justify-center gap-4">

@@ -82,14 +82,14 @@ export default function Navbar(): JSX.Element {
       <div className="mx-auto max-w-screen-xl px-4 lg:px-8">
         <div className="flex justify-between h-14">
           {/* Logo e menu desktop */}
-          <motion.div className="relative w-[160px] h-[48px]">
+          <motion.div className="relative w-[160px] h-[48px] min-w-fit">
             <Link href="#home" className="flex items-center w-full h-full">
               <Image
                 src="/logos.png"
                 alt="MALEcaixa Logo"
                 fill
                 priority
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                sizes="(max-width: 768px) 80vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover"
               />
             </Link>

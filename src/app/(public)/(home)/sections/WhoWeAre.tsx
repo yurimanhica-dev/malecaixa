@@ -15,7 +15,10 @@ const LoanSection = () => {
   ];
 
   return (
-    <section className="relative bg-white lg:py-15  overflow-hidden min-w-fit">
+    <section
+      id="simulacao"
+      className="relative bg-white lg:py-15  overflow-hidden min-w-fit"
+    >
       {/* Decorative elements */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-64 h-64 bg-[var(--color-primary)] rounded-full filter blur-3xl" />

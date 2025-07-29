@@ -9,7 +9,7 @@ const ENDPOINT = process.env.ENDPOINT;
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, password: hashedPassword } = await req.json();
+    const { email, password: hashedPassword, rememberMe } = await req.json();
 
     if (!email || !hashedPassword) {
       return NextResponse.json(
@@ -64,47 +64,37 @@ export async function POST(req: NextRequest) {
 
     // Verifica se a autenticação foi bem-sucedida
     if (responseData.senhaCliente === "1") {
-      const token = jwt.sign(
-        {
-          email,
-          status: status,
-          role: "user", // ou admin, dependendo do seu sistema
-        },
+      const accessToken = jwt.sign(
+        { email, role: "user", status },
         process.env.JWT_SECRET!,
-        {
-          expiresIn: "1h",
-        }
+        { expiresIn: "1h" } // token curto
       );
+
+      const refreshToken = jwt.sign(
+        { email, role: "user" },
+        process.env.REFRESH_SECRET!, // segredo diferente e mais forte
+        { expiresIn: rememberMe ? "7d" : "1h" }
+      );
+
       const res = NextResponse.json({
         success: true,
         message: "Autenticação bem-sucedida",
         data: responseData,
       });
 
-      res.cookies.set("token", token, {
+      res.cookies.set("token", accessToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
-        maxAge: 60 * 60, // 1h
+        maxAge: 60 * 60,
         path: "/",
       });
-
-      const refreshToken = jwt.sign(
-        {
-          email,
-          role: "user", // mesmo payload ou apenas email
-        },
-        process.env.REFRESH_SECRET!,
-        {
-          expiresIn: "7d", // ou mais
-        }
-      );
 
       res.cookies.set("refresh_token", refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
-        maxAge: 7 * 24 * 60 * 60, // 7 dias
+        maxAge: rememberMe ? 60 * 60 * 24 * 7 : 60 * 60 * 7, // 7 dias ou 1 dia
         path: "/",
       });
 

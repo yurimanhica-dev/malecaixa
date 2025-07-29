@@ -43,6 +43,7 @@ export default function LoginForm() {
         body: JSON.stringify({
           email,
           password: hashedPassword,
+          rememberMe,
         }),
       });
 

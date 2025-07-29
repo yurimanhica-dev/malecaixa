@@ -2,7 +2,6 @@
 import {
   CreditCard,
   LayoutDashboard,
-  LogOut,
   Menu,
   Settings,
   User,
@@ -10,6 +9,7 @@ import {
   X,
 } from "lucide-react";
 import { Dispatch, SetStateAction, useRef } from "react";
+import { LogoutButton } from "../components/LogoutButton";
 
 interface SidebarProps {
   activeTab: string;
@@ -175,12 +175,7 @@ const Sidebar = ({ activeTab, setActiveTab, user, onToggle }: SidebarProps) => {
                   <span>Configurações</span>
                 </button>
               </li>
-              <li>
-                <button className="w-full text-left px-4 py-3 rounded-lg text-sm flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-800 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors">
-                  <LogOut className="h-5 w-5 text-red-500 dark:text-red-400" />
-                  <span>Sair</span>
-                </button>
-              </li>
+              <LogoutButton />
             </ul>
           </div>
         </div>

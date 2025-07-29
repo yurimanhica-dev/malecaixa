@@ -39,7 +39,7 @@ const Header = ({ onToggleSidebar }: HeaderProps) => {
             <div className="ml-3 flex-shrink-0">
               <div className="relative h-8 w-32">
                 <Image
-                  src="/logo.png"
+                  src="/logowhite.png"
                   alt="Logo MALEcaixa"
                   fill
                   className="object-cover object-left dark:invert-0 dark:brightness-600 dark:contrast-700"

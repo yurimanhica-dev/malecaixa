@@ -1,7 +1,7 @@
 "use client";
 import { Bell, Search } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface HeaderProps {
   onToggleSidebar: () => void;
@@ -12,22 +12,22 @@ interface HeaderProps {
 const Header = ({ onToggleSidebar }: HeaderProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [hasUnreadNotifications, setHasUnreadNotifications] = useState(true);
-  // const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // // Fechar dropdown ao clicar fora
-  // // useEffect(() => {
-  // //   const handleClickOutside = (event: MouseEvent) => {
-  // //     if (
-  // //       dropdownRef.current &&
-  // //       !dropdownRef.current.contains(event.target as Node)
-  // //     ) {
-  // //       onToggleSidebar();
-  // //     }
-  // //   };
+  //Fechar dropdown ao clicar fora
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        onToggleSidebar();
+      }
+    };
 
-  // //   document.addEventListener("mousedown", handleClickOutside);
-  // //   return () => document.removeEventListener("mousedown", handleClickOutside);
-  // // }, []);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-b border-gray-100 dark:border-gray-800 shadow-sm">
@@ -42,7 +42,7 @@ const Header = ({ onToggleSidebar }: HeaderProps) => {
                   src="/logowhite.png"
                   alt="Logo MALEcaixa"
                   fill
-                  className="object-cover object-left dark:invert-0 dark:brightness-600 dark:contrast-700"
+                  className="object-cover object-left"
                   priority
                   sizes="(max-width: 640px) 128px, 150px"
                 />

@@ -11,6 +11,14 @@
 }
 
 @layer base {
+  .font-bebas {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 600;
+  }
+  .font-special {
+    font-family: "Special Gothic Expanded One", sans-serif;
+    font-weight: 800;
+  }
   .c-space {
     @apply lg:px-10 px-5;
   }

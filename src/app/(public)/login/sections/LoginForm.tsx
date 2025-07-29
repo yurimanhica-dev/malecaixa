@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import login from "../../assets/lotties/login.json";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import login from "../../../assets/lotties/login.json";
 
 async function hashSHA256(password: string): Promise<string> {
   const encoder = new TextEncoder();
@@ -18,6 +19,7 @@ async function hashSHA256(password: string): Promise<string> {
 export default function LoginForm() {
   const router = useRouter();
   const [email, setEmail] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -27,7 +29,7 @@ export default function LoginForm() {
     e.preventDefault();
     setLoading(true);
     setError("");
-
+    if (loading) return;
     try {
       // 1. Hash da senha
       const hashedPassword = await hashSHA256(password);
@@ -135,15 +137,31 @@ export default function LoginForm() {
                 >
                   Senha
                 </label>
-                <input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="w-full px-3 py-2.5 sm:px-4 sm:py-3 text-xs sm:text-sm rounded-lg border border-gray-300 focus:ring-1 focus:ring-primary focus:border-primary transition-all outline-none"
-                  placeholder="***************"
-                />
+                <div className="relative items-center">
+                  <input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="w-full px-3 py-2.5 sm:px-4 sm:py-3 text-xs sm:text-sm rounded-lg border border-gray-300 focus:ring-1 focus:ring-primary focus:border-primary transition-all outline-none pr-10"
+                    placeholder="***************"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                    aria-label={
+                      showPassword ? "Ocultar senha" : "Mostrar senha"
+                    }
+                  >
+                    {showPassword ? (
+                      <FiEyeOff className="h-5 w-5" />
+                    ) : (
+                      <FiEye className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
               </div>
 
               <div className="flex items-center justify-between">

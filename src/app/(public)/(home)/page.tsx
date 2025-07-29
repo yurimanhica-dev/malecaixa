@@ -10,7 +10,7 @@ import LoanSection from "./sections/WhoWeAre";
 
 export default function Home() {
   return (
-    <section className="flex flex-col min-w-fit ">
+    <section className="min-w-fit ">
       <Navbar />
       <MicrocreditHero />
       <OurStory />
@@ -20,10 +20,6 @@ export default function Home() {
       <FinancialSolutions />
       <FAQSection />
       <TransitionCTA />
-      {/*<ValuesSection />
-      <ServicesSection />
-      <WhyChooseUs />
-      <WhoWeAre /> */}
     </section>
   );
 }

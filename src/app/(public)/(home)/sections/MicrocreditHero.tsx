@@ -133,8 +133,8 @@ export default function MicrocreditHero() {
       </AnimatePresence>
 
       {/* Conteúdo com hierarquia visual clara */}
-      <div className="absolute max-w-7xl -mt-14 c-space mx-auto inset-0 pt-18 z-10 flex items-center">
-        <div className="">
+      <div className="absolute max-w-7xl -mt-14 c-space mx-auto inset-0 pt-18 z-10 flex items-end pb-32 md:items-center md:pb-24">
+        <div className="w-full">
           <AnimatePresence>
             <motion.div
               key={`content-${slides[currentIndex].id}`}
@@ -152,18 +152,20 @@ export default function MicrocreditHero() {
 
                 <hr className="border-t my-1 max-w-5xl border-gray-300 " />
 
-                <p className="text-lg md:text-xl text-gray-100 mb-10 max-w-xl">
+                <p className="text-lg md:text-xl text-gray-100 mb-6 max-w-xl">
                   {slides[currentIndex].description}
                 </p>
               </div>
-              <LearnMoreButton />
+              <div className="mt-6">
+                <LearnMoreButton />
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>
       </div>
 
       {/* Controles de navegação discretos mas acessíveis */}
-      <div className="absolute bottom-8 left-0 right-0 z-20">
+      <div className="absolute bottom-8 md:bottom-12 left-0 right-0 z-20">
         <div className="max-w-7xl c-space mx-auto flex justify-between items-center">
           {/* Indicadores com feedback visual claro */}
           <div className="flex space-x-2">

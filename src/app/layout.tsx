@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import { Toaster } from "react-hot-toast";
-import AppWrapper from "./components/AppWrapper";
+import AppWrapper from "./(public)/(home)/components/AppWrapper";
 import "./globals.css";
 const dmSans = DM_Sans({
   subsets: ["latin"],

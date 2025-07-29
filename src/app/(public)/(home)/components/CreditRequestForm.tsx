@@ -7,7 +7,7 @@ import {
   calculateTotalPayback,
   CREDIT_TYPES,
   validateCreditRequest,
-} from "../utils/creditCalculations";
+} from "../../../utils/creditCalculations";
 
 interface CreditRequestFormProps {
   onClose: () => void;

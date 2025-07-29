@@ -4,12 +4,12 @@ import { Slider } from "@mui/material";
 import { useEffect, useState } from "react";
 import { FaHandshake } from "react-icons/fa";
 import {
-  CREDIT_TYPES,
   calculateEncargos,
   calculateMonthlyPayment,
   calculateTotalPayback,
+  CREDIT_TYPES,
   validateCreditRequest,
-} from "../utils/creditCalculations";
+} from "../../../utils/creditCalculations";
 import CreditRequestForm from "./CreditRequestForm";
 
 interface LoanData {

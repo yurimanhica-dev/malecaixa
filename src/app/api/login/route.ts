@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import { NextRequest, NextResponse } from "next/server";
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const soap = require("soap");
@@ -63,11 +64,51 @@ export async function POST(req: NextRequest) {
 
     // Verifica se a autenticação foi bem-sucedida
     if (responseData.senhaCliente === "1") {
-      return NextResponse.json({
+      const token = jwt.sign(
+        {
+          email,
+          status: status,
+          role: "user", // ou admin, dependendo do seu sistema
+        },
+        process.env.JWT_SECRET!,
+        {
+          expiresIn: "1h",
+        }
+      );
+      const res = NextResponse.json({
         success: true,
         message: "Autenticação bem-sucedida",
         data: responseData,
       });
+
+      res.cookies.set("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 60 * 60, // 1h
+        path: "/",
+      });
+
+      const refreshToken = jwt.sign(
+        {
+          email,
+          role: "user", // mesmo payload ou apenas email
+        },
+        process.env.REFRESH_SECRET!,
+        {
+          expiresIn: "7d", // ou mais
+        }
+      );
+
+      res.cookies.set("refresh_token", refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 7 * 24 * 60 * 60, // 7 dias
+        path: "/",
+      });
+
+      return res;
     } else {
       return NextResponse.json(
         {

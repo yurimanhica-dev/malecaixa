@@ -124,16 +124,16 @@ const Header = ({ onToggleSidebar }: HeaderProps) => {
             </div>
             {/* Profile Button */}
             <button
-              className="ml-2 p-2 rounded-full text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400 relative"
+              className="ml-2 p-2 rounded-full h-full w-full text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400 relative"
               // ref={dropdownRef}
             >
               <span className="sr-only">Perfil</span>
               <Image
-                src="/profile.jpg"
+                src="/testimonials/padaria.png"
                 alt="Perfil"
-                width={32}
-                height={32}
-                className="rounded-full object-cover"
+                sizes="(max-width: 768px) 50vw, 100vw"
+                fill
+                className="rounded-full h-full w-full object-cover"
               />
             </button>
 

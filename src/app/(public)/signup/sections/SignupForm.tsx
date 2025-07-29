@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import login from "../../assets/lotties/login.json";
+import login from "../../../assets/lotties/login.json";
 
 const SignupForm = () => {
   const router = useRouter();

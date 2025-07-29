@@ -70,7 +70,7 @@ const Testimonials = () => {
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [autoPlay, currentTestimonial]); // Adicionei currentTestimonial às dependências
+  }, [autoPlay, currentTestimonial, nextTestimonial]); // Adicionei currentTestimonial às dependências
 
   // Pausa o auto-play quando o usuário interage
   const handleUserInteraction = (navigationFn: () => void) => {

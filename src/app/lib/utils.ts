@@ -1,8 +1,12 @@
-export const formatMZN = (value: number) =>
-  new Intl.NumberFormat("pt-MZ", {
-    style: "currency",
-    currency: "MZN",
+export const formatMZN = (value: number) => {
+  const formattedNumber = new Intl.NumberFormat("en-US", {
+    style: "decimal",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   }).format(value);
+
+  return `${formattedNumber} MZN`;
+};
 
 export const formatDate = (dateString: string) =>
   new Date(dateString).toLocaleDateString("pt-MZ", {

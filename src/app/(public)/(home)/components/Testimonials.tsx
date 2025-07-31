@@ -44,6 +44,7 @@ const Testimonials = () => {
     },
   ];
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const nextTestimonial = () => {
     setCurrentTestimonial((prev) =>
       prev === testimonials.length - 1 ? 0 : prev + 1

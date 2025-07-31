@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import AppWrapper from "./(public)/(home)/components/AppWrapper";
+import { AuthProvider } from "./contexts/AuthContext";
 import "./globals.css";
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -66,7 +67,7 @@ export default function RootLayout({
       >
         <AppWrapper>
           <Toaster position="bottom-center" />
-          {children}
+          <AuthProvider>{children}</AuthProvider>
         </AppWrapper>
       </body>
     </html>

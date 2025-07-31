@@ -22,7 +22,7 @@ const SignupForm = () => {
     setError(null);
 
     try {
-      const response = await fetch("/api/consultaEmail", {
+      const response = await fetch("/api/authentication/consultaEmail", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

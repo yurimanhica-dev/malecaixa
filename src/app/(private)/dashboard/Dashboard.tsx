@@ -1,17 +1,17 @@
 "use client";
-
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import Header from "./Header";
-import Sidebar from "./Sidebar";
+import { Suspense, useState } from "react";
+import DashboardSkeleton from "../components/DashboardSkeleton";
 import AccountsTab from "./_Tabs/AccountsTab";
 import CreditTab from "./_Tabs/CreditTab";
 import OverviewTab from "./_Tabs/OverviewTab";
 import ProfileTab from "./_Tabs/ProfileTab";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
-  const [sidebarVisible, setSidebarVisible] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const router = useRouter();
 
   const userData = {
@@ -90,45 +90,43 @@ const Dashboard = () => {
     router.push(`/dashboard/accounts/${id}`);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-80 dark:bg-gray-800">
-      <Header
-        onToggleSidebar={() => setSidebarVisible(!sidebarVisible)}
-        
-        sidebarVisible={sidebarVisible}
-      />
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-800">
+      <Suspense fallback={<DashboardSkeleton />}>
+        <Header
+          onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
+          sidebarVisible={sidebarOpen}
+        />
 
-      <div className="flex flex-1">
-        {/* Sidebar com animação e responsivo */}
-        <aside
-          className={`bg-white shadow-md  max-h-screen  min-h-screen  transition-all duration-300 ease-in-out
-            ${sidebarVisible ? "w-64" : "w-0"} overflow-hidden`}
-        >
+        <div className="flex flex-1 relative">
           <Sidebar
             activeTab={activeTab}
-            user={userData}
             setActiveTab={setActiveTab}
-            onToggle={() => setSidebarVisible(!sidebarVisible)}
+            isOpen={sidebarOpen}
+            onToggle={() => setSidebarOpen(!sidebarOpen)}
           />
-        </aside>
 
-        {/* Conteúdo principal */}
-        <main className="flex-1 p-8 overflow-y-hidden">
-          {activeTab === "overview" && (
-            <OverviewTab
-              accounts={accounts}
-              onViewAccount={handleAccountClick}
-            />
-          )}
-          {activeTab === "accounts" && (
-            <AccountsTab
-              accounts={accounts}
-              onViewAccount={handleAccountClick}
-            />
-          )}
-          {activeTab === "credit" && <CreditTab creditInfo={creditInfo} />}
-          {activeTab === "profile" && <ProfileTab user={userData} />}
-        </main>
-      </div>
+          <main
+            className={`flex-1 p-6 transition-all duration-300 ${
+              sidebarOpen ? "ml-64" : "ml-0"
+            }`}
+          >
+            {activeTab === "overview" && (
+              <OverviewTab
+                accounts={accounts}
+                onViewAccount={handleAccountClick}
+              />
+            )}
+            {activeTab === "accounts" && (
+              <AccountsTab
+                accounts={accounts}
+                onViewAccount={handleAccountClick}
+              />
+            )}
+            {activeTab === "credit" && <CreditTab creditInfo={creditInfo} />}
+            {activeTab === "profile" && <ProfileTab user={userData} />}
+          </main>
+        </div>
+      </Suspense>
     </div>
   );
 };

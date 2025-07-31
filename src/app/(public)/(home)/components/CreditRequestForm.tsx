@@ -129,7 +129,7 @@ export default function CreditRequestForm({
       </div>
 
       <div className="bg-white rounded-lg shadow-xl [&::-webkit-scrollbar]:hidden h-[90vh] overflow-y-scroll w-full max-w-md relative z-10">
-        <div className="sticky top-0 w-full max-w-md bg-primary p-4 rounded-t-lg">
+        <div className="sticky z-40 top-0 w-full max-w-md bg-primary p-4 rounded-t-lg">
           <h3 className="text-xl font-bold text-white text-center">
             Solicitação de Crédito
           </h3>

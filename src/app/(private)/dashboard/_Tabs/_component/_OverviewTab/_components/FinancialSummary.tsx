@@ -1,3 +1,6 @@
+import DashboardSkeleton from "@/app/(private)/components/DashboardSkeleton";
+import { useAuth } from "@/app/contexts/AuthContext";
+import { formatMZN } from "@/app/lib/utils";
 import {
   AlertTriangle,
   DollarSign,
@@ -5,39 +8,37 @@ import {
   TrendingUp,
   Zap,
 } from "lucide-react";
-import { FC } from "react";
+import { Suspense } from "react";
 
-interface FinancialSummaryProps {
-  totalApproved: number;
-  totalPaid: number;
-  totalRemaining: number;
-  totalLateFees: number;
-  formatMZN: (value: number) => string;
-}
+const FinancialSummary = () => {
+  const { user } = useAuth();
 
-const FinancialSummary: FC<FinancialSummaryProps> = ({
-  totalApproved,
-  totalPaid,
-  totalRemaining,
-  totalLateFees,
-  formatMZN,
-}) => {
+  if (!user?.detalhesConta) {
+    return (
+      <div className="p-4 text-red-500">
+        <Suspense fallback={<DashboardSkeleton />}></Suspense>
+      </div>
+    );
+  }
+
+  console.log("Detalhes da Conta:", user.detalhesConta);
+
   const items = [
     {
       label: "Total Aprovado",
-      value: totalApproved,
+      value: user.detalhesConta.montanteAprovado,
       icon: TrendingUp,
       color: "text-purple-500",
     },
     {
       label: "Total Pago",
-      value: totalPaid,
+      value: user.detalhesConta.principalPago,
       icon: DollarSign,
       color: "text-emerald-500",
     },
     {
       label: "Saldo Pendente",
-      value: totalRemaining,
+      value: user.detalhesConta.saldoRestante,
       icon: AlertTriangle,
       color: "text-amber-500",
     },
@@ -77,7 +78,7 @@ const FinancialSummary: FC<FinancialSummaryProps> = ({
           </div>
         ))}
 
-        {totalLateFees > 0 && (
+        {user.detalhesConta.taxaMora > 0 && (
           <div className="pt-3 mt-3 border-t border-gray-100 dark:border-gray-700 flex md:flex-col items-start lg:items-center lg:flex-row justify-between">
             <div className="flex items-center gap-3">
               <div className="bg-rose-100 dark:bg-rose-900 dark:bg-opacity-30 p-2 rounded-lg text-rose-500 dark:text-rose-400">
@@ -88,7 +89,7 @@ const FinancialSummary: FC<FinancialSummaryProps> = ({
               </span>
             </div>
             <span className="text-sm font-semibold text-rose-500 dark:text-rose-400 mt-1">
-              +{formatMZN(totalLateFees)}
+              +{formatMZN(user.detalhesConta.taxaMora)}
             </span>
           </div>
         )}

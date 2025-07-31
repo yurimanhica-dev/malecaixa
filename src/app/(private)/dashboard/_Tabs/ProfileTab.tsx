@@ -57,7 +57,7 @@ const ProfileTab: FC<Props> = ({ user }) => {
   }[user.accountStatus || "active"];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 ml-8 w-fit h-fit">
       <TabsHeader
         title="Meu Perfil"
         description="Gerencie suas informações pessoais e preferências de conta"

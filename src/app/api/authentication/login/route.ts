@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
     // Formata a resposta
     const responseData = {
       status: status,
-      senhaCliente: output?.senhaCliente,
+      SenhaValida: output?.SenhaValida,
       detalhe: {
         codErro: output?.Detalhe?.CodErro,
         msgErro: output?.Detalhe?.MsgErro,
@@ -63,7 +63,27 @@ export async function POST(req: NextRequest) {
     };
 
     // Verifica se a autenticação foi bem-sucedida
-    if (responseData.senhaCliente === "1") {
+    if (responseData.SenhaValida === 1) {
+      const res = NextResponse.json({
+        success: true,
+        message: "Autenticação bem-sucedida",
+        data: {
+          status,
+          email,
+          name: output.FullName,
+          role: "user", // ou outro papel conforme necessário
+          detalhesConta: {
+            id: output.Id,
+            montanteAprovado: output.ApprovedAmount,
+            saldoRestante: output.RemainingBalance,
+            mensalidade: output.MonthlyPayment,
+            jurosPagos: output.InterestPaid,
+            principalPago: output.PrincipalPaid,
+            taxaMora: output.totalLateFees,
+          },
+        },
+      });
+
       const accessToken = jwt.sign(
         { email, role: "user", status },
         process.env.JWT_SECRET!,
@@ -75,12 +95,6 @@ export async function POST(req: NextRequest) {
         process.env.REFRESH_SECRET!, // segredo diferente e mais forte
         { expiresIn: rememberMe ? "7d" : "1h" }
       );
-
-      const res = NextResponse.json({
-        success: true,
-        message: "Autenticação bem-sucedida",
-        data: responseData,
-      });
 
       res.cookies.set("token", accessToken, {
         httpOnly: true,

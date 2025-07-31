@@ -6,18 +6,18 @@ import Image from "next/image";
 export default function MicrocreditLoading() {
   // Animação da barra de progresso
 
-  // const progressAnimation: Variants = {
-  //   initial: { width: 0 },
-  //   animate: {
-  //     width: "100%",
-  //     transition: {
-  //       duration: 2,
-  //       repeat: Infinity,
-  //       repeatType: "reverse",
-  //       ease: "easeInOut",
-  //     },
-  //   },
-  // };
+  const progressAnimation: Variants = {
+    initial: { width: 0 },
+    animate: {
+      width: "100%",
+      transition: {
+        duration: 2,
+        repeat: Infinity,
+        repeatType: "reverse",
+        ease: "easeInOut",
+      },
+    },
+  };
 
   // Animação do logo
   const logoAnimation: Variants = {
@@ -116,7 +116,7 @@ export default function MicrocreditLoading() {
         </motion.p>
 
         {/* Barra de progresso premium */}
-        {/* <motion.div
+        <motion.div
           initial="initial"
           animate="animate"
           className="h-2 bg-white rounded-full overflow-hidden mb-2"
@@ -128,7 +128,7 @@ export default function MicrocreditLoading() {
               boxShadow: "0 0 10px rgba(0, 159, 235, 0.5)",
             }}
           />
-        </motion.div> */}
+        </motion.div>
 
         {/* Status técnico */}
         {/* <motion.div

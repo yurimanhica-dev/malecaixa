@@ -1,25 +1,23 @@
 "use client";
-import {
-  CreditCard,
-  LayoutDashboard,
-  Menu,
-  Settings,
-  User,
-  Wallet,
-  X,
-} from "lucide-react";
+import { CreditCard, LayoutDashboard, Menu, User, Wallet } from "lucide-react";
 import { Dispatch, SetStateAction, useRef } from "react";
 import { LogoutButton } from "../components/LogoutButton";
 
 interface SidebarProps {
   activeTab: string;
   setActiveTab: Dispatch<SetStateAction<string>>;
-  user: { name: string; email: string };
   onToggle: () => void;
+  isOpen: boolean;
 }
 
-const Sidebar = ({ activeTab, setActiveTab, user, onToggle }: SidebarProps) => {
+const Sidebar = ({
+  activeTab,
+  setActiveTab,
+  onToggle,
+  isOpen,
+}: SidebarProps) => {
   const sidebarRef = useRef<HTMLDivElement>(null);
+
   const tabs = [
     { key: "overview", label: "Visão Geral", icon: LayoutDashboard },
     { key: "accounts", label: "Minhas Contas", icon: Wallet },
@@ -27,36 +25,6 @@ const Sidebar = ({ activeTab, setActiveTab, user, onToggle }: SidebarProps) => {
     { key: "profile", label: "Meu Perfil", icon: User },
   ];
 
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (
-  //       sidebarRef.current &&
-  //       !sidebarRef.current.contains(event.target as Node)
-  //     ) {
-  //       onToggle();
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [onToggle]);
-
-  //   const handleEscape = (event: KeyboardEvent) => {
-  //     if (event.key === "Escape" && visible) {
-  //       onToggle();
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   document.addEventListener("keydown", handleEscape);
-
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //     document.removeEventListener("keydown", handleEscape);
-  //   };
-  // }, [visible, onToggle]);
   const handleTabClick = (tabKey: string) => {
     setActiveTab(tabKey);
     if (window.innerWidth < 1024) {
@@ -66,60 +34,16 @@ const Sidebar = ({ activeTab, setActiveTab, user, onToggle }: SidebarProps) => {
 
   return (
     <>
-      {/* Mobile Overlay */}
-      {/* {visible && ( */}
-      {/* <div className="fixed inset-0 bg-black/50 lg:hidden z-20 backdrop-blur-sm transition-opacity duration-300" /> */}
-      {/* )} */}
-
-      {/* visible ? "translate-x-0" : "-translate-x-full lg:translate-x-0" */}
-      {/* Sidebar */}
       <aside
         ref={sidebarRef}
-        className={`min-h-screen lg:fixed inset-y-0 left-0 w-72 bg-white dark:bg-gray-900 shadow-xl z-20 transition-all duration-300 ease-in-out transform`}
+        className={`fixed h-full top-16 left-0 w-72 bg-gray-900 dark:bg-gray-900 shadow-xl z-20 transition-transform duration-300 ease-in-out transform ${
+          isOpen ? "translate-x-0" : "-translate-x-full  pointer-events-none"
+        }`}
         aria-label="Sidebar"
       >
         <div className="flex flex-col h-full p-5 border-r border-gray-100 dark:border-gray-800">
-          {/* Mobile Header */}
-          <div className="flex items-center justify-between lg:hidden mb-8">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-semibold">
-                {user.name.charAt(0)}
-              </div>
-              <div>
-                <h3 className="font-medium text-sm dark:text-gray-200">
-                  {user.name}
-                </h3>
-                <p className="text-xs text-gray-500 dark:text-gray-400 truncate max-w-[120px]">
-                  {user.email}
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={onToggle}
-              className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
-              aria-label="Fechar menu"
-            >
-              <X className="h-5 w-5" />
-            </button>
-          </div>
-
-          {/* Desktop User Info */}
-          <div className="hidden lg:flex items-center gap-3 mb-8">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-semibold">
-              {user.name.charAt(0)}
-            </div>
-            <div>
-              <h3 className="font-medium text-sm dark:text-gray-200">
-                {user.name}
-              </h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                {user.email}
-              </p>
-            </div>
-          </div>
-
           {/* Main Navigation */}
-          <nav className="flex-1">
+          <nav className="flex-1 inset-x-0 bottom-0">
             <ul className="space-y-1">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
@@ -152,32 +76,9 @@ const Sidebar = ({ activeTab, setActiveTab, user, onToggle }: SidebarProps) => {
               })}
             </ul>
           </nav>
-
+          <LogoutButton />
           {/* Bottom Section */}
-          <div className="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800">
-            <ul className="space-y-1">
-              <li>
-                <button
-                  onClick={() => handleTabClick("settings")}
-                  className={`w-full text-left px-4 py-3 rounded-lg text-sm flex items-center gap-3 transition-colors ${
-                    activeTab === "settings"
-                      ? "bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-200 font-medium"
-                      : "hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-gray-50 dark:hover:text-gray-100"
-                  }`}
-                >
-                  <Settings
-                    className={`h-5 w-5 ${
-                      activeTab === "settings"
-                        ? "text-primary-600 dark:text-primary-200"
-                        : "text-gray-500 dark:text-gray-400"
-                    }`}
-                  />
-                  <span>Configurações</span>
-                </button>
-              </li>
-              <LogoutButton />
-            </ul>
-          </div>
+          <div className="fixed bottom-1 pt-4 w-56 border-t border-gray-100 dark:border-gray-800"></div>
         </div>
       </aside>
 
@@ -190,7 +91,6 @@ const Sidebar = ({ activeTab, setActiveTab, user, onToggle }: SidebarProps) => {
       >
         <Menu className="h-6 w-6" />
       </button>
-      {/* )} */}
     </>
   );
 };

@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuth } from "@/app/contexts/AuthContext";
 import Lottie from "lottie-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,6 +25,7 @@ export default function LoginForm() {
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const { setUser } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,7 +37,7 @@ export default function LoginForm() {
       const hashedPassword = await hashSHA256(password);
 
       // 2. Chamada à API
-      const response = await fetch("/api/login", {
+      const response = await fetch("/api/authentication/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,8 +55,27 @@ export default function LoginForm() {
         throw new Error(data.error || "Erro ao fazer login");
       }
 
-      // 3. Redireciona se autenticação for bem-sucedida
-      router.push("/dashboard");
+      if (response.ok) {
+        setUser({
+          email: data.data.email,
+          role: data.data.role,
+          name: data.data.name,
+          status: data.data.status,
+          detalhesConta: data.data.detalhesConta,
+          stats: data.data.stats || {
+            // Adicione fallback caso stats não venha
+            total: 10,
+            pending: 5,
+            paid: 3,
+            overdue: 2,
+          },
+        });
+
+        console.log("Login response:", data);
+
+        // 3. Redireciona se autenticação for bem-sucedida
+        router.push("/dashboard");
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro desconhecido");
     } finally {

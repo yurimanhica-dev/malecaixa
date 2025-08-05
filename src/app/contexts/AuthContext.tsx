@@ -24,6 +24,7 @@ interface User {
   status: string | null;
   detalhesConta: DetalhesConta;
   stats: stats;
+  contas: string[];
 }
 
 const AuthContext = createContext<{

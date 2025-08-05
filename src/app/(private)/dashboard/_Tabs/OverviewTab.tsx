@@ -1,6 +1,7 @@
 import { Loader } from "lucide-react";
 import { FC, Suspense } from "react";
 import DashboardSkeleton from "../../components/DashboardSkeleton";
+import CreditDistribution from "./_component/_OverviewTab/_components/CreditDistribution";
 import FinancialSummary from "./_component/_OverviewTab/_components/FinancialSummary";
 import DashboardStats from "./_component/DashboardStats";
 import TabsHeader from "./_component/TabsHeader";
@@ -48,24 +49,6 @@ const AccountsTab: FC<Props> = ({ loading = false }) => {
 
   // Status visual configuration
 
-  // const statusConfig = {
-  //   paid: {
-  //     color: "bg-emerald-300 text-emerald-800",
-  //     icon: CheckCircle,
-  //     label: "Quitado",
-  //   },
-  //   pending: {
-  //     color: "bg-amber-300 text-amber-800",
-  //     icon: Clock,
-  //     label: "Em Andamento",
-  //   },
-  //   overdue: {
-  //     color: "bg-rose-300 text-rose-800",
-  //     icon: AlertCircle,
-  //     label: "Em Mora",
-  //   },
-  // };
-
   return (
     <div className="space-y-6 overflow-hidden lg:ml-8">
       <Suspense fallback={<DashboardSkeleton />}>
@@ -84,33 +67,15 @@ const AccountsTab: FC<Props> = ({ loading = false }) => {
             {/* Dashboard Stats */}
             <DashboardStats />
 
-            {/* Financial Overview */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Financial Overview */}
               <FinancialSummary />
-              {/* 
-            // Progress Visualization 
-            <CreditDistribution
-              total={stats.total}
-              paid={stats.paid}
-              pending={stats.pending}
-              overdue={stats.overdue}
-            />
-            */}
 
-              {/*
-          // Accounts List 
-           <AccountsList
-            accounts={accounts}
-            stats={{
-              paid: stats.paid,
-              pending: stats.pending,
-              overdue: stats.overdue,
-            }}
-            onViewAccount={onViewAccount}
-            statusConfig={statusConfig}
-            />
-            )}
-              */}
+              {/*Progress Visualization */}
+              <CreditDistribution />
+
+              {/*sAccounts List */}
+              {/* <AccountsListOriginal /> */}
             </div>
           </>
         )}

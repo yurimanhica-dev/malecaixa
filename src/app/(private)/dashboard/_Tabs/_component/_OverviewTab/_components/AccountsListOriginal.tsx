@@ -15,19 +15,6 @@
 // } from "lucide-react";
 // import { Suspense } from "react";
 
-// // Type definitions for better type safety
-// type AccountStatus = "paid" | "pending" | "overdue";
-// type Account = {
-//   id: string;
-//   status: AccountStatus;
-//   jurosPagos: number;
-//   montanteAprovado: number;
-//   principalPago: number;
-//   mensalidade: number;
-//   saldoRestante: number;
-//   taxaMora?: number;
-// };
-
 // const AccountsList = () => {
 //   const { user } = useAuth();
 
@@ -39,44 +26,34 @@
 //     );
 //   }
 
-//   // Status configuration with type safety
+//   // Status configuration with improved icons and colors
 //   const statusConfig = {
 //     paid: {
 //       icon: CheckCircle,
 //       color: "text-emerald-500",
 //       bgColor: "bg-emerald-500/10",
 //       label: "Quitado",
-//       progressColor: "bg-emerald-500",
 //     },
 //     pending: {
 //       icon: Clock,
 //       color: "text-amber-500",
 //       bgColor: "bg-amber-500/10",
 //       label: "Andamento",
-//       progressColor: "bg-amber-500",
 //     },
 //     overdue: {
 //       icon: AlertTriangle,
 //       color: "text-rose-500",
 //       bgColor: "bg-rose-500/10",
 //       label: "Em Mora",
-//       progressColor: "bg-rose-500",
 //     },
-//   } as const;
+//   };
 
-//   // Extract accounts from user details with fallback
-//   const Accounts: Account[] = user.contas || [
-//     {
-//       id: user.detalhesConta.id || "1",
-//       status: "pending",
-//       ...user.detalhesConta,
-//     },
-//   ];
-
-//   if (Accounts.length === 0) {
+//   // Extract accounts from user details
+//   const accounts = user.contas || [];
+//   if (accounts.length === 0) {
 //     return (
-//       <div className="p-6 text-center text-gray-500 dark:text-gray-400">
-//         Nenhum crédito registado
+//       <div className="p-4 text-gray-500">
+//         <Suspense fallback={<DashboardSkeleton />}></Suspense>
 //       </div>
 //     );
 //   }
@@ -84,7 +61,7 @@
 //   return (
 //     <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm overflow-hidden border border-gray-200 dark:border-gray-800 transition-all hover:shadow-md">
 //       {/* Header Section */}
-//       <header className="p-6 border-b border-gray-200 dark:border-gray-800 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+//       <div className="p-6 border-b border-gray-200 dark:border-gray-800 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 //         <div className="flex items-center gap-3">
 //           <div className="p-2 rounded-lg bg-primary-100 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400">
 //             <Banknote className="h-5 w-5" />
@@ -94,14 +71,14 @@
 //               Meus Créditos
 //             </h2>
 //             <p className="text-sm text-gray-600 dark:text-gray-400">
-//               {accounts.length} crédito{accounts.length !== 1 ? "s" : ""}{" "}
+//               {user.stats.total} crédito{user.stats.total !== 1 ? "s" : ""}{" "}
 //               registado
-//               {accounts.length !== 1 ? "s" : ""}
+//               {user.stats.total !== 1 ? "s" : ""}
 //             </p>
 //           </div>
 //         </div>
 
-//         {/* Status Summary */}
+//         {/* Status Badges */}
 //         <div className="flex flex-wrap gap-2">
 //           <StatusBadge
 //             count={user.stats.paid}
@@ -119,7 +96,7 @@
 //             icon={AlertTriangle}
 //           />
 //         </div>
-//       </header>
+//       </div>
 
 //       {/* Accounts List */}
 //       <div className="divide-y divide-gray-200 dark:divide-gray-800">
@@ -127,14 +104,17 @@
 //           const status = statusConfig[account.status] || statusConfig.pending;
 //           const progress = Math.min(
 //             100,
-//             Math.round((account.principalPago / account.montanteAprovado) * 100)
+//             Math.round(
+//               (user.detalhesConta.principalPago /
+//                 user.detalhesConta.montanteAprovado) *
+//                 100
+//             )
 //           );
 
 //           return (
 //             <article
-//               key={account.id}
+//               key={user.detalhesConta.id}
 //               className="p-6 hover:bg-gray-50 dark:hover:bg-gray-800/60 cursor-pointer transition-colors group"
-//               aria-labelledby={`account-${account.id}-title`}
 //             >
 //               <div className="flex flex-col md:flex-row gap-6">
 //                 {/* Account Info */}
@@ -142,25 +122,24 @@
 //                   <div
 //                     className={`p-2.5 rounded-lg ${status.bgColor} ${status.color}`}
 //                   >
-//                     <status.icon className="h-5 w-5" aria-hidden="true" />
+//                     <status.icon className="h-5 w-5" />
 //                   </div>
 //                   <div className="min-w-0">
-//                     <h3
-//                       id={`account-${account.id}-title`}
-//                       className="font-medium text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 truncate"
-//                     >
-//                       Crédito {account.id}
-//                     </h3>
+//                     {/* <h3 className="font-medium text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 truncate">
+//                       {user.detalhesConta.loanPurpose}
+//                     </h3> */}
 //                     <div className="flex flex-wrap gap-x-4 gap-y-2 mt-2">
+//                       {/* <DetailItem
+//                         icon={Calendar}
+//                         text={formatDate(user.detalhesConta.requestDate)}
+//                       /> */}
 //                       <DetailItem
 //                         icon={Percent}
-//                         text={`${account.jurosPagos}% a.m.`}
-//                         label="Taxa de juros"
+//                         text={`${user.detalhesConta.jurosPagos}% a.m.`}
 //                       />
 //                       <DetailItem
 //                         icon={TrendingUp}
-//                         text={formatMZN(account.montanteAprovado)}
-//                         label="Montante aprovado"
+//                         text={formatMZN(user.detalhesConta.montanteAprovado)}
 //                       />
 //                     </div>
 //                   </div>
@@ -177,13 +156,14 @@
 //                         {progress}%
 //                       </span>
 //                     </div>
-//                     <div
-//                       className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden"
-//                       aria-hidden="true"
-//                     >
+//                     <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
 //                       <div
-//                         className={`h-full ${status.progressColor}`}
+//                         className={`h-full ${status.color.replace(
+//                           "text",
+//                           "bg"
+//                         )}`}
 //                         style={{ width: `${progress}%` }}
+//                         aria-label={`${progress}% pago`}
 //                       />
 //                     </div>
 //                   </div>
@@ -191,11 +171,11 @@
 //                   <div className="grid grid-cols-2 gap-4">
 //                     <FinancialInfo
 //                       label="Prestação mensal"
-//                       value={formatMZN(account.mensalidade)}
+//                       value={formatMZN(user.detalhesConta.mensalidade)}
 //                     />
 //                     <FinancialInfo
 //                       label="Saldo restante"
-//                       value={formatMZN(account.saldoRestante)}
+//                       value={formatMZN(user.detalhesConta.saldoRestante)}
 //                       align="right"
 //                     />
 //                   </div>
@@ -205,25 +185,26 @@
 //                 <div className="flex items-center justify-end md:pl-2">
 //                   <button
 //                     className="p-1 text-gray-400 dark:text-gray-500 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
-//                     aria-label={`Ver detalhes do crédito ${account.id}`}
+//                     aria-label="Ver detalhes"
 //                   >
-//                     <ChevronRight className="h-5 w-5" aria-hidden="true" />
+//                     <ChevronRight className="h-5 w-5" />
 //                   </button>
 //                 </div>
 //               </div>
 
 //               {/* Late Fee Warning */}
-//               {account.taxaMora && account.taxaMora > 0 && (
-//                 <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-800 flex items-center justify-between">
-//                   <span className="text-xs font-medium text-rose-600 dark:text-rose-400 flex items-center gap-1.5">
-//                     <AlertCircle className="h-4 w-4" aria-hidden="true" />
-//                     Multa por atraso
-//                   </span>
-//                   <span className="text-xs font-semibold text-rose-600 dark:text-rose-400">
-//                     +{formatMZN(account.taxaMora)}
-//                   </span>
-//                 </div>
-//               )}
+//               {user.detalhesConta.taxaMora &&
+//                 user.detalhesConta.taxaMora > 0 && (
+//                   <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-800 flex items-center justify-between">
+//                     <span className="text-xs font-medium text-rose-600 dark:text-rose-400 flex items-center gap-1.5">
+//                       <AlertCircle className="h-4 w-4" />
+//                       Multa por atraso
+//                     </span>
+//                     <span className="text-xs font-semibold text-rose-600 dark:text-rose-400">
+//                       +{formatMZN(user.detalhesConta.taxaMora)}
+//                     </span>
+//                   </div>
+//                 )}
 //             </article>
 //           );
 //         })}
@@ -232,7 +213,7 @@
 //   );
 // };
 
-// // StatusBadge component with TypeScript
+// // Improved StatusBadge component
 // const StatusBadge = ({
 //   count,
 //   variant,
@@ -265,38 +246,29 @@
 //   return (
 //     <div
 //       className={`text-xs ${bg} ${text} px-3 py-1.5 rounded-full flex items-center gap-2`}
-//       aria-label={`${count} ${
-//         variant === "success"
-//           ? "quitados"
-//           : variant === "warning"
-//           ? "em andamento"
-//           : "em mora"
-//       }`}
 //     >
-//       <span className={`w-2 h-2 rounded-full ${dot}`} aria-hidden="true" />
-//       <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+//       <span className={`w-2 h-2 rounded-full ${dot}`} />
+//       <Icon className="h-3.5 w-3.5" />
 //       <span>{count}</span>
 //     </div>
 //   );
 // };
 
-// // DetailItem component with accessibility
+// // DetailItem component
 // const DetailItem = ({
 //   icon: Icon,
 //   text,
-//   label,
 // }: {
 //   icon: React.ComponentType<{ className?: string }>;
 //   text: string;
-//   label?: string;
 // }) => (
-//   <div className="text-xs text-gray-600 dark:text-gray-400 flex items-center">
-//     <Icon className="h-3.5 w-3.5 mr-1.5 opacity-80" aria-hidden="true" />
-//     <span aria-label={label}>{text}</span>
-//   </div>
+//   <span className="text-xs text-gray-600 dark:text-gray-400 flex items-center">
+//     <Icon className="h-3.5 w-3.5 mr-1.5 opacity-80" />
+//     {text}
+//   </span>
 // );
 
-// // FinancialInfo component with TypeScript
+// // FinancialInfo component
 // const FinancialInfo = ({
 //   label,
 //   value,

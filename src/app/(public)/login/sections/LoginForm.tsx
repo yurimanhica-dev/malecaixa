@@ -61,13 +61,14 @@ export default function LoginForm() {
           role: data.data.role,
           name: data.data.name,
           status: data.data.status,
+          contas: data.data.contas || [], // Adicione fallback caso contas não venha
           detalhesConta: data.data.detalhesConta,
           stats: data.data.stats || {
             // Adicione fallback caso stats não venha
             total: 10,
-            pending: 5,
-            paid: 3,
-            overdue: 2,
+            pending: 2,
+            paid: 7,
+            overdue: 1,
           },
         });
 

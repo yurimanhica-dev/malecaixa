@@ -1,30 +1,33 @@
 "use client";
 
-import { FC } from "react";
+import DashboardSkeleton from "@/app/(private)/components/DashboardSkeleton";
+import { useAuth } from "@/app/contexts/AuthContext";
+import { Suspense } from "react";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
-
-interface CreditDistributionProps {
-  total: number;
-  paid: number;
-  pending: number;
-  overdue: number;
-}
 
 const COLORS = ["#10B981", "#F59E0B", "#EF4444"]; // emerald, amber, rose
 
-const CreditDistribution: FC<CreditDistributionProps> = ({
-  total,
-  paid,
-  pending,
-  overdue,
-}) => {
+const CreditDistribution = () => {
+  const { user } = useAuth();
+
+  if (!user?.stats) {
+    return (
+      <div className="p-4 text-red-500">
+        <Suspense fallback={<DashboardSkeleton />}></Suspense>
+      </div>
+    );
+  }
+
+  const stats = user.stats;
+
   const data = [
-    { name: "Quitados", value: paid },
-    { name: "Andamento", value: pending },
-    { name: "Mora", value: overdue },
+    { name: "Quitados", value: stats.paid },
+    { name: "Andamento", value: stats.pending },
+    { name: "Mora", value: stats.overdue },
   ];
 
-  const performance = total > 0 ? Math.round((paid / total) * 100) : 0;
+  const performance =
+    stats.total > 0 ? Math.round((stats.paid / stats.total) * 100) : 0;
 
   return (
     <div className="md:col-span-2 bg-white dark:bg-gray-900 p-5 rounded-xl shadow-xs border border-gray-100 dark:border-gray-700">
@@ -34,7 +37,7 @@ const CreditDistribution: FC<CreditDistributionProps> = ({
             Distribuição de Créditos
           </h3>
           <span className="text-gray-800 dark:text-gray-200">
-            <strong>Total:</strong> {total}
+            <strong>Total:</strong> {stats.total}
           </span>
         </div>
         <div className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
@@ -60,7 +63,7 @@ const CreditDistribution: FC<CreditDistributionProps> = ({
           </div>
           <div className="h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-emerald-500 to-amber-500"
+              className="h-full bg-emerald-500"
               style={{ width: `${performance}%` }}
             />
           </div>
@@ -90,7 +93,7 @@ const CreditDistribution: FC<CreditDistributionProps> = ({
                 }}
                 itemStyle={{ color: "white" }}
                 formatter={(value: number, name: string) => [
-                  `${value} (${Math.round((value / total) * 100)}%)`,
+                  `${value} (${Math.round((value / stats.total) * 100)}%)`,
                   name,
                 ]}
               />

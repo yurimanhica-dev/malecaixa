@@ -70,6 +70,7 @@ export async function POST(req: NextRequest) {
         data: {
           status,
           email,
+          contas: output.Contas || [], // Certifique-se de que Contas é um array
           name: output.FullName,
           role: "user", // ou outro papel conforme necessário
           detalhesConta: {

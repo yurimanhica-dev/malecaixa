@@ -1,32 +1,63 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle } from "lucide-react";
+import {
+  Clock,
+  FileCheck,
+  Headset,
+  Percent,
+  RefreshCw,
+  ShieldCheck,
+} from "lucide-react";
 import Simulacao from "../components/Simulacao";
 
 const LoanSection = () => {
   const benefits = [
-    "Dados seguros e protegidos",
-    "Apoio em cada etapa",
-    "Consulta da sua situação financeira em tempo real",
-    "Taxas competitivas e acessíveis",
-    "Planos flexíveis e adaptáveis",
-    "Processo de aprovação simplificado",
+    {
+      icon: <ShieldCheck className="w-6 h-6" />,
+      title: "Segurança de dados",
+      description: "Proteção avançada com criptografia de ponta a ponta",
+    },
+    {
+      icon: <Headset className="w-6 h-6" />,
+      title: "Suporte dedicado",
+      description: "Assistência personalizada em todas as etapas",
+    },
+    {
+      icon: <Clock className="w-6 h-6" />,
+      title: "Monitoramento em tempo real",
+      description: "Acompanhamento financeiro instantâneo",
+    },
+    {
+      icon: <Percent className="w-6 h-6" />,
+      title: "Taxas competitivas",
+      description: "Condições financeiras acessíveis",
+    },
+    {
+      icon: <RefreshCw className="w-6 h-6" />,
+      title: "Flexibilidade",
+      description: "Planos adaptáveis às suas necessidades",
+    },
+    {
+      icon: <FileCheck className="w-6 h-6" />,
+      title: "Processo simplificado",
+      description: "Aprovação rápida e sem burocracia",
+    },
   ];
 
   return (
     <section
       id="simulacao"
-      className="relative bg-white lg:py-15  overflow-hidden min-w-fit"
+      className="relative bg-white py-20 lg:py-28 overflow-hidden"
     >
-      {/* Decorative elements */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-0 left-0 w-64 h-64 bg-[var(--color-primary)] rounded-full filter blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-64 h-64 bg-[var(--color-secondary)] rounded-full filter blur-3xl" />
+      {/* Background gradient elements */}
+      <div className="absolute inset-0 overflow-hidden opacity-10">
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[var(--color-primary)] rounded-full filter blur-[100px]" />
+        <div className="absolute top-0 left-0  w-64 h-64 bg-[var(--color-secondary)] rounded-full filter blur-[100px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
@@ -60,35 +91,43 @@ const LoanSection = () => {
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              <h3 className="text-xl font-semibold text-gray-800 mb-6">
-                Por que escolher os nossos serviços?
+              <h3 className="text-xl font-semibold text-gray-900 mb-6">
+                Vantagens exclusivas
               </h3>
 
-              <ul className="grid grid-cols-1 gap-4 w-full">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {benefits.map((benefit, index) => (
                   <motion.li
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 * index }}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * index + 0.5 }}
                     viewport={{ once: true }}
-                    className="flex items-start gap-3 text-gray-700 "
+                    className="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100"
                   >
-                    <motion.div className="flex items-center gap-2 p-2 bg-primary shadow-md shadow-primary/20 backdrop-blur-sm w-full">
-                      <CheckCircle className="w-4 h-4 mt-0.5 text-[var(--color-secondary)] " />
-                      <blockquote className="text-gray-100 text-sm leading-relaxed border-l-4 border-secondary pl-4 md:pl-6">
-                        &ldquo;{benefit}&rdquo;
-                      </blockquote>
-                    </motion.div>
-                    {/* <span>{benefit}</span> */}
+                    <div className="flex-shrink-0 p-2 bg-[var(--color-primary)]/10 text-[var(--color-primary)] rounded-lg">
+                      {benefit.icon}
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-800">
+                        {benefit.title}
+                      </h4>
+                      <p className="text-sm text-gray-600 mt-1">
+                        {benefit.description}
+                      </p>
+                    </div>
                   </motion.li>
                 ))}
               </ul>
             </motion.div>
           </motion.div>
 
-          {/* Loan Calculator - Placeholder for your simulator */}
-          <Simulacao />
+          {/* Loan Calculator */}
+          <div className="relative">
+            <div className="sticky top-24">
+              <Simulacao />
+            </div>
+          </div>
         </div>
       </div>
     </section>

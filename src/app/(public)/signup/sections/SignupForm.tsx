@@ -36,6 +36,7 @@ const SignupForm = () => {
         throw new Error(data.error || "Erro ao solicitar acesso");
       }
 
+      console.log(data.success);
       // Verifica a estrutura da resposta da API
       if (data.success) {
         // Autenticação bem-sucedida

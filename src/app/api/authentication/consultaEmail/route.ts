@@ -55,15 +55,17 @@ export async function POST(req: NextRequest) {
     // Formata a resposta
     const responseData = {
       status: status,
-      senhaCliente: output?.senhaCliente,
+      SenhaValida: output?.SenhaValida,
       detalhe: {
         codErro: output?.Detalhe?.CodErro,
         msgErro: output?.Detalhe?.MsgErro,
       },
     };
 
+    console.log("Resposta da autenticação:", responseData);
+
     // Verifica se a autenticação foi bem-sucedida
-    if (responseData.senhaCliente === "1") {
+    if (responseData.SenhaValida === 1) {
       return NextResponse.json({
         success: true,
         message: "Autenticação bem-sucedida",

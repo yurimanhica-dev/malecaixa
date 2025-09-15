@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
       "http://MALEsoftware/ATServices/"
     );
 
-    // Parâmetros para ValidaAutenticacao
+    // Parâmetros para Valida Autenticação
     const args = {
       input: {
         EmailMetodo: email,
@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
       },
     };
 
-    // Chama o método ValidaAutenticacao
+    // Chama o método Valida Autenticação
     const [result] = await client.ValidaAutenticacaoAsync(args);
 
     const output = result.ValidaAutenticacaoResult;

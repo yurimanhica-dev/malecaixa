@@ -46,17 +46,13 @@ const LoanSection = () => {
   ];
 
   return (
-    <section
-      id="simulacao"
-      className="relative bg-white py-20 lg:py-28 overflow-hidden"
-    >
+    <section id="simulacao" className="relative bg-white pb-24 ">
       {/* Background gradient elements */}
       <div className="absolute inset-0 overflow-hidden opacity-10">
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-[var(--color-primary)] rounded-full filter blur-[100px]" />
         <div className="absolute top-0 left-0  w-64 h-64 bg-[var(--color-secondary)] rounded-full filter blur-[100px]" />
       </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-7xl mx-auto c-space relative">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
           <motion.div
@@ -70,7 +66,7 @@ const LoanSection = () => {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="inline-block uppercase tracking-wider text-gray-700 px-3 pt-1.5 pb-1 text-sm font-medium rounded-full bg-[var(--color-secondary)]"
+              className="inline-block uppercase tracking-wider text-gray-700 px-3 py-2 text-sm font-medium rounded-full bg-[var(--color-secondary)]"
             >
               QUEM SOMOS
             </motion.span>
@@ -91,7 +87,7 @@ const LoanSection = () => {
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              <h3 className="text-xl font-semibold text-gray-900 mb-6">
+              <h3 className="text-xl font-bold uppercase text-primary mb-6">
                 Vantagens exclusivas
               </h3>
 
@@ -105,11 +101,11 @@ const LoanSection = () => {
                     viewport={{ once: true }}
                     className="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100"
                   >
-                    <div className="flex-shrink-0 p-2 bg-[var(--color-primary)]/10 text-[var(--color-primary)] rounded-lg">
+                    <div className="flex-shrink-0 p-2 text-[var(--color-secondary)] rounded-lg">
                       {benefit.icon}
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-800">
+                      <h4 className="font-medium text-gray-700">
                         {benefit.title}
                       </h4>
                       <p className="text-sm text-gray-600 mt-1">

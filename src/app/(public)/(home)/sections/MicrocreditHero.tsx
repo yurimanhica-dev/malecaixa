@@ -41,10 +41,19 @@ export default function MicrocreditHero() {
     {
       id: 3,
       image: "/bgagr.jpeg",
-      title: "Apoio ao Empreendedor Local",
+      title: "Apoiamos o Empreendedor Local",
       description:
         "Acreditamos no poder transformador do empreendedorismo local. Nosso objetivo é fomentar o desenvolvimento sustentável da sua comunidade, por meio de financiamento responsável e acompanhamento próximo.",
       ctaText: "Entenda como funciona.",
+      ctaLink: "/about",
+    },
+    {
+      id: 4,
+      image: "/estudoss.jpg",
+      title: "Apoiando seus Sonhos",
+      description:
+        "Com o nosso Empréstimo Estudantil, você pode investir no seu futuro acadêmico com tranquilidade. Oferecemos prazos flexíveis, taxas acessíveis e condições pensadas para tornar sua jornada de estudos mais leve e possível.",
+      ctaText: "Empréstimo Estudantil",
       ctaLink: "/about",
     },
   ];
@@ -146,7 +155,7 @@ export default function MicrocreditHero() {
             >
               {/* Título com peso visual adequado */}
               <div className="flex flex-col gap-8">
-                <h1 className="text-4xl lg:text-7xl sm:max-w-md lg:max-w-3xl uppercase font-bold font-sans text-white ">
+                <h1 className="text-5xl lg:text-7xl max-w-md lg:max-w-3xl uppercase font-bold font-sans text-white ">
                   {slides[currentIndex].title}
                 </h1>
 
@@ -183,7 +192,6 @@ export default function MicrocreditHero() {
             ))}
           </div>
 
-          {/* Botões de navegação com microinterações */}
           <div className="flex space-x-3">
             <motion.button
               onClick={prevSlide}

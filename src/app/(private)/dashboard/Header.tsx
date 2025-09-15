@@ -166,7 +166,7 @@ const Header = ({ onToggleSidebar }: HeaderProps) => {
 
               {/* Dropdown Menu */}
               {isProfileDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-900 rounded-lg shadow-xl ring-1 ring-gray-200 dark:ring-gray-800 focus:outline-none z-50 overflow-hidden transition-all duration-200 ease-out origin-top-right transform opacity-100 scale-100">
+                <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-900 rounded-lg shadow-xl ring-1 ring-gray-200 dark:ring-gray-800 focus:outline-none z-40 overflow-hidden transition-all duration-200 ease-out origin-top-right transform opacity-100 scale-100">
                   {/* Profile Section */}
                   <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-800">
                     <p className="text-sm font-medium text-gray-900 dark:text-white">

@@ -1,3 +1,4 @@
+import { CREDIT_TYPES } from "@/app/utils/creditCalculations";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
@@ -14,6 +15,7 @@ export async function POST(request: Request) {
     salary,
     amount,
     months,
+
     institution = "",
   } = formData;
 
@@ -43,205 +45,221 @@ export async function POST(request: Request) {
     },
   });
 
+  const interestRate = creditType.interestRates[months] || 0;
+  // Função auxiliar para calcular o total a pagar (deve ser a mesma usada no frontend)
+  function calculateTotalPayback(
+    amount: number,
+    months: number,
+    creditTypeId: number
+  ): number {
+    const creditType = CREDIT_TYPES.find(
+      (credit) => credit.id === creditTypeId
+    );
+    if (!creditType) return amount;
+
+    const interestRate = creditType.interestRates[months] / 100;
+    return amount * Math.pow(1 + interestRate, months);
+  }
+
   // E-mail para a equipe administrativa
   const adminEmailHtml = `
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nova Solicitação de Crédito | MALEcaixa</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #009feb;
-      --primary-light: #e6f5fc;
-      --secondary: #fed400;
-      --text: #2d3436;
-      --text-light: #636e72;
-      --white: #ffffff;
-      --light-bg: #f9f9f9;
-      --border-radius: 12px;
-      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
-    
-    body {
-      font-family: 'Poppins', sans-serif;
-      line-height: 1.6;
-      color: var(--text);
-      background-color: var(--light-bg);
-      margin: 0;
-      padding: 0;
-    }
-    
-    .email-container {
-      max-width: 600px;
-      margin: 0 auto;
-      background-color: var(--white);
-      border-radius: var(--border-radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-    
-    .header {
-      background: linear-gradient(135deg, var(--primary) 0%, #0066cc 100%);
-      color: var(--white);
-      padding: 32px 24px;
-      text-align: center;
-    }
-    
-    .content {
-      padding: 32px;
-    }
-    
-    .divider {
-      height: 2px;
-      background: linear-gradient(90deg, transparent 0%, var(--secondary) 50%, transparent 100%);
-      margin: 24px 0;
-    }
-    
-    .footer {
-      text-align: center;
-      padding: 24px;
-      font-size: 14px;
-      color: var(--text-light);
-      background-color: var(--light-bg);
-    }
-    
-    .details-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 24px 0;
-    }
-    
-    .details-table th, .details-table td {
-      padding: 12px;
-      text-align: left;
-      border-bottom: 1px solid #eee;
-    }
-    
-    .details-table th {
-      background-color: var(--light-bg);
-      color: var(--text-light);
-    }
-    
-    .highlight {
-      background-color: var(--primary-light);
-      padding: 16px;
-      border-radius: var(--border-radius);
-      margin: 16px 0;
-    }
-    
-    .badge {
-      display: inline-block;
-      padding: 4px 8px;
-      background-color: var(--secondary);
-      color: var(--text);
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 500;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova Solicitação de Crédito | MALEcaixa</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #009feb;
+  --primary-light: #e6f5fc;
+  --secondary: #fed400;
+  --text: #2d3436;
+  --text-light: #636e72;
+  --white: #ffffff;
+  --light-bg: #f9f9f9;
+  --border-radius: 12px;
+  --shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--light-bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+}
+
+.email-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.header {
+  background: linear-gradient(135deg, var(--primary) 0%, #0066cc 100%);
+  color: var(--white);
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.header img {
+  height: 48px;
+  margin-bottom: 16px;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.header p {
+  margin-top: 8px;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.content {
+  padding: 32px 24px;
+}
+
+.content p {
+  margin: 0 0 16px;
+  line-height: 1.6;
+}
+
+.divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--secondary) 50%, transparent 100%);
+  margin: 24px 0;
+  border-radius: 2px;
+}
+
+.details-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+
+.details-table th, .details-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.details-table th {
+  background-color: var(--light-bg);
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.highlight {
+  background-color: var(--primary-light);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  margin: 16px 0;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  background-color: var(--secondary);
+  color: var(--text);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+.footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 14px;
+  color: var(--text-light);
+  background-color: var(--light-bg);
+}
+
+@media (max-width: 640px) {
+  .content {
+    padding: 24px 16px;
+  }
+  .header {
+    padding: 24px 16px;
+  }
+  .highlight {
+    padding: 16px;
+  }
+}
+</style>
 </head>
 <body>
-  <div class="email-container">
-    <div class="header">
-      <img src="https://dbmib2q8rj.ufs.sh/f/Lm6xK3J7O1CLDCc1WDKOH3B9iRavr4SYO8pjUdgbsPulQfem" alt="MALEcaixa" style="height: 48px; margin-bottom: 16px;">
-      <h1 style="margin: 0; font-size: 24px; font-weight: 600;">Nova Solicitação de Crédito</h1>
-      <p style="margin: 8px 0 0; opacity: 0.9;">Uma nova solicitação foi submetida através do sistema</p>
-    </div>
-    
-    <div class="content">
-      <p style="margin: 0 0 16px;">Olá equipe MALEcaixa,</p>
-      <p style="margin: 0 0 24px;">Você recebeu uma nova solicitação de crédito. Por favor, revise os detalhes abaixo:</p>
-      
-      <div class="divider"></div>
-      
-      <h3 style="margin: 0 0 16px; font-size: 18px; color: var(--primary);">Informações do Cliente</h3>
-      
-      <table class="details-table">
-        <tr>
-          <th>Nome Completo</th>
-          <td>${fullName}</td>
-        </tr>
-        <tr>
-          <th>E-mail</th>
-          <td><a href="mailto:${email}">${email}</a></td>
-        </tr>
-        <tr>
-          <th>Telefone</th>
-          <td>${phone}</td>
-        </tr>
-        <tr>
-          <th>Salário Líquido</th>
-          <td>${Number(salary).toLocaleString("pt-BR")} MZN</td>
-        </tr>
-        ${
-          institution
-            ? `
-        <tr>
-          <th>Instituição</th>
-          <td>${institution}</td>
-        </tr>
-        `
-            : ""
-        }
-      </table>
-      
-      <div class="divider"></div>
-      
-      <h3 style="margin: 0 0 16px; font-size: 18px; color: var(--primary);">Detalhes do Crédito</h3>
-      
-      <div class="highlight">
-        <table class="details-table">
-          <tr>
-            <th>Tipo de Crédito</th>
-            <td>
-              ${creditType.name}
-              <span class="badge" style="margin-left: 8px;">Taxa: ${
-                creditType.interestRate
-              }%</span>
-            </td>
-          </tr>
-          <tr>
-            <th>Montante Solicitado</th>
-            <td>${Number(amount).toLocaleString("pt-BR")} MZN</td>
-          </tr>
-          <tr>
-            <th>Prazo</th>
-            <td>${months} meses</td>
-          </tr>
-          <tr>
-            <th>Total a Pagar</th>
-            <td style="font-weight: 600; color: var(--primary);">
-              ${calculateTotalPayback(
-                amount,
-                months,
-                creditTypeId
-              ).toLocaleString("pt-BR")} MZN
-            </td>
-          </tr>
-        </table>
-      </div>
-      
-      <div class="divider"></div>
-      
-      <p style="margin: 24px 0 0; font-size: 15px;">
-        <strong>Data/Hora da Solicitação:</strong> ${new Date().toLocaleString(
-          "pt-BR"
-        )}
-      </p>
-    </div>
-    
-    <div class="footer">
-      <p style="margin: 0 0 8px;">Este e-mail foi gerado automaticamente pelo sistema de crédito da MALEcaixa.</p>
-      <p style="margin: 0;">© ${new Date().getFullYear()} MALEcaixa. Todos os direitos reservados.</p>
-    </div>
+<div class="email-container">
+  <div class="header">
+    <img src="https://dbmib2q8rj.ufs.sh/f/Lm6xK3J7O1CLDCc1WDKOH3B9iRavr4SYO8pjUdgbsPulQfem" alt="MALEcaixa">
+    <h1>Nova Solicitação de Crédito</h1>
+    <p>Uma nova solicitação foi submetida através do sistema</p>
   </div>
+
+  <div class="content">
+    <p>Olá equipe MALEcaixa,</p>
+    <p>Você recebeu uma nova solicitação de crédito. Por favor, revise os detalhes abaixo:</p>
+
+    <div class="divider"></div>
+
+    <h3 style="color: var(--primary); margin-bottom: 16px;">Informações do Cliente</h3>
+    <table class="details-table">
+      <tr><th>Nome Completo</th><td>${fullName}</td></tr>
+      <tr><th>E-mail</th><td><a href="mailto:${email}" style="color: var(--primary); text-decoration: none;">${email}</a></td></tr>
+      <tr><th>Telefone</th><td>${phone}</td></tr>
+      <tr><th>Salário Líquido</th><td>${Number(salary).toLocaleString(
+        "pt-BR"
+      )} MZN</td></tr>
+      ${
+        institution
+          ? `<tr><th>Instituição</th><td>${institution}</td></tr>`
+          : ""
+      }
+    </table>
+
+    <div class="divider"></div>
+
+    <h3 style="color: var(--primary); margin-bottom: 16px;">Detalhes do Crédito</h3>
+    <div class="highlight">
+      <table class="details-table">
+        <tr><th>Tipo de Crédito</th><td>${
+          creditType.name
+        }<span class="badge">Taxa de Juros: ${interestRate * 100}%</span></td></tr>
+        <tr><th>Montante Solicitado</th><td>${Number(amount).toLocaleString(
+          "pt-BR"
+        )} MZN</td></tr>
+        <tr><th>Prazo</th><td>${months} meses</td></tr>
+        <tr><th>Total a Pagar</th><td style="color: var(--primary); font-weight: 600;">${calculateTotalPayback(
+          amount,
+          months,
+          creditTypeId
+        ).toLocaleString("pt-BR")} MZN</td></tr>
+      </table>
+    </div>
+
+    <div class="divider"></div>
+    <p style="margin-top:24px; font-size: 15px;">Data/Hora da Solicitação: ${new Date().toLocaleString(
+      "pt-BR"
+    )}</p>
+  </div>
+
+  <div class="footer">
+    <p>Este e-mail foi gerado automaticamente pelo sistema de crédito da MALEcaixa.</p>
+    <p>© ${new Date().getFullYear()} MALEcaixa. Todos os direitos reservados.</p>
+  </div>
+</div>
 </body>
 </html>
 `;
-
   // E-mail de confirmação para o cliente
   const clientEmailHtml = `
 <!DOCTYPE html>
@@ -404,7 +422,7 @@ export async function POST(request: Request) {
           creditTypeId
         ).toLocaleString("pt-BR")} MZN</p>
         <p style="margin: 8px 0;"><strong>Taxa de Juros:</strong> ${
-          creditType.interestRate
+          interestRate * 100
         }% ao mês</p>
       </div>
       
@@ -483,47 +501,3 @@ export async function POST(request: Request) {
     );
   }
 }
-
-// Função auxiliar para calcular o total a pagar (deve ser a mesma usada no frontend)
-function calculateTotalPayback(
-  amount: number,
-  months: number,
-  creditTypeId: number
-): number {
-  const creditType = CREDIT_TYPES.find((credit) => credit.id === creditTypeId);
-  if (!creditType) return amount;
-
-  const interestRate = creditType.interestRate / 100;
-  return amount * Math.pow(1 + interestRate, months);
-}
-
-// Tipos de crédito (deve corresponder ao frontend)
-const CREDIT_TYPES = [
-  {
-    id: 1,
-    name: "Crédito Pessoal",
-    interestRate: 3.5,
-    minAmount: 5000,
-    maxAmount: 500000,
-    minMonths: 3,
-    maxMonths: 24,
-  },
-  {
-    id: 2,
-    name: "Crédito Automóvel",
-    interestRate: 2.8,
-    minAmount: 100000,
-    maxAmount: 3000000,
-    minMonths: 6,
-    maxMonths: 60,
-  },
-  {
-    id: 3,
-    name: "Crédito Habitação",
-    interestRate: 1.9,
-    minAmount: 500000,
-    maxAmount: 10000000,
-    minMonths: 12,
-    maxMonths: 240,
-  },
-];

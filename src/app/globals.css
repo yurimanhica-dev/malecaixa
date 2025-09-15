@@ -4,7 +4,7 @@
 
 @theme {
   --color-primary: #009feb;
-  --color-secondary: #fed400;
+  --color-secondary: #ffcd00;
   --color-tertiary: #ffcd00;
   --color-hover: #009ae3;
   --color-gradient: #0066cc;
@@ -19,9 +19,11 @@
     font-family: "Special Gothic Expanded One", sans-serif;
     font-weight: 800;
   }
+
   .c-space {
-    @apply lg:px-10 px-5;
+    @apply md:px-10 px-5 lg:px-15;
   }
+
   .container p:nth-child(even) {
     @apply text-secondary group-hover:text-white transition-colors duration-300 delay-100;
   }

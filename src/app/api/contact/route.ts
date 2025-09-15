@@ -40,14 +40,13 @@ export async function POST(request: Request) {
   <title>Nova Mensagem | MALEcaixa</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* Design System Base */
     :root {
-      --primary: #009feb;       /* Azul confiança */
-      --primary-light: #e6f5fc; /* Azul claro */
-      --secondary: #fed400;     /* Amarelo energia */
-      --success: #2ecc71;       /* Verde confirmação */
-      --text: #2d3436;          /* Texto principal */
-      --text-light: #636e72;    /* Texto secundário */
+      --primary: #009feb;       
+      --primary-light: #e6f5fc; 
+      --secondary: #fed400;     
+      --success: #2ecc71;      
+      --text: #2d3436;          
+      --text-light: #636e72;    
       --white: #ffffff;
       --light-bg: #f9f9f9;
       --border-radius: 12px;
@@ -55,7 +54,7 @@ export async function POST(request: Request) {
       --spacing-unit: 8px;
     }
     
-    /* Espaçamentos baseados em múltiplos de 8px */
+   
     .spacing-1 { margin: var(--spacing-unit); }
     .spacing-2 { margin: calc(var(--spacing-unit) * 2); }
     .spacing-3 { margin: calc(var(--spacing-unit) * 3); }
@@ -147,7 +146,7 @@ export async function POST(request: Request) {
       margin-top: 8px;
     }
     
-    /* Tabela de detalhes com espaçamento perfeito */
+    
     .details-table {
       width: 100%;
       border-collapse: separate;
@@ -168,7 +167,7 @@ export async function POST(request: Request) {
       border-bottom: 1px solid #eee;
     }
     
-    /* Efeitos de hover sutis */
+   
     a {
       color: var(--primary);
       transition: color 0.2s ease;

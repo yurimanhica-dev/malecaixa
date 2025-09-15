@@ -107,7 +107,7 @@ export default function MemberAccess(): JSX.Element {
               damping: 20,
               stiffness: 300,
             }}
-            className="absolute left-0 mt-2 w-fit origin-top-right rounded-md shadow-lg bg-white ring-1 ring-black/10 z-50 divide-y divide-gray-100 focus:outline-none"
+            className="absolute left-0 mt-2 w-fit origin-top-right rounded-md shadow-lg bg-white ring-1 ring-black/10 z-40 divide-y divide-gray-100 focus:outline-none"
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="member-access-button"

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import ContactSection from "./ContactSection";
 
 export default function TransitionCTA() {
@@ -23,7 +24,7 @@ export default function TransitionCTA() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl uppercase font-extrabold leading-tight mb-6">
             Pronto para dar o próximo passo?
           </h2>
 
@@ -44,24 +45,21 @@ export default function TransitionCTA() {
             <div className="flex items-center justify-center gap-4">
               {/* <FaPhoneAlt className="w-5 h-5" /> */}
               <div className="flex flex-wrap justify-center gap-6">
-                <a
+                <Link
                   href="tel:+258841234567"
                   className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
                 >
                   (+258) 84 123 4567
-                </a>
+                </Link>
                 |
-                <a
+                <Link
                   href="tel:+258214149911"
                   className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
                 >
                   (+258) 21 414 9911
-                </a>
+                </Link>
               </div>
             </div>
-            {/* <h2 className=" tracking-wider text-gray-400 mt-4">
-              © {new Date().getFullYear()} MALECaixa. Todos direitos reservados.
-            </h2> */}
           </div>
         </motion.div>
       </div>

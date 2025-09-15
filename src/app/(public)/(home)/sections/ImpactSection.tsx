@@ -47,8 +47,8 @@ const ImpactSection = () => {
         <div className="absolute bottom-1/3 -right-20 w-64 h-64 bg-[var(--color-secondary)] rounded-full blur-3xl" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid lg:grid-cols-3 gap-12 items-center">
+      <div className="max-w-7xl mx-auto c-space relative">
+        <div className="grid lg:grid-cols-3 gap-12 ">
           {/* Statistics */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
@@ -58,7 +58,7 @@ const ImpactSection = () => {
             className="lg:col-span-2 space-y-8"
           >
             <motion.span
-              className="inline-block uppercase tracking-wider px-3 pt-1.5 pb-1 text-sm font-medium rounded-full
+              className="inline-block uppercase tracking-wider px-3 py-2 text-sm font-medium rounded-full
                bg-[var(--color-primary)] text-white shadow "
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -67,7 +67,7 @@ const ImpactSection = () => {
               Nosso Impacto
             </motion.span>
 
-            <h2 className="text-4xl md:text-5xl font-sans font-bold leading-tight">
+            <h2 className="text-3xl text-primary/80 md:text-4xl uppercase font-sans font-bold leading-tight">
               Transformando realidades em Moçambique
             </h2>
 
@@ -111,7 +111,9 @@ const ImpactSection = () => {
               ))}
             </div>
           </motion.div>
-          <Testimonials />
+          <div className="md:col-span-1 w-full flex justify-center items-center">
+            <Testimonials />
+          </div>
         </div>
       </div>
     </section>

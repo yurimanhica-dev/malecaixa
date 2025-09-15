@@ -15,8 +15,7 @@ const FinancialSolutions = () => {
     },
     {
       title: "Empréstimos Pessoais",
-      description:
-        "Condições flexíveis e taxas competitivas adaptadas às suas necessidades.",
+      description: "Condições flexíveis e taxas competitivas.",
       icon: "/servicos/iconb1.png",
       backgroundImage: "/servicos/personaLoans.jpg",
       number: "02",
@@ -83,7 +82,7 @@ const FinancialSolutions = () => {
     >
       <div className="container mx-auto px-4">
         <div className="mb-8 md:mb-12 text-center">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-100 mb-3 md:mb-4 title-underline">
+          <h2 className="text-3xl md:text-4xl uppercase font-extrabold text-gray-100 mb-3 md:mb-4 title-underline">
             Soluções Disponíveis
           </h2>
           <p className="text-base md:text-lg text-secondary max-w-3xl mx-auto">
@@ -95,9 +94,9 @@ const FinancialSolutions = () => {
         <div className="md:hidden">
           <div className="relative w-full">
             <div className="flex justify-center">
-              <div className="w-full max-w-xs">
-                <div className="group w-fit flex-shrink-0 rounded-xl overflow-hidden bg-white shadow-md hover:shadow-xl transition-all duration-300 my-4">
-                  <div className="relative h-40">
+              <div className="w-full max-w-md">
+                <div className="group flex-shrink-0 rounded-xl overflow-hidden bg-white shadow-md hover:shadow-xl transition-all duration-300 my-4">
+                  <div className="relative h-80 w-full">
                     <Image
                       src={services[currentIndex].backgroundImage}
                       alt={services[currentIndex].title}
@@ -126,7 +125,7 @@ const FinancialSolutions = () => {
                           sizes="40px"
                         />
                       </div>
-                      <h3 className="text-lg text-nowrap font-semibold text-gray-800">
+                      <h3 className="text-lg text-nowrap font-semibold text-primary">
                         {services[currentIndex].title}
                       </h3>
                     </div>
@@ -207,7 +206,9 @@ const FinancialSolutions = () => {
                     priority={index < 6}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  <div className="absolute top-3 right-3 bg-white text-gray-900 font-bold rounded-full w-8 h-8 flex items-center justify-center shadow">
+                  <div
+                    className={`absolute top-3 right-3 bg-white text-gray-700 font-bold rounded-full w-8 h-8 flex items-center justify-center shadow ${service.color}`}
+                  >
                     {service.number}
                   </div>
                 </div>
@@ -223,7 +224,9 @@ const FinancialSolutions = () => {
                         sizes="40px"
                       />
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-800">
+                    <h3
+                      className={`text-lg font-semibold uppercase ${service.color}`}
+                    >
                       {service.title}
                     </h3>
                   </div>

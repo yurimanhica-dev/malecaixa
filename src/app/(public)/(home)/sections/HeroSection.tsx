@@ -4,6 +4,7 @@ import type { Variants } from "framer-motion";
 import { motion } from "framer-motion";
 import { BarChart, Clock, Handshake, Shield } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const HeroSection = () => {
   // Animation constants
@@ -60,7 +61,7 @@ const HeroSection = () => {
         <div className="absolute bottom-0 right-20 w-64 h-64 bg-[var(--color-secondary)] rounded-full mix-blend-multiply filter blur-3xl" />
       </div>
 
-      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 grid md:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="max-w-screen-xl mx-auto c-space py-24 md:py-32 grid md:grid-cols-2 gap-12 items-center relative z-10">
         {/* Text content */}
         <motion.div
           initial="hidden"
@@ -69,14 +70,14 @@ const HeroSection = () => {
           className="relative z-10"
         >
           <motion.div variants={itemVariants}>
-            <span className="inline-block uppercase tracking-wider text-gray-700 px-3 pt-1.5 pb-1 text-sm font-medium rounded-full bg-[var(--color-secondary)] mb-4">
+            <span className="inline-block uppercase tracking-wider text-gray-700 px-3 py-2 text-sm font-medium rounded-full bg-[var(--color-secondary)] mb-4">
               Desde 2012
             </span>
           </motion.div>
 
           <motion.h1
             variants={itemVariants}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight"
+            className="text-3xl md:text-4xl uppercase font-extrabold text-gray-50 leading-tight tracking-tight"
           >
             Transformando sonhos em realidade há 13 anos
           </motion.h1>
@@ -120,7 +121,7 @@ const HeroSection = () => {
               whileTap={{ scale: 0.98 }}
               className="px-8 py-3 bg-[var(--color-secondary)] hover:bg-[var(--color-secondary)/90 text-gray-700 font-medium rounded-lg transition-all duration-300 shadow-lg"
             >
-              <a href="#simulacao">Simule o seu crédito</a>
+              <Link href="#simulacao">Simule o seu crédito</Link>
             </motion.button>
             <motion.button
               variants={itemVariants}
@@ -128,7 +129,7 @@ const HeroSection = () => {
               whileTap={{ scale: 0.98 }}
               className="px-8 py-3 bg-transparent border-2 border-white text-white hover:bg-white/10 font-medium rounded-lg transition-all duration-300"
             >
-              <a href="#sobre">Conheça nossa história</a>
+              <Link href="#sobre">Conheça nossa história</Link>
             </motion.button>
           </motion.div>
         </motion.div>

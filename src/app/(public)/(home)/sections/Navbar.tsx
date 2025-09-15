@@ -1,9 +1,9 @@
 "use client";
-
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { JSX, useEffect, useState } from "react";
+import { HiBarsArrowDown } from "react-icons/hi2";
 import MemberAccess from "../components/MemberAccess";
 
 interface NavItem {
@@ -78,8 +78,8 @@ export default function Navbar(): JSX.Element {
   const toggleMenu = (): void => setIsOpen(!isOpen);
 
   return (
-    <nav className="bg-white min-w-fit w-full shadow-md shadow-primary/70 sticky top-0 z-50 py-2 backdrop-blur-md transition-all  duration-300 ease-in-out">
-      <div className="mx-auto max-w-screen-xl px-4 lg:px-8">
+    <nav className="bg-white min-w-fit w-full shadow-md shadow-primary/70 sticky top-0 z-40 py-2 backdrop-blur-md transition-all  duration-300 ease-in-out">
+      <div className="mx-auto max-w-screen-xl c-space">
         <div className="flex justify-between h-14">
           {/* Logo e menu desktop */}
           <motion.div className="relative w-[160px] h-[48px] min-w-fit">
@@ -144,34 +144,11 @@ export default function Navbar(): JSX.Element {
               aria-expanded={isOpen}
               aria-label="Toggle menu"
             >
-              <svg
-                className={`${isOpen ? "hidden" : "block"} h-6 w-6`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-              <svg
-                className={`${isOpen ? "block" : "hidden"} h-6 w-6`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <span className="sr-only">Open main menu</span>
+              <HiBarsArrowDown
+                className="w-7 h-7 font-extralight"
+                aria-hidden="true"
+              />
             </motion.button>
           </div>
         </div>

@@ -87,10 +87,10 @@ const Testimonials = () => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.2 }}
       viewport={{ once: true }}
-      className="bg-[var(--color-primary)] text-white min-w-[300px] rounded-2xl shadow-2xl h-full flex flex-col overflow-hidden"
+      className="bg-[var(--color-primary)] text-white md:max-w-3xl rounded-2xl shadow-2xl h-full flex  flex-col overflow-hidden"
     >
       {/* Image Section */}
-      <div className="relative h-56 md:h-64 w-full">
+      <div className="relative h-64 w-full">
         <AnimatePresence>
           <motion.div
             key={`image-${currentTestimonial}`}
@@ -105,8 +105,9 @@ const Testimonials = () => {
               alt={`Foto de ${testimonials[currentTestimonial].author}`}
               fill
               className="object-cover object-top"
-              sizes="(max-width: 768px) 100vw, 50vw"
               priority
+              quality={100}
+              sizes="100vw"
             />
             <div className="absolute inset-0 rounded-b-3xl bg-gradient-to-t from-[var(--color-primary)] to-transparent opacity-40" />
           </motion.div>

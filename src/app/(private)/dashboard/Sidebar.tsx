@@ -86,7 +86,7 @@ const Sidebar = ({
       {/* {!visible && ( */}
       <button
         onClick={onToggle}
-        className="fixed lg:hidden bottom-6 right-6 z-50 p-3 bg-primary/60 hover:bg-primary/70 text-white rounded-full shadow-lg transition-colors"
+        className="fixed lg:hidden bottom-6 right-6 z-40 p-3 bg-primary/60 hover:bg-primary/70 text-white rounded-full shadow-lg transition-colors"
         aria-label="Abrir menu"
       >
         <Menu className="h-6 w-6" />

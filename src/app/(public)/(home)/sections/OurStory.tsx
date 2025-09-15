@@ -29,14 +29,15 @@ const OurStory = () => {
   };
   return (
     <section id="sobre" className="py-20 md:py-30 bg-white min-w-fit">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto c-space">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div className="relative h-96 overflow-hidden shadow-lg">
             <Image
-              src="/need.jpeg"
-              alt="colecao de fotos de pesssoas que fizeram emprestimos"
+              // src="/need.jpeg"
+              src="/coleccao.png"
+              alt="coleção de fotos de pessoas que fizeram empréstimos"
               fill
-              className="object-cover"
+              className="object-cover object-top"
             />
           </div>
 
@@ -48,7 +49,7 @@ const OurStory = () => {
             className="space-y-6"
           >
             <motion.div variants={item}>
-              <span className="inline-block uppercase tracking-wider text-gray-700 px-3 py-1 text-sm font-medium rounded-full bg-[var(--color-secondary)] ">
+              <span className="inline-block uppercase tracking-wider text-gray-700 px-3 py-2 text-sm font-medium rounded-full bg-[var(--color-secondary)] ">
                 Nossa História
               </span>
             </motion.div>
@@ -61,12 +62,7 @@ const OurStory = () => {
                 <span className="text-secondary text-2xl">.</span>&rdquo;
               </blockquote>
             </motion.div>
-            {/* <motion.h2
-              variants={item}
-              className="text-3xl font-sans md:text-4xl font-bold text-primary"
-            >
-              Financiando o futuro de quem precisa
-            </motion.h2> */}
+
             <motion.p
               variants={item}
               className="text-md text-gray-600 leading-relaxed"
@@ -79,15 +75,6 @@ const OurStory = () => {
               responsável, promovendo autonomia, dignidade e crescimento
               sustentável nas comunidades que atendemos.
             </motion.p>
-            {/* <motion.p
-              variants={item}
-              className="text-lg text-gray-600 leading-relaxed"
-            >
-              Hoje, somos referência nacional em soluções financeiras
-              inclusivas, com mais de 150 mil clientes atendidos e uma taxa de
-              inadimplência abaixo da média do mercado - prova da eficácia do
-              nosso modelo.
-            </motion.p> */}
           </motion.div>
         </div>
       </div>

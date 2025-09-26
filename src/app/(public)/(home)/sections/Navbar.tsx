@@ -3,7 +3,7 @@ import { AnimatePresence, motion, Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { JSX, useEffect, useState } from "react";
-import { HiBarsArrowDown } from "react-icons/hi2";
+import { HiBars3 } from "react-icons/hi2";
 import MemberAccess from "../components/MemberAccess";
 
 interface NavItem {
@@ -145,10 +145,7 @@ export default function Navbar(): JSX.Element {
               aria-label="Toggle menu"
             >
               <span className="sr-only">Open main menu</span>
-              <HiBarsArrowDown
-                className="w-7 h-7 font-extralight"
-                aria-hidden="true"
-              />
+              <HiBars3 className="w-7 h-7 font-extralight" aria-hidden="true" />
             </motion.button>
           </div>
         </div>

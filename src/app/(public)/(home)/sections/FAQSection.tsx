@@ -41,7 +41,7 @@ const FAQSection = () => {
 
   return (
     <section id="contactos" className="py-20 bg-white min-w-fit">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto c-space">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -49,13 +49,13 @@ const FAQSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)] mb-4">
+          <div className="inline-flex items-center px-4 py-2 rounded-full text-[var(--color-secondary)] mb-4">
             <HelpCircle className="w-5 h-5 mr-2" />
             <span className="text-sm font-medium uppercase  tracking-wider">
               FAQ
             </span>
           </div>
-          <h2 className="text-3xl md:text-4xl uppercase font-extrabold text-secondary mb-4">
+          <h2 className="text-3xl md:text-4xl text-gray-900 uppercase font-extrabold  mb-4">
             Perguntas Frequentes
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">

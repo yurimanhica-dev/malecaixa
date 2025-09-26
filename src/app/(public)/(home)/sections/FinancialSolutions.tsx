@@ -80,7 +80,7 @@ const FinancialSolutions = () => {
       id="solucoes"
       className="py-12 md:py-20 bg-primary overflow-hidden min-w-fit"
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto c-space">
         <div className="mb-8 md:mb-12 text-center">
           <h2 className="text-3xl md:text-4xl uppercase font-extrabold text-gray-100 mb-3 md:mb-4 title-underline">
             Soluções Disponíveis

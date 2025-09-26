@@ -116,7 +116,7 @@ export default function MicrocreditHero() {
   return (
     <section
       id="home"
-      className="relative min-h-[90vh] w-full overflow-hidden min-w-fit"
+      className="relative h-[85vh] min-h-fit  w-full overflow-hidden min-w-fit"
     >
       {/* Fundo com overlay gradiente profissional */}
       <AnimatePresence>
@@ -142,7 +142,7 @@ export default function MicrocreditHero() {
       </AnimatePresence>
 
       {/* Conteúdo com hierarquia visual clara */}
-      <div className="absolute max-w-7xl -mt-14 c-space mx-auto inset-0 pt-18 z-10 flex items-end pb-32 md:items-center md:pb-24">
+      <div className="absolute max-w-7xl c-space mx-auto inset-0 pt-18 z-10 flex pb-32 items-center sm:pb-24">
         <div className="w-full">
           <AnimatePresence>
             <motion.div
@@ -154,17 +154,23 @@ export default function MicrocreditHero() {
               className="relative z-20"
             >
               {/* Título com peso visual adequado */}
-              <div className="flex flex-col gap-8">
-                <h1 className="text-5xl lg:text-7xl max-w-md lg:max-w-3xl uppercase font-bold font-sans text-white ">
-                  {slides[currentIndex].title}
-                </h1>
+              <div className="grid grid-cols-1 gap-8 items-center">
+                {/* Coluna título */}
+                <div>
+                  <h1 className="text-5xl md:text-5xl lg:text-6xl max-w-md lg:max-w-3xl uppercase font-bold font-sans text-white">
+                    {slides[currentIndex].title}
+                  </h1>
+                </div>
+                <hr className="border-t max-w-5xl border-gray-300" />
 
-                <hr className="border-t my-1 max-w-5xl border-gray-300 " />
-
-                <p className="text-lg md:text-xl text-gray-100 mb-6 max-w-xl">
-                  {slides[currentIndex].description}
-                </p>
+                {/* Coluna descrição */}
+                <div>
+                  <p className="text-base md:text-lg lg:text-xl text-gray-100 mb-4 max-w-xl">
+                    {slides[currentIndex].description}
+                  </p>
+                </div>
               </div>
+
               <div className="mt-6">
                 <LearnMoreButton />
               </div>

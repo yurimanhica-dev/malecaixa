@@ -34,7 +34,7 @@ const OurStory = () => {
           <div className="relative h-96 overflow-hidden shadow-lg">
             <Image
               // src="/need.jpeg"
-              src="/coleccao.png"
+              src="/30575.jpg"
               alt="coleção de fotos de pessoas que fizeram empréstimos"
               fill
               className="object-cover object-top"

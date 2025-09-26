@@ -60,20 +60,6 @@ export default function MicrocreditLoading() {
           className="mb-8 flex justify-center"
         >
           <div className="relative h-40 w-40">
-            {/* Anel externo animado */}
-            {/* <motion.div
-              animate={{
-                rotate: 360,
-                transition: {
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: "linear",
-                },
-              }}
-              className="absolute -inset-2 border-2 border-primary border-opacity-30 rounded-full"
-              style={{ borderTopColor: "transparent" }}
-            /> */}
-
             {/* Logo principal */}
             <Image
               src="/logos.png"
@@ -98,15 +84,6 @@ export default function MicrocreditLoading() {
           </div>
         </motion.div>
 
-        {/* Textos animados sequencialmente */}
-        {/* <motion.h2
-          variants={textAnimation}
-          custom={1}
-          className="text-2xl font-bold text-white mb-2"
-        >
-          Carregando Soluções Financeiras
-        </motion.h2> */}
-
         <motion.p
           variants={textAnimation}
           custom={2}
@@ -129,29 +106,6 @@ export default function MicrocreditLoading() {
             }}
           />
         </motion.div>
-
-        {/* Status técnico */}
-        {/* <motion.div
-          variants={textAnimation}
-          custom={3}
-          className="flex justify-between text-xs text-gray-400"
-        >
-          <span className="flex items-center">
-            <svg
-              className="w-3 h-3 mr-1 text-green-500"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                clipRule="evenodd"
-              />
-            </svg>
-            Conexão segura
-          </span>
-          <span>Carregando recursos...</span>
-        </motion.div> */}
       </motion.div>
 
       {/* Efeito de partículas premium */}

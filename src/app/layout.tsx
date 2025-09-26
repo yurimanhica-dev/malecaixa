@@ -73,7 +73,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-// [&::-webkit-scrollbar]:w-4 [&::-webkit-scrollbar]:h-2
-//         [&::-webkit-scrollbar-thumb]:bg-primary
-//         [&::-webkit-scrollbar-track]:bg-zinc-100

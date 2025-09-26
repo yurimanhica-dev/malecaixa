@@ -31,7 +31,7 @@ const OurStory = () => {
     <section id="sobre" className="py-20 md:py-30 bg-white min-w-fit">
       <div className="max-w-7xl mx-auto c-space">
         <div className="grid md:grid-cols-2 gap-16 items-center">
-          <div className="relative h-96 overflow-hidden shadow-lg">
+          <div className="relative w-full h-96 overflow-hidden shadow-lg">
             <Image
               // src="/need.jpeg"
               src="/30575.jpg"

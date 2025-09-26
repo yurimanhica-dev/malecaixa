@@ -5,10 +5,12 @@ const CambioCard = () => {
   const [exchangeRates, setExchangeRates] = useState<
     { currency: string; buy: number; sell: number; flag: string }[]
   >([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchRates = async () => {
       try {
+        setLoading(true);
         const response = await fetch("https://open.er-api.com/v6/latest/MZN");
         const data = await response.json();
 
@@ -50,6 +52,8 @@ const CambioCard = () => {
         }
       } catch (error) {
         console.error("Error fetching rates:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -61,31 +65,42 @@ const CambioCard = () => {
       <h3 className="text-lg font-semibold mb-3 text-center text-primary">
         Câmbio do Dia
       </h3>
-      <div className="space-y-3">
-        {exchangeRates.map((rate) => (
-          <div
-            key={rate.currency}
-            className="flex justify-between items-center text-sm"
-          >
-            <div className="flex items-center gap-2">
-              <span className={`fi fi-${rate.flag} rounded-sm`} />
-              <span className="text-white font-medium">{rate.currency}</span>
-            </div>
 
-            <div className="gap-4 grid grid-cols-2 text-start">
-              <span className="text-green-400 min-w-[120px]">
-                Compra: {rate.buy.toFixed(2)} MT
-              </span>
-              <span className="text-red-400 min-w-[120px]">
-                Venda: {rate.sell.toFixed(2)} MT
-              </span>
+      {loading ? (
+        <div className="flex justify-center items-center py-6">
+          <span className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></span>
+          <span className="ml-3 text-gray-300 text-sm">Carregando...</span>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {exchangeRates.map((rate) => (
+            <div
+              key={rate.currency}
+              className="flex justify-between items-center text-sm"
+            >
+              <div className="flex items-center gap-2">
+                <span className={`fi fi-${rate.flag} rounded-sm`} />
+                <span className="text-white font-medium">{rate.currency}</span>
+              </div>
+
+              <div className="gap-4 grid grid-cols-2 text-start">
+                <span className="text-green-400 min-w-[120px]">
+                  Compra: {rate.buy.toFixed(2)} MT
+                </span>
+                <span className="text-red-400 min-w-[120px]">
+                  Venda: {rate.sell.toFixed(2)} MT
+                </span>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-      <p className="text-xs text-gray-400 mt-3 text-center">
-        Atualizado: {new Date().toLocaleDateString("pt-MZ")}
-      </p>
+          ))}
+        </div>
+      )}
+
+      {!loading && (
+        <p className="text-xs text-gray-400 mt-3 text-center">
+          Atualizado: {new Date().toLocaleDateString("pt-MZ")}
+        </p>
+      )}
     </div>
   );
 };

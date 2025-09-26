@@ -22,7 +22,6 @@ interface CreditRequestFormProps {
     creditTypeId: number;
     amount: number;
     months: number;
-    
   };
 }
 
@@ -121,7 +120,6 @@ export default function CreditRequestForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
-          // Ensure numeric values are numbers, not strings
           amount: Number(formData.amount),
           months: Number(formData.months),
           salary: Number(formData.salary),
@@ -136,6 +134,19 @@ export default function CreditRequestForm({
         position: "bottom-center",
         duration: 4000,
       });
+
+      // 🔑 Limpa o formulário depois de enviar
+      setFormData({
+        creditTypeId: initialData.creditTypeId,
+        institution: "",
+        fullName: "",
+        phone: "(+258) ",
+        email: "",
+        salary: "",
+        amount: initialData.amount,
+        months: initialData.months,
+      });
+
       setTimeout(onClose, 2000);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Ocorreu um erro", {

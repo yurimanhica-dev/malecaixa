@@ -116,9 +116,9 @@ export default function MicrocreditHero() {
   return (
     <section
       id="home"
-      className="relative h-[85vh] min-h-fit  w-full overflow-hidden min-w-fit"
+      className="relative h-[85vh] min-h-fit w-full overflow-hidden flex flex-col justify-between"
     >
-      {/* Fundo com overlay gradiente profissional */}
+      {/* Fundo com overlay gradiente */}
       <AnimatePresence>
         <motion.div
           key={`image-${slides[currentIndex].id}`}
@@ -135,15 +135,15 @@ export default function MicrocreditHero() {
             initial={{ scale: 1 }}
             animate={{ scale: 1.05 }}
             transition={{ duration: 15, ease: "easeInOut" }}
-            className="parallax-bg "
+            className="parallax-bg"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90  to-transparent z-0" />
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-transparent z-0" />
         </motion.div>
       </AnimatePresence>
 
-      {/* Conteúdo com hierarquia visual clara */}
-      <div className="absolute max-w-7xl c-space mx-auto inset-0 pt-18 z-10 flex pb-32 items-center sm:pb-24">
-        <div className="w-full">
+      {/* Conteúdo centralizado (sem absolute) */}
+      <div className="flex-1 flex items-center">
+        <div className="max-w-7xl c-space w-full">
           <AnimatePresence>
             <motion.div
               key={`content-${slides[currentIndex].id}`}
@@ -153,17 +153,13 @@ export default function MicrocreditHero() {
               variants={contentVariants}
               className="relative z-20"
             >
-              {/* Título com peso visual adequado */}
               <div className="grid grid-cols-1 gap-8 items-center">
-                {/* Coluna título */}
                 <div>
                   <h1 className="text-5xl md:text-5xl lg:text-6xl max-w-md lg:max-w-3xl uppercase font-bold font-sans text-white">
                     {slides[currentIndex].title}
                   </h1>
                 </div>
                 <hr className="border-t max-w-5xl border-gray-300" />
-
-                {/* Coluna descrição */}
                 <div>
                   <p className="text-base md:text-lg lg:text-xl text-gray-100 mb-4 max-w-xl">
                     {slides[currentIndex].description}
@@ -179,10 +175,10 @@ export default function MicrocreditHero() {
         </div>
       </div>
 
-      {/* Controles de navegação discretos mas acessíveis */}
-      <div className="absolute bottom-8 md:bottom-12 left-0 right-0 z-20">
+      {/* Controles (mantidos no final, sem absolute) */}
+      <div className="pb-8 md:pb-12">
         <div className="max-w-7xl c-space mx-auto flex justify-between items-center">
-          {/* Indicadores com feedback visual claro */}
+          {/* Indicadores */}
           <div className="flex space-x-2">
             {slides.map((_, index) => (
               <button
@@ -198,13 +194,13 @@ export default function MicrocreditHero() {
             ))}
           </div>
 
+          {/* Botões */}
           <div className="flex space-x-3">
             <motion.button
               onClick={prevSlide}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md transition-all duration-300"
-              aria-label="Slide anterior"
             >
               <ChevronLeft className="w-6 h-6 text-white" />
             </motion.button>
@@ -213,7 +209,6 @@ export default function MicrocreditHero() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md transition-all duration-300"
-              aria-label="Próximo slide"
             >
               <ChevronRight className="w-6 h-6 text-white" />
             </motion.button>

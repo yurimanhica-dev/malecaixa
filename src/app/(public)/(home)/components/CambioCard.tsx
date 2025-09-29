@@ -1,5 +1,6 @@
 import "flag-icons/css/flag-icons.min.css";
 import { useEffect, useState } from "react";
+import CurrencyConverter from "./CurrencyConverter ";
 
 const CambioCard = () => {
   const [exchangeRates, setExchangeRates] = useState<
@@ -97,9 +98,14 @@ const CambioCard = () => {
       )}
 
       {!loading && (
-        <p className="text-xs text-gray-400 mt-3 text-center">
-          Atualizado: {new Date().toLocaleDateString("pt-MZ")}
-        </p>
+        <>
+          <p className="text-xs text-gray-400 mt-3 text-center">
+            Atualizado: {new Date().toLocaleDateString("pt-MZ")}
+          </p>
+
+          {/* Incluir o componente de conversão */}
+          <CurrencyConverter exchangeRates={exchangeRates} />
+        </>
       )}
     </div>
   );

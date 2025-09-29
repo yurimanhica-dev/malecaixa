@@ -2,7 +2,7 @@
 
 import { Clock, Mail, MapPin } from "lucide-react";
 import { useState } from "react";
-import { FaStackExchange } from "react-icons/fa";
+import { FaCoins } from "react-icons/fa";
 import CambioCard from "../components/CambioCard"; // <- importa seu card de câmbio
 import ContactForm from "../components/ContactForm";
 
@@ -104,7 +104,7 @@ const ContactSection = () => {
                   : "text-gray-200 cursor-pointer"
               }`}
             >
-              <FaStackExchange /> Câmbio
+              <FaCoins className="w-5 h-5" /> Câmbio
             </button>
           </div>
         </div>

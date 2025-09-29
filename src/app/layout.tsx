@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "MALE Holding", url: "https://www.maleholding.co.mz" }],
   icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    icon: "/mc.ico",
+    apple: "/icon.png",
   },
   openGraph: {
     title: "MALEcaixa - Crédito e Financiamento em Moçambique",

@@ -52,6 +52,9 @@ export const metadata: Metadata = {
     creator: "@malesoftware",
   },
   metadataBase: new URL("https://malecaixa.vercel.app"),
+  verification: {
+    google: "Qwgb5S0NsdoHZ47TCRYtBtD4sITOPe3aem4qWhFJRDU",
+  },
 };
 
 export default function RootLayout({
@@ -60,7 +63,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt">
       <body
         className={`${dmSans.className} min-w-fit [&::-webkit-scrollbar]:hidden antialiased 
         `}

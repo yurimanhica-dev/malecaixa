@@ -141,7 +141,7 @@ const CurrencyConverter = ({ exchangeRates }: CurrencyConverterProps) => {
             Digite o valor a converter:
           </label>
           <input
-            type="number"
+            type="text"
             value={amount}
             onChange={handleAmountChange}
             placeholder="0,00"

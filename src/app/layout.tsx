@@ -11,7 +11,10 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "MALEcaixa - Soluções Financeiras Inteligentes",
+  title: {
+    default: "MALEcaixa - Crédito e Financiamento em Moçambique",
+    template: "%s | MALEcaixa",
+  },
   description:
     "Especializada em gestão de empréstimos e créditos, oferecemos soluções financeiras seguras e acessíveis para particulares e empresas em Moçambique.",
   keywords: [
@@ -23,7 +26,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "MALE Holding", url: "https://www.maleholding.co.mz" }],
   icons: {
-    icon: "/mc.ico",
+    icon: "/favicon.ico",
     apple: "/icon.png",
   },
   openGraph: {

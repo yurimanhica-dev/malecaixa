@@ -137,14 +137,14 @@ const CurrencyConverter = ({ exchangeRates }: CurrencyConverterProps) => {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Valor */}
         <div>
-          <label className="block text-sm text-gray-300 mb-2">
+          {/* <label className="block text-sm text-gray-300 mb-2">
             Digite o valor a converter:
-          </label>
+          </label> */}
           <input
             type="text"
             value={amount}
             onChange={handleAmountChange}
-            placeholder="digite um valor"
+            placeholder=" Digite o valor a converter:"
             className="w-full p-2 rounded text-center bg-white/10 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-secondary font-medium"
           />
         </div>

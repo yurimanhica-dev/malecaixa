@@ -143,7 +143,7 @@ export default function MicrocreditHero() {
 
       {/* Conteúdo centralizado (sem absolute) */}
       <div className="flex-1 flex items-center">
-        <div className="max-w-7xl c-space w-full">
+        <div className="max-w-7xl c-space mx-auto w-full">
           <AnimatePresence>
             <motion.div
               key={`content-${slides[currentIndex].id}`}

@@ -206,9 +206,7 @@ const FinancialSolutions = () => {
                     priority={index < 6}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  <div
-                    className={`absolute top-3 right-3 bg-white text-gray-700 font-bold rounded-full w-8 h-8 flex items-center justify-center shadow ${service.color}`}
-                  >
+                  <div className="absolute top-3 right-3 bg-white text-gray-600 font-bold rounded-full w-8 h-8 flex items-center justify-center shadow">
                     {service.number}
                   </div>
                 </div>

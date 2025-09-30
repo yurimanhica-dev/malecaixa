@@ -144,7 +144,7 @@ const CurrencyConverter = ({ exchangeRates }: CurrencyConverterProps) => {
             type="text"
             value={amount}
             onChange={handleAmountChange}
-            placeholder="0,00"
+            placeholder="digite um valor"
             className="w-full p-2 rounded text-center bg-white/10 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-secondary font-medium"
           />
         </div>

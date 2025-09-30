@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import Link from "next/link";
 import ContactSection from "./ContactSection";
 
@@ -34,16 +35,13 @@ export default function TransitionCTA() {
           </p>
 
           <ContactSection />
-          {/* </div>
-          <div className="flex flex-wrap justify-center gap-4 mb-16"> */}
 
           {/* Contact quick links */}
-          <div className="border-t  border-gray-800 pt-12">
+          <div className="border-t border-gray-800 pt-12">
             <h3 className="text-sm uppercase font-semibold tracking-wider text-gray-400 mb-4">
               Fale conosco diretamente
             </h3>
             <div className="flex items-center justify-center gap-4">
-              {/* <FaPhoneAlt className="w-5 h-5" /> */}
               <div className="flex flex-wrap justify-center gap-6">
                 <Link
                   href="tel:+258841234567"
@@ -59,6 +57,52 @@ export default function TransitionCTA() {
                   (+258) 21 414 9911
                 </Link>
               </div>
+            </div>
+          </div>
+
+          {/* Divider with "ou" */}
+          <div className="flex items-center justify-center gap-4 my-10">
+            <span className="h-px w-[40%] bg-gray-700"></span>
+            <span className="text-gray-400 text-sm font-medium uppercase">
+              ou
+            </span>
+            <span className="h-px w-[40%] bg-gray-700"></span>
+          </div>
+
+          {/* Social media links */}
+          <div className="">
+            <h3 className="text-sm uppercase font-semibold tracking-wider text-gray-400 mb-6">
+              Siga-nos
+            </h3>
+            <div className="flex items-center justify-center gap-6">
+              <Link
+                href="https://facebook.com"
+                target="_blank"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <Facebook className="w-6 h-6" />
+              </Link>
+              <Link
+                href="https://instagram.com"
+                target="_blank"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <Instagram className="w-6 h-6" />
+              </Link>
+              <Link
+                href="https://linkedin.com"
+                target="_blank"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <Linkedin className="w-6 h-6" />
+              </Link>
+              <Link
+                href="https://twitter.com"
+                target="_blank"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <Twitter className="w-6 h-6" />
+              </Link>
             </div>
           </div>
         </motion.div>

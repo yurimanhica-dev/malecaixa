@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface CurrencyConverterProps {
   exchangeRates: {
@@ -26,96 +26,66 @@ const CurrencyConverter = ({ exchangeRates }: CurrencyConverterProps) => {
   const [toCurrency, setToCurrency] = useState<string>("USD");
   const [convertedAmount, setConvertedAmount] = useState<number | null>(null);
 
-  // Função para formatar o valor enquanto digita
-  const formatInputValue = (value: string): string => {
-    // Remove tudo que não é número ou ponto decimal
-    const numericValue = value.replace(/[^\d.]/g, "");
-
-    // Se estiver vazio, retorna vazio
-    if (!numericValue) return "";
-
-    // Divide em parte inteira e decimal
-    const parts = numericValue.split(".");
-    let integerPart = parts[0];
-    let decimalPart = parts[1] || "";
-
-    // Limita a parte decimal a 2 dígitos
-    if (decimalPart.length > 2) {
-      decimalPart = decimalPart.substring(0, 2);
+  // 🔹 Permite apenas números e ponto
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (/^[0-9.]*$/.test(value)) {
+      setAmount(value);
     }
-
-    // Formata a parte inteira com separadores de milhar
-    if (integerPart) {
-      integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-
-    // Retorna o valor formatado
-    return decimalPart ? `${integerPart}.${decimalPart}` : integerPart;
   };
 
-  // Função para converter o valor formatado de volta para número
-  const parseFormattedValue = (formattedValue: string): number => {
-    return parseFloat(formattedValue.replace(/,/g, ""));
-  };
+  // 🔹 Converte string para número
+  const parseValue = (val: string): number => parseFloat(val) || 0;
 
+  // 🔹 Calcula automaticamente
   const calculateConversion = () => {
     if (!amount) {
       setConvertedAmount(null);
       return;
     }
 
-    const numericAmount = parseFormattedValue(amount);
-    if (isNaN(numericAmount) || numericAmount <= 0) {
+    const numericAmount = parseValue(amount);
+    if (numericAmount <= 0 || isNaN(numericAmount)) {
       setConvertedAmount(null);
       return;
     }
 
+    // MZN -> MZN
     if (fromCurrency === "MZN" && toCurrency === "MZN") {
       setConvertedAmount(numericAmount);
       return;
     }
 
+    // MZN -> outra moeda
     if (fromCurrency === "MZN") {
-      const rate = exchangeRates.find((rate) => rate.currency === toCurrency);
-      if (rate) {
-        const result = numericAmount / rate.sell;
-        setConvertedAmount(result);
-      }
-    } else if (toCurrency === "MZN") {
-      const rate = exchangeRates.find((rate) => rate.currency === fromCurrency);
-      if (rate) {
-        const result = numericAmount * rate.buy;
-        setConvertedAmount(result);
-      }
-    } else {
-      const fromRate = exchangeRates.find(
-        (rate) => rate.currency === fromCurrency
-      );
-      const toRate = exchangeRates.find((rate) => rate.currency === toCurrency);
+      const rate = exchangeRates.find((r) => r.currency === toCurrency);
+      if (rate) setConvertedAmount(numericAmount / rate.sell);
+      return;
+    }
 
-      if (fromRate && toRate) {
-        const inMzn = numericAmount * fromRate.buy;
-        const result = inMzn / toRate.sell;
-        setConvertedAmount(result);
-      }
+    // Outra moeda -> MZN
+    if (toCurrency === "MZN") {
+      const rate = exchangeRates.find((r) => r.currency === fromCurrency);
+      if (rate) setConvertedAmount(numericAmount * rate.buy);
+      return;
+    }
+
+    // Outra -> Outra
+    const fromRate = exchangeRates.find((r) => r.currency === fromCurrency);
+    const toRate = exchangeRates.find((r) => r.currency === toCurrency);
+
+    if (fromRate && toRate) {
+      const inMzn = numericAmount * fromRate.buy;
+      const result = inMzn / toRate.sell;
+      setConvertedAmount(result);
     }
   };
 
-  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-
-    // Permite apenas números, ponto e vírgula (para formatação)
-    if (value === "" || /^[\d,.]*$/.test(value)) {
-      // Formata o valor enquanto digita
-      const formattedValue = formatInputValue(value);
-      setAmount(formattedValue);
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  // 🔹 Recalcula automaticamente quando amount, fromCurrency ou toCurrency mudam
+  useEffect(() => {
     calculateConversion();
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [amount, fromCurrency, toCurrency]);
 
   const resetConverter = () => {
     setAmount("");
@@ -134,24 +104,18 @@ const CurrencyConverter = ({ exchangeRates }: CurrencyConverterProps) => {
         Conversor de Moedas
       </h3>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form className="space-y-4">
         {/* Valor */}
-        <div>
-          {/* <label className="block text-sm text-gray-300 mb-2">
-            Digite o valor a converter:
-          </label> */}
-          <input
-            type="text"
-            value={amount}
-            onChange={handleAmountChange}
-            placeholder=" Digite o valor a converter:"
-            className="w-full p-2 rounded text-center bg-white/10 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-secondary font-medium"
-          />
-        </div>
+        <input
+          type="text"
+          value={amount}
+          onChange={handleAmountChange}
+          placeholder="Digite o valor a converter"
+          className="w-full p-2 rounded text-center bg-white/10 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-secondary font-medium"
+        />
 
-        {/* Moedas */}
+        {/* Seleção de moedas */}
         <div className="grid grid-cols-2 gap-4">
-          {/* FROM */}
           <div>
             <label className="block text-sm text-gray-300 mb-2">De:</label>
             <Select value={fromCurrency} onValueChange={setFromCurrency}>
@@ -179,7 +143,6 @@ const CurrencyConverter = ({ exchangeRates }: CurrencyConverterProps) => {
             </Select>
           </div>
 
-          {/* TO */}
           <div>
             <label className="block text-sm text-gray-300 mb-2">Para:</label>
             <Select value={toCurrency} onValueChange={setToCurrency}>
@@ -210,19 +173,6 @@ const CurrencyConverter = ({ exchangeRates }: CurrencyConverterProps) => {
 
         {/* Botões */}
         <div className="flex gap-3">
-          <button
-            type="submit"
-            disabled={!amount}
-            className={`flex-1 py-2 px-4 rounded transition-colors
-              ${
-                !amount
-                  ? "bg-gray-400 text-white cursor-not-allowed"
-                  : "bg-primary hover:bg-primary/80 text-white cursor-pointer"
-              }`}
-          >
-            Calcular
-          </button>
-
           <button
             type="button"
             onClick={resetConverter}

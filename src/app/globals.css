@@ -36,6 +36,7 @@
       transform: translateX(-50%);
     }
   }
+
   .slide-container {
     overflow: hidden;
     position: relative;
@@ -43,7 +44,7 @@
     height: 100vh;
   }
   .animate-slide {
-    animation: slide 30s linear infinite;
+    animation: slide 5s linear infinite;
     will-change: transform;
   }
   .pause-slide {

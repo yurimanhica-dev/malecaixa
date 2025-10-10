@@ -70,7 +70,7 @@ const CurrencyConverter = ({ exchangeRates }: CurrencyConverterProps) => {
       return;
     }
 
-    // Outra -> Outra
+    // Outra moeda -> outra moeda
     const fromRate = exchangeRates.find((r) => r.currency === fromCurrency);
     const toRate = exchangeRates.find((r) => r.currency === toCurrency);
 

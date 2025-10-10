@@ -189,7 +189,7 @@ const FinancialSolutions = () => {
 
         {/* Desktop View */}
         <div className="hidden md:block relative group overflow-hidden">
-          <div className="flex max-w-screen-xl animate-slide group-hover:animate-none ">
+          <div className="flex animate-slide group-hover:animate-none ">
             {[...services, ...services].map((service, index) => (
               <div
                 key={index}
@@ -203,7 +203,6 @@ const FinancialSolutions = () => {
                     className="object-cover"
                     quality={85}
                     sizes="(max-width: 1024px) 33vw, 25vw"
-                    priority={index < 6}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                   <div className="absolute top-3 right-3 bg-white text-gray-600 font-bold rounded-full w-8 h-8 flex items-center justify-center shadow">

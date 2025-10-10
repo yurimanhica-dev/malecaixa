@@ -292,6 +292,10 @@ const Simulacao = () => {
             creditTypeId: loanData.creditTypeId,
             amount: loanData.amount,
             months: loanData.months,
+            monthlyPayment,
+            totalPayback,
+            totalEncargos,
+            interestRate,
           }}
         />
       )}

@@ -22,6 +22,10 @@ interface CreditRequestFormProps {
     creditTypeId: number;
     amount: number;
     months: number;
+    monthlyPayment: number;
+    totalPayback: number;
+    totalEncargos: number;
+    interestRate: number;
   };
 }
 
@@ -123,6 +127,10 @@ export default function CreditRequestForm({
           amount: Number(formData.amount),
           months: Number(formData.months),
           salary: Number(formData.salary),
+          totalPayback: Number(totalPayback),
+          totalEncargos: Number(initialData.totalEncargos),
+          monthlyPayment: Number(initialData.monthlyPayment),
+          interestRate: Number(initialData.interestRate),
         }),
       });
 
@@ -270,14 +278,16 @@ export default function CreditRequestForm({
                 </span>
               </label>
               <input
-                type="number"
+                type="text"
                 name="amount"
                 value={formData.amount}
                 onChange={handleNumberChange}
                 min={currentCreditType.minAmount}
                 max={currentCreditType.maxAmount}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
+                className="w-full px-4 py-2 border cursor-not-allowed border-gray-300 rounded-lg text-sm outline-none "
                 required
+                disabled
+                readOnly
               />
             </div>
 
@@ -290,21 +300,23 @@ export default function CreditRequestForm({
                 </span>
               </label>
               <input
-                type="number"
+                type="text"
                 name="months"
                 value={formData.months}
                 onChange={handleNumberChange}
                 min={currentCreditType.minMonths}
                 max={currentCreditType.maxMonths}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
+                className="w-full px-4 py-2 border cursor-not-allowed border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
                 required
+                disabled
+                readOnly
               />
             </div>
 
             <div className="bg-gray-50 p-3 rounded border border-gray-200">
               <div className="flex justify-between items-center">
                 <span className="font-medium text-gray-700">
-                  Total a Pagar:
+                  Valor do Empréstimo
                 </span>
                 <span className="font-bold text-lg text-primary">
                   {totalPayback.toLocaleString(undefined, {

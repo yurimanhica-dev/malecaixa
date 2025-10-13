@@ -5,6 +5,7 @@ import CreditDistribution from "./_component/_OverviewTab/_components/CreditDist
 import FinancialSummary from "./_component/_OverviewTab/_components/FinancialSummary";
 import DashboardStats from "./_component/DashboardStats";
 import TabsHeader from "./_component/TabsHeader";
+import AccountsListOriginal from "./_component/_OverviewTab/_components/AccountsListOriginal";
 
 interface Account {
   id: number;
@@ -75,7 +76,7 @@ const AccountsTab: FC<Props> = ({ loading = false }) => {
               <CreditDistribution />
 
               {/*sAccounts List */}
-              {/* <AccountsListOriginal /> */}
+              <AccountsListOriginal />
             </div>
           </>
         )}

@@ -77,13 +77,61 @@ export async function POST(request: Request) {
 <div style="max-width: 680px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12); border: 1px solid #e5e7eb;">
 
   <!-- Header -->
-  <div style="background: linear-gradient(135deg, #0078b9 0%, #005f93 100%); color: #ffffff; padding: 48px 32px; text-align: center;">
-    <h1 style="font-size: 32px; font-weight: 700; margin: 0 0 12px;">Nova Solicitação Recebida</h1>
-    <p style="margin: 0; font-weight: 400; opacity: 0.95; font-size: 16px;">Um novo pedido de crédito foi submetido no sistema da <strong>MALEcaixa</strong>.</p>
-  </div>
+<div style="
+  background: linear-gradient(135deg, #0078b9 0%, #005f93 100%);
+  text-align: center;
+  padding: 48px 32px 56px;
+  border-bottom: 4px solid #00a2ff;
+">
+  <img 
+    src="https://dbmib2q8rj.ufs.sh/f/Lm6xK3J7O1CLDCc1WDKOH3B9iRavr4SYO8pjUdgbsPulQfem" 
+    alt="MALEcaixa" 
+    style="height: 56px; margin-bottom: 16px;"
+  />
+  <h1 style="
+    font-size: 26px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: 0.5px;
+  ">
+    Nova Solicitação de Crédito Recebida
+  </h1>
+</div>
+
+<!-- Corpo -->
+<div style="
+  background: #ffffff;
+  text-align: left;
+  padding: 40px 48px 32px;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+">
+  <p style="
+    max-width: 600px;
+    font-size: 16px;
+    color: #1a1d29;
+    line-height: 1.7;
+    margin: 0 0 16px;
+  ">
+    Uma nova solicitação de crédito foi submetida através do sistema da 
+    <strong style="color: #0078b9;">MALEcaixa</strong>.
+  </p>
+  <p style="
+    max-width: 600px;
+    font-size: 15px;
+    color: #3d4653;
+    line-height: 1.6;
+    margin: 0;
+  ">
+    Solicitamos à equipa administrativa que verifique os detalhes abaixo e prossiga com a análise da solicitação.
+  </p>
+</div>
+
+
 
   <!-- Content -->
-  <div style="padding: 48px 40px;">
+  <div style="padding: 0px 40px;">
 
     <!-- Informações do Cliente -->
     <div style="margin-bottom: 40px;">
@@ -105,7 +153,7 @@ export async function POST(request: Request) {
 
         <div style="display: flex; justify-content: space-between; padding: 20px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #0078b9;">
           <span style="font-weight: 500; color: #6b7280;">Telefone: </span>
-          <span style="font-weight: 700; color: #1a1d29;"> ${phone}</span>
+           <a href="tel:${phone}" style="color: #0078b9; font-weight: 700; text-decoration: none; underline: none;"> ${phone}</a>
         </div>
 
         <div style="display: flex; justify-content: space-between; padding: 20px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #0078b9;">
@@ -168,17 +216,31 @@ export async function POST(request: Request) {
           ).toLocaleString("pt-BR")} MZN</span>
         </div>
       </div>
-
-      <div style="background: #fed400; color: #1a1d29; padding: 12px 20px; border-radius: 8px; margin-top: 20px; text-align: center; font-weight: 600;">
-        🚨 Solicitação pendente de análise administrativa
-      </div>
+      
+      <div style="background: linear-gradient(135deg, #00c896 0%, #00a87e 100%); color: #ffffff; padding: 20px; border-radius: 8px; margin-top: 24px; text-align: center;">
+      <div style="font-size: 14px; opacity: 0.9;">Total a Pagar</div>
+      <div style="font-size: 20px; font-weight: 700;">${Number(
+        totalPayback
+      ).toLocaleString("pt-BR")} MZN</div>
     </div>
+
+      
+    </div>
+
+      <div style="margin-top: 24px; text-align: center; background: #f1f5f9; border-radius: 8px; padding: 16px 20px; font-size: 15px; color: #1a1d29; border: 1px solid #e2e8f0;">
+        <p style="margin: 0;">
+          💬 Caso precise de mais informações ou queira atualizar esta solicitação, 
+          <strong>responda diretamente a este e-mail:<a href="mailto:${email}" style="font-weight: 700; color: #0078b9; text-decoration: none;"> ${email}</a></strong> ou entre em contacto pelo número 
+          <a href="tel:${phone}" style="color: #0078b9; font-weight: 700; text-decoration: none;underline: none;">${phone}</a>.
+        </p>
+      </div>
+
 
     <!-- Divider -->
     <div style="height: 1px; background: linear-gradient(90deg, transparent 0%, #e5e7eb 50%, transparent 100%); margin: 32px 0;"></div>
 
     <!-- Timestamp -->
-    <div style="text-align: center; padding: 20px; background: #f8fafc; border-radius: 8px; border: 1px dashed #e5e7eb; font-size: 14px; color: #6b7280;">
+    <div style="text-align: center; padding: 20px; background: #f8fafc; border-radius: 8px; border: 1px dashed #e5e7eb; margin: 20px; font-size: 14px; color: #6b7280;">
       <strong>Data/Hora da Submissão:</strong> ${new Date().toLocaleString(
         "pt-BR",
         {
@@ -192,6 +254,7 @@ export async function POST(request: Request) {
       )}
     </div>
   </div>
+
 
   <!-- Footer -->
   <div style="text-align: center; padding: 40px 32px; background: #f8fafc; border-top: 1px solid #e5e7eb;">
@@ -223,19 +286,38 @@ export async function POST(request: Request) {
 <div style="max-width: 680px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12); border: 1px solid #e5e7eb;">
   
   <!-- Header -->
-  <div style="background: linear-gradient(135deg, #009feb 0%, #0078b9 100%); color: #ffffff; padding: 48px 32px; text-align: center;">
-    <h1 style="font-size: 30px; font-weight: 700; margin: 0 0 12px;">Confirmação de Solicitação</h1>
-    <p style="margin: 0; font-weight: 400; opacity: 0.95; font-size: 16px;">Recebemos sua solicitação de crédito com sucesso!</p>
-  </div>
+<div style="
+  background: linear-gradient(135deg, #0078b9 0%, #005f93 100%);
+  text-align: center;
+  padding: 48px 32px 56px;
+  border-bottom: 4px solid #00a2ff;
+">
+  <img 
+    src="https://dbmib2q8rj.ufs.sh/f/Lm6xK3J7O1CLDCc1WDKOH3B9iRavr4SYO8pjUdgbsPulQfem" 
+    alt="MALEcaixa" 
+    style="height: 56px; margin-bottom: 16px;"
+  />
+  <h1 style="
+    font-size: 26px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: 0.5px;
+  ">
+    Solicitação de Crédito Recebida
+  </h1>
+</div>
+
+
 
   <!-- Content -->
   <div style="padding: 48px 40px;">
-    <p style="font-size: 16px; margin-bottom: 24px;">Olá <strong>${fullName}</strong>,</p>
-    <p style="margin-bottom: 24px;">Agradecemos por confiar na <strong style="color: #009feb;">MALEcaixa</strong>. Sua solicitação de crédito foi recebida com sucesso e está <strong>em fase de análise</strong> pela nossa equipe financeira.</p>
+    <p style="font-size: 16px; margin-bottom: 24px;">Olá <span style="color: #009feb; font-weight: 600">${fullName}</span>,</p>
+    <p style="margin-bottom: 24px;">Agradecemos por confiar em nós. Sua solicitação de crédito foi recebida com sucesso e está em fase de análise pela nossa equipe administrativa.</p>
     
     <div style="background: #f8fafc; padding: 24px; border-left: 4px solid #009feb; border-radius: 8px; margin-bottom: 32px;">
       <p style="margin: 0; font-size: 15px; color: #6b7280;">
-        Entraremos em contacto através do número <strong style="color: #0078b9;"><a href="tel:${phone}" style="color: #009feb; text-decoration: none;"> ${phone}</a></strong> ou do e-mail <a href="mailto:${email}" style="color: #009feb; text-decoration: none;"> ${email}</a> assim que a análise estiver concluída.
+        Entraremos em contacto através do número <a href="tel:${phone}" style="color: #009feb; text-decoration: none;"> ${phone}</a> ou do e-mail <a href="mailto:${email}" style="color: #009feb; text-decoration: none;"> ${email}</a> assim que a análise estiver concluída.
       </p>
     </div>
 
@@ -309,13 +391,12 @@ export async function POST(request: Request) {
   <div style="text-align: center; padding: 40px 32px; background: #f8fafc; border-top: 1px solid #e5e7eb;">
     <img src="https://dbmib2q8rj.ufs.sh/f/Lm6xK3J7O1CLDCc1WDKOH3B9iRavr4SYO8pjUdgbsPulQfem" alt="MALEcaixa" style="height: 32px; margin-bottom: 20px; opacity: 0.7;" />
     <p style="margin: 8px 0; font-size: 14px; color: #6b7280;">Esta mensagem confirma o recebimento da sua solicitação.</p>
-    <p style="margin: 8px 0; font-size: 14px; color: #6b7280;">© ${new Date().getFullYear()} MALEcaixa. Todos os direitos reservados.</p>
+    <p style="margin: 8px 0; font-size: 14px; color: #6b7280;">© ${new Date().getFullYear()}. Todos os direitos reservados.</p>
   </div>
 
 </div>
 </body>
 </html>
-
 `;
 
   // Configurar opções de e-mail para a equipe

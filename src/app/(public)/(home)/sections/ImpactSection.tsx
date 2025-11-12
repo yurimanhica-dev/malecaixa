@@ -31,9 +31,9 @@ const ImpactSection = () => {
       duration: 2,
     },
     {
-      value: 500,
+      value: 2500,
       prefix: "+",
-      label: "Comunidades impactadas",
+      label: "Pessoas impactadas",
       icon: <MapPin className="w-5 h-5" />,
       duration: 2.5,
     },

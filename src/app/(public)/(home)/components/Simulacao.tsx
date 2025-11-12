@@ -1,6 +1,13 @@
 "use client";
 
 import {
+  calculateEncargos,
+  calculateMonthlyPayment,
+  calculateTotalPayback,
+  CREDIT_TYPES,
+  validateCreditRequest,
+} from "@/app/utils/Creditoja";
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -10,19 +17,13 @@ import {
 import { Slider } from "@mui/material";
 import { useEffect, useState } from "react";
 import { FaHandshake } from "react-icons/fa";
-import {
-  calculateEncargos,
-  calculateMonthlyPayment,
-  calculateTotalPayback,
-  CREDIT_TYPES,
-  validateCreditRequest,
-} from "../../../utils/creditCalculations";
 import CreditRequestForm from "./CreditRequestForm";
 
 interface LoanData {
   creditTypeId: number;
   amount: number;
   months: number;
+  monthlyIncome?: number;
 }
 
 const Simulacao = () => {
@@ -30,6 +31,7 @@ const Simulacao = () => {
     creditTypeId: CREDIT_TYPES[0].id,
     amount: CREDIT_TYPES[0].minAmount,
     months: CREDIT_TYPES[0].minMonths,
+    monthlyIncome: 0,
   });
 
   const [validationError, setValidationError] = useState<string | null>(null);
@@ -49,23 +51,30 @@ const Simulacao = () => {
     loanData.creditTypeId
   );
 
-  const totalEncargos = calculateEncargos(
-    loanData.amount,
-    loanData.months,
-    loanData.creditTypeId
-  );
+  const totalEncargos = calculateEncargos(loanData.amount);
 
   const interestRate = currentCreditType.interestRates[loanData.months] || 0;
 
   useEffect(() => {
-    // Validar sempre que os dados mudarem
     const error = validateCreditRequest(
       loanData.amount,
       loanData.months,
-      loanData.creditTypeId
+      loanData.creditTypeId,
+      loanData.monthlyIncome || 0
     );
+
+    if (loanData.monthlyIncome) {
+      const limite = loanData.monthlyIncome * 0.3;
+      if (monthlyPayment > limite) {
+        setValidationError(
+          "A parcela mensal + encargos não pode ultrapassar 30% do rendimento."
+        );
+        return;
+      }
+    }
+
     setValidationError(error);
-  }, [loanData]);
+  }, [loanData, monthlyPayment, totalEncargos]);
 
   const handleSliderChange =
     (field: keyof LoanData) => (_: Event, value: number | number[]) => {
@@ -127,6 +136,29 @@ const Simulacao = () => {
               ))}
             </SelectContent>
           </Select>
+        </div>
+
+        <div>
+          <label
+            htmlFor="monthlyIncome"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Rendimento Mensal (MZN) *
+          </label>
+          <input
+            type="number"
+            name="monthlyIncome"
+            value={loanData.monthlyIncome}
+            onChange={(e) =>
+              setLoanData({
+                ...loanData,
+                monthlyIncome: Number(e.target.value),
+              })
+            }
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
+            placeholder="Ex: 25000"
+            required
+          />
         </div>
 
         {/* Valor do Empréstimo */}
@@ -227,9 +259,9 @@ const Simulacao = () => {
               </p>
             </div>
             <div>
-              <p className="text-gray-600">Taxa de Juros</p>
+              <p className="text-gray-600">Taxa de Juros (10% por Mês)</p>
               <p className="font-semibold font-sans text-primary">
-                {(interestRate * 100).toFixed(0)}% anual
+                {(interestRate * 100).toFixed(0)}%
               </p>
             </div>
             <div>
@@ -252,7 +284,7 @@ const Simulacao = () => {
             </div>
           </div>
           <div className="mt-4 pt-4 border-t border-gray-200">
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
               <span className="text-gray-600 font-medium">Total a Pagar</span>
               <span className="font-bold text-lg font-sans text-[#009FEB]">
                 {totalPayback.toLocaleString(undefined, {
@@ -261,27 +293,42 @@ const Simulacao = () => {
                 MZN
               </span>
             </div>
+            <div
+              className={`mt-2 text-xs ${
+                !loanData.monthlyIncome ||
+                (loanData.monthlyIncome &&
+                  monthlyPayment / loanData.monthlyIncome > 0.3)
+                  ? "text-red-600"
+                  : "text-green-500"
+              }`}
+            >
+              {loanData.monthlyIncome && loanData.monthlyIncome > 0
+                ? "A parcela representa " +
+                  ((monthlyPayment / loanData.monthlyIncome) * 100).toFixed(2) +
+                  "% do seu rendimento mensal."
+                : "Selecione o seu Rendimento Mensal (MZN)"}
+            </div>
+            <p className="text-xs text-gray-500 mt-2">
+              Parcela máxima permitida: 30% do seu rendimento mensal
+            </p>
           </div>
         </div>
 
         {/* Botão para solicitar crédito */}
-        <div>
-          <button
-            onClick={() => setShowRequestForm(true)}
-            disabled={!!validationError}
-            className={`w-full ${
-              validationError
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-gradient-to-r from-[#009FEB] to-[#0066CC]"
-            } text-white py-3 rounded-lg font-semibold flex items-center justify-center space-x-2 transition-all shadow-md hover:shadow-lg active:scale-[0.98]`}
-          >
-            <span>Aderir ao Crédito</span>
-            <FaHandshake className="text-[#FED400]" />
-          </button>
-          {validationError && (
-            <p className="mt-2 text-sm text-red-600">{validationError}</p>
-          )}
-        </div>
+        <button
+          onClick={() => setShowRequestForm(true)}
+          disabled={!!validationError || !loanData.monthlyIncome}
+          className={`w-full ${
+            !!validationError ||
+            (loanData.monthlyIncome &&
+              monthlyPayment / loanData.monthlyIncome > 0.3)
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-gradient-to-r from-[#009FEB] to-[#0066CC]"
+          } text-white py-3 rounded-lg font-semibold flex items-center justify-center space-x-2 transition-all shadow-md hover:shadow-lg active:scale-[0.98]`}
+        >
+          <span>Aderir ao Crédito</span>
+          <FaHandshake className="text-[#FED400]" />
+        </button>
       </div>
 
       {/* Modal de solicitação de crédito */}

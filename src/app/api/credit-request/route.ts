@@ -1,4 +1,4 @@
-import { CREDIT_TYPES } from "@/app/utils/creditCalculations";
+import { CREDIT_TYPES } from "@/app/utils/creditCalculations1";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
@@ -128,8 +128,6 @@ export async function POST(request: Request) {
   </p>
 </div>
 
-
-
   <!-- Content -->
   <div style="padding: 0px 40px;">
 
@@ -167,14 +165,13 @@ export async function POST(request: Request) {
 
     <!-- Divider -->
     <div style="height: 1px; background: linear-gradient(90deg, transparent 0%, #e5e7eb 50%, transparent 100%); margin: 32px 0;"></div>
-
+    
     <!-- Detalhes da Solicitação -->
     <div style="margin-bottom: 40px;">
       <h2 style="display: flex; align-items: center; margin-bottom: 24px; color: #0078b9; font-size: 20px; font-weight: 600;">
         <span style="width: 4px; height: 24px; background: linear-gradient(135deg, #009feb 0%, #0078b9 100%); border-radius: 2px; margin-right: 12px;"></span>
         Detalhes da Solicitação
       </h2>
-
       <div style="background: linear-gradient(135deg, #e8f6fd 0%, #f0f9ff 100%); padding: 32px; border-radius: 16px; border: 1px solid #e5e7eb;">
         <div style="display: flex; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid rgba(0, 159, 235, 0.1);">
           <span style="font-weight: 500; color: #6b7280;">Tipo de Crédito: </span>
@@ -272,7 +269,7 @@ export async function POST(request: Request) {
 </body>
 </html>
 `;
-  // E-mail de confirmação para o cliente
+
   const clientEmailHtml = `
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -424,7 +421,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Erro ao enviar e-mails:", error);
+    console.error("Erro ao enviar o e-mail:", error);
     return NextResponse.json(
       { error: "Erro ao processar solicitação de crédito" },
       { status: 500 }

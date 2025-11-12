@@ -31,29 +31,29 @@ export default function MicrocreditHero() {
     },
     {
       id: 2,
-      image: "/bggreen.webp",
-      title: "Financiamento Acessível para Seu Negócio",
+      image: "/77655.jpg",
+      title: "Seu Plano, Nosso Apoio",
       description:
-        "Oferecemos soluções de microcrédito com condições justas, prazos flexíveis e aprovação simplificada. Ideal para quem precisa impulsionar o seu negócio com agilidade, segurança e transparência.",
+        "Oferecemos soluções de microcrédito com condições justas, prazos flexíveis e aprovação simplificada. Ideal para quem precisa impulsionar os seus planos com financiamento ágil, seguro e transparente.",
       ctaText: "Solicitar Agora",
       ctaLink: "/apply",
     },
-    {
-      id: 3,
-      image: "/bgagr.jpeg",
-      title: "Apoiamos o Empreendedor Local",
-      description:
-        "Acreditamos no poder transformador do empreendedorismo local. Nosso objetivo é fomentar o desenvolvimento sustentável da sua comunidade, por meio de financiamento responsável e acompanhamento próximo.",
-      ctaText: "Entenda como funciona.",
-      ctaLink: "/about",
-    },
+    // {
+    //   id: 3,
+    //   image: "/bgagr.jpeg",
+    //   title: "Apoiamos o Empreendedor Local",
+    //   description:
+    //     "Acreditamos no poder transformador do empreendedorismo local. Nosso objetivo é fomentar o desenvolvimento sustentável da sua comunidade, por meio de financiamento responsável e acompanhamento próximo.",
+    //   ctaText: "Entenda como funciona.",
+    //   ctaLink: "/about",
+    // },
     {
       id: 4,
-      image: "/estudoss.jpg",
-      title: "Apoiando seus Sonhos",
+      image: "/2150445983.jpg",
+      title: "Apoiando o Crescimento de Quem Faz a Diferença",
       description:
-        "Com o nosso Empréstimo Estudantil, você pode investir no seu futuro acadêmico com tranquilidade. Oferecemos prazos flexíveis, taxas acessíveis e condições pensadas para tornar sua jornada de estudos mais leve e possível.",
-      ctaText: "Empréstimo Estudantil",
+        "Acreditamos no potencial de cada trabalhador do sector privado. Por isso, oferecemos empréstimos acessíveis, com condições justas e prazos que acompanham seu ritmo de vida, para que você avance com confiança.",
+      ctaText: "Entenda como funciona.",
       ctaLink: "/about",
     },
   ];

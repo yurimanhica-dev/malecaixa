@@ -154,7 +154,7 @@ const HeroSection = () => {
 
           {/* Decorative badge */}
           <div className="absolute bottom-6 left-6 bg-[var(--color-secondary)] text-gray-700 px-4 pt-1.5 pb-1 rounded-full font-medium shadow-lg">
-            +2000 Clientes
+            +1500 Clientes
           </div>
         </motion.div>
       </div>

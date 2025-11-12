@@ -68,9 +68,7 @@ const OurStory = () => {
               className="text-md text-gray-600 leading-relaxed"
             >
               Desde 2012, nascemos com um propósito claro: ampliar o acesso ao
-              crédito de forma justa e inclusiva. Em um cenário onde muitos
-              pequenos empreendedores eram ignorados pelos grandes bancos,
-              estendemos a mão a quem mais precisava. Ao longo dos anos,
+              crédito de forma justa e inclusiva. Ao longo dos anos,
               transformamos milhares de histórias por meio do microcrédito
               responsável, promovendo autonomia, dignidade e crescimento
               sustentável nas comunidades que atendemos.

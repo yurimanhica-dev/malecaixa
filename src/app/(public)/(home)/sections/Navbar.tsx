@@ -78,7 +78,7 @@ export default function Navbar(): JSX.Element {
   const toggleMenu = (): void => setIsOpen(!isOpen);
 
   return (
-    <nav className="bg-white min-w-fit w-full shadow-md shadow-primary/70 sticky top-0 z-40 py-2 backdrop-blur-md transition-all  duration-300 ease-in-out">
+    <nav className="bg-white min-w-fit w-full shadow-md shadow-primary/70 sticky top-0 z-40 py-2 backdrop-blur-md transition-all duration-300 ease-in-out">
       <div className="mx-auto max-w-screen-xl c-space">
         <div className="flex justify-between h-14">
           {/* Logo e menu desktop */}
@@ -134,6 +134,7 @@ export default function Navbar(): JSX.Element {
             </div>
             {/* Botões desktop */}
           </div>
+
           {/* Botão Mobile */}
           <div className="md:hidden flex items-center">
             <motion.button

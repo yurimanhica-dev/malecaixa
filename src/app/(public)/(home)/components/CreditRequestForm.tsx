@@ -1,6 +1,11 @@
 "use client";
 
 import {
+  calculateTotalPayback,
+  CREDIT_TYPES,
+  validateCreditRequest,
+} from "@/app/utils/Creditoja";
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -10,11 +15,6 @@ import {
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FaPaperPlane, FaSpinner } from "react-icons/fa";
-import {
-  calculateTotalPayback,
-  CREDIT_TYPES,
-  validateCreditRequest,
-} from "../../../utils/creditCalculations";
 
 interface CreditRequestFormProps {
   onClose: () => void;
@@ -40,6 +40,7 @@ export default function CreditRequestForm({
     phone: "(+258) ",
     email: "",
     salary: "",
+    monthlyIncome: 0,
     amount: initialData.amount,
     months: initialData.months,
   });
@@ -61,10 +62,16 @@ export default function CreditRequestForm({
     const error = validateCreditRequest(
       formData.amount,
       formData.months,
-      formData.creditTypeId
+      formData.creditTypeId,
+      formData.monthlyIncome
     );
     setValidationError(error ?? "");
-  }, [formData.amount, formData.months, formData.creditTypeId]);
+  }, [
+    formData.amount,
+    formData.months,
+    formData.creditTypeId,
+    formData.monthlyIncome,
+  ]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -151,6 +158,7 @@ export default function CreditRequestForm({
         phone: "(+258) ",
         email: "",
         salary: "",
+        monthlyIncome: 0,
         amount: initialData.amount,
         months: initialData.months,
       });
@@ -170,7 +178,6 @@ export default function CreditRequestForm({
     <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
       {/* Overlay de fundo com z-index menor */}
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-
       {/* Decoração de fundo  */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-0 left-20 w-64 h-64 bg-[var(--color-primary)] rounded-full mix-blend-overlay filter blur-3xl" />
@@ -188,9 +195,9 @@ export default function CreditRequestForm({
 
         {/* Conteúdo com scroll */}
         <div className="overflow-y-auto flex-1">
-          <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          <form onSubmit={handleSubmit} className="p-6 text-sm space-y-3">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block font-medium text-gray-700 mb-1">
                 Tipo de Crédito *
               </label>
 
@@ -199,7 +206,7 @@ export default function CreditRequestForm({
                 onValueChange={handleSelectChange}
                 required
               >
-                <SelectTrigger className="w-full px-3 py-2 border border-gray-300  rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none">
+                <SelectTrigger className="w-full px-3 py-2 border border-gray-300  rounded-lg  focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none">
                   <SelectValue placeholder="Selecione o tipo de crédito" />
                 </SelectTrigger>
                 <SelectContent>
@@ -213,7 +220,7 @@ export default function CreditRequestForm({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block  font-medium text-gray-700 mb-1">
                 Nome Completo *
               </label>
               <input
@@ -221,13 +228,13 @@ export default function CreditRequestForm({
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg  focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block  font-medium text-gray-700 mb-1">
                 Contacto Telefónico *
               </label>
               <input
@@ -235,13 +242,13 @@ export default function CreditRequestForm({
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg  focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block  font-medium text-gray-700 mb-1">
                 E-mail *
               </label>
               <input
@@ -249,28 +256,35 @@ export default function CreditRequestForm({
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg  focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Líquido Mensal (MZN) *
+              <label
+                htmlFor="monthlyIncome"
+                className="block  font-medium text-gray-700 mb-1"
+              >
+                Rendimento Mensal (MZN) *
               </label>
               <input
                 type="number"
-                name="salary"
-                value={formData.salary}
-                onChange={handleNumberChange}
-                min="0"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
+                name="monthlyIncome" // ✅ importante
+                value={formData.monthlyIncome}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    monthlyIncome: Number(e.target.value),
+                  })
+                }
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg  focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
+                placeholder="Ex: 25000"
                 required
               />
             </div>
-
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block  font-medium text-gray-700 mb-1">
                 Montante Pretendido (MZN) *
                 <span className="text-xs text-gray-500 ml-2">
                   (Mín: {currentCreditType.minAmount.toLocaleString()} MZN, Máx:{" "}
@@ -284,7 +298,7 @@ export default function CreditRequestForm({
                 onChange={handleNumberChange}
                 min={currentCreditType.minAmount}
                 max={currentCreditType.maxAmount}
-                className="w-full px-4 py-2 border cursor-not-allowed border-gray-300 rounded-lg text-sm outline-none "
+                className="w-full px-4 py-2 border cursor-not-allowed border-gray-300 rounded-lg  outline-none "
                 required
                 disabled
                 readOnly
@@ -292,7 +306,7 @@ export default function CreditRequestForm({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block  font-medium text-gray-700 mb-1">
                 Prazo de Pagamento (meses) *
                 <span className="text-xs text-gray-500 ml-2">
                   (Mín: {currentCreditType.minMonths}, Máx:{" "}
@@ -306,7 +320,7 @@ export default function CreditRequestForm({
                 onChange={handleNumberChange}
                 min={currentCreditType.minMonths}
                 max={currentCreditType.maxMonths}
-                className="w-full px-4 py-2 border cursor-not-allowed border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
+                className="w-full px-4 py-2 border cursor-not-allowed border-gray-300 rounded-lg  focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
                 required
                 disabled
                 readOnly
@@ -334,14 +348,14 @@ export default function CreditRequestForm({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-8 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                className="px-8 py-2 border border-gray-300 rounded-lg  font-medium text-gray-700 hover:bg-gray-50 transition-colors"
                 disabled={isSubmitting}
               >
                 Sair
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 bg-primary text-white rounded-lg  font-medium hover:bg-primary-dark transition-colors flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isSubmitting || !!validationError}
               >
                 {isSubmitting ? (

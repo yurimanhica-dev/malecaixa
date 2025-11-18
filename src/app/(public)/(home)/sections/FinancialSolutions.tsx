@@ -1,238 +1,85 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import Link from "next/link";
 
-const FinancialSolutions = () => {
-  const services = [
-    {
-      title: "Microcrédito",
-      description: "Soluções acessíveis para pequenos empreendedores.",
-      icon: "/servicos/iconb6.png",
-      backgroundImage: "/servicos/microLoans.jpg",
-      number: "01",
-      color: "text-primary",
-    },
-    {
-      title: "Empréstimos Pessoais",
-      description: "Condições flexíveis e taxas competitivas.",
-      icon: "/servicos/iconb1.png",
-      backgroundImage: "/servicos/personaLoans.jpg",
-      number: "02",
-      color: "text-secondary",
-    },
-    {
-      title: "Emergência Já",
-      description:
-        "Soluções rápidas e confiáveis para quando você mais precisa.",
-      icon: "/servicos/iconb2.png",
-      backgroundImage: "/servicos/emergencyLoans.jpeg",
-      number: "03",
-      color: "text-primary",
-    },
-
-    {
-      title: "Crédito Imobiliário",
-      description: "Condições flexíveis para a casa dos seus sonhos.",
-      icon: "/servicos/iconb5.png",
-      backgroundImage: "/servicos/houseLoans.jpg",
-      number: "04",
-      color: "text-secondary",
-    },
-    {
-      title: "Crédito Educacional",
-      description: "Financiamento estudantil para planejar seu futuro.",
-      icon: "/servicos/iconb4.png",
-      backgroundImage: "/servicos/studentLoans.jpg",
-      number: "05",
-      color: "text-primary",
-    },
-  ];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === services.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? services.length - 1 : prevIndex - 1
-    );
-  };
-
+const CreditoTipo = () => {
   return (
     <section
-      id="solucoes"
-      className="py-12 md:py-20 bg-primary overflow-hidden min-w-fit"
+      id=""
+      className="py-20 bg-gradient-to-br from-gray-900 to-primary overflow-hidden"
     >
-      <div className="container mx-auto c-space">
-        <div className="mb-8 md:mb-12 text-center">
-          <h2 className="text-3xl md:text-4xl uppercase font-extrabold text-gray-100 mb-3 md:mb-4 title-underline">
-            Soluções Disponíveis
+      <div className="container mx-auto px-4 max-w-6xl">
+        {/* Header */}
+        <div className="text-center mb-14">
+          <h2 className="text-4xl md:text-5xl font-black text-secondary mb-4">
+            Crédito JÁ
           </h2>
-          <p className="text-base md:text-lg text-secondary max-w-3xl mx-auto">
-            Descubra a solução perfeita para suas necessidades financeiras
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+            Uma solução rápida, simples e acessível para trabalhadores do{" "}
+            <span className="font-semibold text-secondary">Sector Privado</span>{" "}
+            que precisam de liquidez imediata.
           </p>
         </div>
 
-        {/* Mobile View */}
-        <div className="md:hidden">
-          <div className="relative w-full">
-            <div className="flex justify-center">
-              <div className="w-full max-w-md">
-                <div className="group flex-shrink-0 rounded-xl overflow-hidden bg-white shadow-md hover:shadow-xl transition-all duration-300 my-4">
-                  <div className="relative h-80 w-full">
-                    <Image
-                      src={services[currentIndex].backgroundImage}
-                      alt={services[currentIndex].title}
-                      fill
-                      className="object-cover"
-                      quality={100}
-                      sizes="100vw"
-                      priority
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                    <div
-                      className={`absolute top-3 right-3 bg-white font-bold rounded-full w-8 h-8 flex items-center justify-center shadow ${services[currentIndex].color}`}
-                    >
-                      {services[currentIndex].number}
-                    </div>
-                  </div>
-
-                  <div className="p-4 ">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="relative w-10 h-10">
-                        <Image
-                          src={services[currentIndex].icon}
-                          alt={`Ícone ${services[currentIndex].title}`}
-                          fill
-                          className="object-contain"
-                          sizes="40px"
-                        />
-                      </div>
-                      <h3 className="text-lg text-nowrap font-semibold text-primary">
-                        {services[currentIndex].title}
-                      </h3>
-                    </div>
-                    <p className="text-sm text-gray-600 leading-relaxed">
-                      {services[currentIndex].description}
-                    </p>
-                  </div>
-                </div>
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          {/* Imagem */}
+          <div className="relative">
+            <div className="rounded-3xl overflow-hidden shadow-2xl">
+              <div className="aspect-[6/7] relative">
+                <Image
+                  src="/2149034565.jpg"
+                  alt="Crédito Já"
+                  fill
+                  className="object-cover"
+                  quality={100}
+                  priority
+                />
+                {/* <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent" /> */}
               </div>
-            </div>
-
-            <div className="flex justify-center mt-4 gap-4">
-              <button
-                onClick={prevSlide}
-                className="p-2 rounded-full bg-white shadow-md hover:bg-gray-100 transition-colors"
-                aria-label="Anterior"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-primary"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </button>
-              <div className="flex items-center">
-                <span className="text-white text-sm">
-                  {currentIndex + 1}/{services.length}
-                </span>
-              </div>
-              <button
-                onClick={nextSlide}
-                className="p-2 rounded-full bg-white shadow-md hover:bg-gray-100 transition-colors"
-                aria-label="Próximo"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-primary"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </button>
             </div>
           </div>
-        </div>
 
-        {/* Desktop View */}
-        <div className="hidden md:block relative group overflow-hidden">
-          <div className="flex animate-slide group-hover:animate-none ">
-            {[...services, ...services].map((service, index) => (
-              <div
-                key={index}
-                className="group w-72 md:w-80 shrink-0 mx-3 rounded-2xl overflow-hidden bg-white shadow-md hover:shadow-xl transition-transform transform hover:-translate-y-2 my-8"
-              >
-                <div className="relative h-40">
-                  <Image
-                    src={service.backgroundImage}
-                    alt={service.title}
-                    fill
-                    className="object-cover"
-                    quality={85}
-                    sizes="(max-width: 1024px) 33vw, 25vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  <div className="absolute top-3 right-3 bg-white text-gray-600 font-bold rounded-full w-8 h-8 flex items-center justify-center shadow">
-                    {service.number}
-                  </div>
-                </div>
+          {/* Conteúdo */}
+          <div className="space-y-6">
+            <h3 className="text-2xl font-bold text-white">
+              O que é o Crédito Já?
+            </h3>
 
-                <div className="p-5">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="relative w-10 h-10">
-                      <Image
-                        src={service.icon}
-                        alt={`Ícone ${service.title}`}
-                        fill
-                        className="object-contain"
-                        sizes="40px"
-                      />
-                    </div>
-                    <h3
-                      className={`text-lg font-semibold uppercase ${service.color}`}
-                    >
-                      {service.title}
-                    </h3>
-                  </div>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {service.description}
-                  </p>
-                </div>
+            <p className="text-gray-300 leading-relaxed">
+              O <span className="text-white font-semibold">Crédito Já</span> é
+              um financiamento rápido destinado a funcionários do sector
+              privado. Projetado para ajudar em situações urgentes, permite que
+              receba o valor na sua conta com total segurança e sem burocracias
+              desnecessárias.
+            </p>
+
+            <div className="grid grid-cols-2 gap-4 mt-6">
+              <div className="bg-white/10 rounded-xl p-4 text-center">
+                <div className="text-2xl font-bold text-secondary">100%</div>
+                <p className="text-gray-300 text-sm mt-1">Digital</p>
               </div>
-            ))}
+              <div className="bg-white/10 rounded-xl p-4 text-center">
+                <div className="text-2xl font-bold text-secondary">24h</div>
+                <p className="text-gray-300 text-sm mt-1">Resposta</p>
+              </div>
+              <div className="bg-white/10 rounded-xl p-4 text-center">
+                <div className="text-2xl font-bold text-secondary">21+</div>
+                <p className="text-gray-300 text-sm mt-1">Idade mínima</p>
+              </div>
+              <div className="bg-white/10 rounded-xl p-4 text-center">
+                <div className="text-2xl font-bold text-secondary">0%</div>
+                <p className="text-gray-300 text-sm mt-1">Avanço</p>
+              </div>
+            </div>
+            <div>
+              <Link
+                href="/#simulacao"
+                className="block w-full text-center bg-secondary text-white text-lg py-4 rounded-full font-bold hover:bg-secondary/90 transition-all"
+              >
+                Simular o Crédito
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -240,4 +87,4 @@ const FinancialSolutions = () => {
   );
 };
 
-export default FinancialSolutions;
+export default CreditoTipo;

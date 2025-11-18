@@ -21,12 +21,12 @@ const FAQSection = () => {
     {
       question: "Quais taxas e juros são aplicados?",
       answer:
-        "Nossas taxas variam entre 2.5% e 5% ao mês, dependendo do valor e prazo do empréstimo. Não cobramos taxas ocultas ou de processamento.",
+        "As nossas taxas variam entre 10% e 60% ao mês, conforme o prazo do empréstimo. Não aplicamos quaisquer taxas adicionais além das apresentadas no processo da simulação.",
     },
     {
       question: "Qual o prazo máximo para pagamento?",
       answer:
-        "Oferecemos prazos flexíveis de até 24 meses para valores maiores. Para créditos menores, o prazo máximo é de 12 meses.",
+        "Oferecemos prazos flexíveis de até 6 meses, dependendo das condições de pagamento fornecidas no momento da solicitação.",
     },
     {
       question: "E se eu tiver dificuldades no pagamento?",
@@ -49,7 +49,7 @@ const FAQSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-secondary/10 text-[var(--color-secondary)] mb-4">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-secondary text-white mb-4">
             <HelpCircle className="w-5 h-5 mr-2" />
             <span className="text-sm font-medium uppercase  tracking-wider">
               FAQ

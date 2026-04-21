@@ -3,7 +3,6 @@
 import Image from "next/image";
 import ServiceCard from "../components/ServiceCard";
 
-
 const ServicesSection = () => {
   const services = [
     {
@@ -123,7 +122,7 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section id="servicos" className="bg-gray-50 py-20 min-w-fit min-h-screen">
+    <section id="servicos" className="bg-gray-50 py-20 min-h-screen">
       <div className="max-w-6xl mx-auto flex flex-col md:items-center items-start c-space">
         <span className="inline-block text-primary mb-4 px-4 py-1 text-sm border border-gray-300 rounded-full font-medium uppercase tracking-wider">
           Nossos Serviços

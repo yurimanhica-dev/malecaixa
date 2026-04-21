@@ -60,21 +60,26 @@ export function getCreditTerms(creditTypeId: number): CreditTerms {
   const terms = CREDIT_TYPES.find((credit) => credit.id === creditTypeId);
   if (!terms) {
     throw new Error(
-      `Tipo de crédito não encontrado para o ID: ${creditTypeId}`
+      `Tipo de crédito não encontrado para o ID: ${creditTypeId}`,
     );
   }
   return terms;
 }
 
+export function getInterestRate(terms: CreditTerms, months: number): number {
+  return (
+    terms.interestRates[months] ||
+    Math.max(...Object.values(terms.interestRates))
+  );
+}
+
 export function calculateMonthlyPayment(
   amount: number,
   months: number,
-  creditTypeId: number
+  creditTypeId: number,
 ): number {
   const terms = getCreditTerms(creditTypeId);
-  const interestRate =
-    terms.interestRates[months] ||
-    Math.max(...Object.values(terms.interestRates));
+  const interestRate = getInterestRate(terms, months);
   const totalAmount = amount * (1 + interestRate);
   return totalAmount / months;
 }
@@ -82,34 +87,29 @@ export function calculateMonthlyPayment(
 export function calculateEncargos(
   amount: number,
   months: number,
-  creditTypeId: number
+  creditTypeId: number,
 ): number {
   const terms = getCreditTerms(creditTypeId);
-  const interestRate =
-    terms.interestRates[months] ||
-    Math.max(...Object.values(terms.interestRates));
+  const interestRate = getInterestRate(terms, months);
 
   const totalAmount = amount * (1 + interestRate); // total com juros
-  const encargos = totalAmount * 0.02; // 2% sobre o total
-  return encargos;
+  return totalAmount * 0.02; // 2% sobre o total
 }
 
 export function calculateTotalPayback(
   amount: number,
   months: number,
-  creditTypeId: number
+  creditTypeId: number,
 ): number {
   const terms = getCreditTerms(creditTypeId);
-  const interestRate =
-    terms.interestRates[months] ||
-    Math.max(...Object.values(terms.interestRates));
+  const interestRate = getInterestRate(terms, months);
   return amount * (1 + interestRate);
 }
 
 export function validateCreditRequest(
   amount: number,
   months: number,
-  creditTypeId: number
+  creditTypeId: number,
 ): string | null {
   const terms = getCreditTerms(creditTypeId);
 

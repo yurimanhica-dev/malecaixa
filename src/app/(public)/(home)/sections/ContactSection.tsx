@@ -8,7 +8,7 @@ import ContactForm from "../components/ContactForm";
 
 const ContactSection = () => {
   const [activeTab, setActiveTab] = useState<"location" | "form" | "exchange">(
-    "location"
+    "location",
   );
 
   const renderContent = () => {
@@ -69,7 +69,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-8 min-w-fit">
+    <section id="contact" className="py-8">
       <div className="max-w-7xl mx-auto c-space">
         {/* Tab Navigation */}
         <div className="flex justify-center mb-12">

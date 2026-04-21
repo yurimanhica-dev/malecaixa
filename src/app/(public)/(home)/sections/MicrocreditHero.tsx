@@ -38,17 +38,8 @@ export default function MicrocreditHero() {
       ctaText: "Solicitar Agora",
       ctaLink: "/apply",
     },
-    // {
-    //   id: 3,
-    //   image: "/bgagr.jpeg",
-    //   title: "Apoiamos o Empreendedor Local",
-    //   description:
-    //     "Acreditamos no poder transformador do empreendedorismo local. Nosso objetivo é fomentar o desenvolvimento sustentável da sua comunidade, por meio de financiamento responsável e acompanhamento próximo.",
-    //   ctaText: "Entenda como funciona.",
-    //   ctaLink: "/about",
-    // },
     {
-      id: 4,
+      id: 3,
       image: "/2150445983.jpg",
       title: "Apoiando o Crescimento de Quem Faz a Diferença",
       description:
@@ -81,34 +72,44 @@ export default function MicrocreditHero() {
   useEffect(() => {
     const interval = setInterval(() => {
       if (isAutoPlaying) nextSlide();
-    }, 20000);
+    }, 8000); // Reduzido para 8 segundos para mais fluidez
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex, isAutoPlaying]);
 
   // Animação de fundo suave
   const fadeVariants: Variants = {
-    enter: { opacity: 0 },
+    enter: { opacity: 0, scale: 1.1 },
     center: {
       opacity: 1,
-      transition: { duration: 1.5, ease: [0.33, 1, 0.68, 1] },
+      scale: 1,
+      transition: { duration: 1.2, ease: "easeOut" },
     },
     exit: {
       opacity: 0,
-      transition: { duration: 1.3, ease: [0.33, 1, 0.68, 1] },
+      scale: 0.95,
+      transition: { duration: 0.8, ease: "easeIn" },
     },
   };
 
   // Animação de conteúdo elegante
   const contentVariants: Variants = {
-    hidden: { x: -40, opacity: 0 },
+    hidden: { x: -60, opacity: 0 },
     visible: {
       x: 0,
       opacity: 1,
       transition: {
-        duration: 0.9,
-        ease: [0.33, 1, 0.68, 1],
-        delay: 0.3,
+        duration: 0.8,
+        ease: "easeOut",
+        delay: 0.2,
+      },
+    },
+    exit: {
+      x: 60,
+      opacity: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeIn",
       },
     },
   };
@@ -132,9 +133,9 @@ export default function MicrocreditHero() {
             key={`bg-${slides[currentIndex].id}`}
             src={slides[currentIndex].image}
             alt="Imagem de fundo"
-            initial={{ scale: 1 }}
+            initial={{ scale: 1.1 }}
             animate={{ scale: 1.05 }}
-            transition={{ duration: 15, ease: "easeInOut" }}
+            transition={{ duration: 12, ease: "easeInOut" }}
             className="parallax-bg"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-transparent z-0" />
@@ -144,12 +145,12 @@ export default function MicrocreditHero() {
       {/* Conteúdo centralizado (sem absolute) */}
       <div className="flex-1 flex items-center">
         <div className="max-w-7xl c-space mx-auto w-full">
-          <AnimatePresence>
+          <AnimatePresence mode="wait">
             <motion.div
               key={`content-${slides[currentIndex].id}`}
               initial="hidden"
               animate="visible"
-              exit="hidden"
+              exit="exit"
               variants={contentVariants}
               className="relative z-20"
             >

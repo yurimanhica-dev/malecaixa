@@ -90,15 +90,15 @@ const Testimonials = () => {
       className="bg-[var(--color-primary)] text-white md:max-w-3xl rounded-2xl shadow-2xl h-full flex  flex-col overflow-hidden"
     >
       {/* Image Section */}
-      <div className="relative h-64 w-full">
-        <AnimatePresence>
+      <div className="relative h-64 w-full overflow-hidden">
+        <AnimatePresence mode="wait">
           <motion.div
             key={`image-${currentTestimonial}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            className="absolute inset-0 "
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            className="absolute inset-0"
           >
             <Image
               src={testimonials[currentTestimonial].image}
@@ -123,10 +123,10 @@ const Testimonials = () => {
         <AnimatePresence mode="wait">
           <motion.div
             key={`content-${currentTestimonial}`}
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -30 }}
-            transition={{ duration: 0.4 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
             className="flex flex-col flex-grow"
           >
             <blockquote className="italic leading-relaxed mb-2 flex-grow">

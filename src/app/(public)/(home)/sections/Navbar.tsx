@@ -78,11 +78,11 @@ export default function Navbar(): JSX.Element {
   const toggleMenu = (): void => setIsOpen(!isOpen);
 
   return (
-    <nav className="bg-white min-w-fit w-full shadow-md shadow-primary/70 sticky top-0 z-40 py-2 backdrop-blur-md transition-all duration-300 ease-in-out">
+    <nav className="bg-white w-full shadow-md shadow-primary/70 sticky top-0 z-40 py-2 backdrop-blur-md transition-all duration-300 ease-in-out">
       <div className="mx-auto max-w-screen-xl c-space">
         <div className="flex justify-between h-14">
           {/* Logo e menu desktop */}
-          <motion.div className="relative w-[160px] h-[48px] min-w-fit">
+          <motion.div className="relative w-[160px] h-[48px]">
             <Link href="#home" className="flex items-center w-full h-full">
               <Image
                 src="/logos.png"

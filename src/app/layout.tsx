@@ -12,8 +12,9 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "MALEcaixa - Crédito e Financiamento em Moçambique",
-    template: "%s | MALEcaixa",
+    default:
+      "MALECAIXA - Apoio Financeiro para Profissionais do Sector Privado",
+    template: "%s | MALECAIXA",
   },
   description:
     "Especializada em gestão de empréstimos e créditos, oferecemos soluções financeiras seguras e acessíveis para particulares e empresas em Moçambique.",
@@ -48,7 +49,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "MALEcaixa - Soluções de Crédito",
+    title: "MALECAIXA - Soluções de Crédito",
     description:
       "Gestão profissional de empréstimos e créditos com segurança, rapidez e responsabilidade.",
     images: ["/icon.png"],

@@ -40,7 +40,7 @@ const ImpactSection = () => {
   ];
 
   return (
-    <section className="relative py-20 bg-white text-gray-800 overflow-hidden min-w-fit">
+    <section className="relative py-20 bg-white text-gray-800 z-0">
       {/* Decorative blobs */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div className="absolute top-1/4 -left-20 w-64 h-64 bg-[var(--color-primary)] rounded-full blur-3xl" />
@@ -59,7 +59,7 @@ const ImpactSection = () => {
           >
             <motion.span
               className="inline-block uppercase tracking-wider px-3 py-2 text-sm font-medium rounded-full
-               bg-[var(--color-primary)] text-white shadow "
+              bg-[var(--color-primary)] text-white shadow "
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
@@ -89,7 +89,7 @@ const ImpactSection = () => {
                 >
                   <div className="flex items-center flex-col md:flex-row justify-between gap-4">
                     <div className="flex items-center gap-4">
-                      <div className="p-3 rounded-xl  text-[var(--color-secondary)] text-lg">
+                      <div className="p-2 rounded-xl text-[var(--color-secondary)] text-xl">
                         {stat.icon}
                       </div>
                       <span className="text-sm text-gray-500 font-medium tracking-wide">

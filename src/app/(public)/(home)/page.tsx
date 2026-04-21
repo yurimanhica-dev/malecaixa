@@ -1,5 +1,5 @@
 import FAQSection from "./sections/FAQSection";
-import FinancialSolutions from "./sections/FinancialSolutions";
+import CreditoJa from "./sections/FinancialSolutions";
 import HeroSection from "./sections/HeroSection";
 import ImpactSection from "./sections/ImpactSection";
 import MicrocreditHero from "./sections/MicrocreditHero";
@@ -10,14 +10,14 @@ import LoanSection from "./sections/WhoWeAre";
 
 export default function Home() {
   return (
-    <section className="min-w-fit ">
+    <section className="overflow-x-hidden">
       <Navbar />
       <MicrocreditHero />
       <OurStory />
       <HeroSection />
       <ImpactSection />
       <LoanSection />
-      <FinancialSolutions />
+      <CreditoJa />
       <FAQSection />
       <TransitionCTA />
     </section>

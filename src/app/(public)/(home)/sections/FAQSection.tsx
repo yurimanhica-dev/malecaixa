@@ -40,7 +40,7 @@ const FAQSection = () => {
   };
 
   return (
-    <section id="contactos" className="py-20 bg-white min-w-fit">
+    <section id="contactos" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto c-space">
         {/* Header */}
         <motion.div
@@ -49,7 +49,7 @@ const FAQSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-secondary text-white mb-4">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-[#f5a623] text-white mb-4">
             <HelpCircle className="w-5 h-5 mr-2" />
             <span className="text-sm font-medium uppercase  tracking-wider">
               FAQ
@@ -78,7 +78,7 @@ const FAQSection = () => {
                 onClick={() => toggleFAQ(index)}
                 className={`w-full text-left px-6 py-5  rounded-t-lg shadow-xs hover:shadow-sm transition-all duration-300 flex justify-between items-center ${
                   activeIndex === index
-                    ? "shadow-md bg-secondary text-white"
+                    ? "shadow-md bg-[#f5a623] text-white"
                     : "bg-primary/10 text-primary hover:bg-primary/20"
                 }`}
                 whileHover={{ scale: 1.01 }}

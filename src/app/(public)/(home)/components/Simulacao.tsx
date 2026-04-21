@@ -38,17 +38,17 @@ const Simulacao = () => {
   const [showRequestForm, setShowRequestForm] = useState(false);
 
   const currentCreditType = CREDIT_TYPES.find(
-    (credit) => credit.id === loanData.creditTypeId
+    (credit) => credit.id === loanData.creditTypeId,
   )!;
   const monthlyPayment = calculateMonthlyPayment(
     loanData.amount,
     loanData.months,
-    loanData.creditTypeId
+    loanData.creditTypeId,
   );
   const totalPayback = calculateTotalPayback(
     loanData.amount,
     loanData.months,
-    loanData.creditTypeId
+    loanData.creditTypeId,
   );
 
   const totalEncargos = calculateEncargos(loanData.amount);
@@ -60,14 +60,14 @@ const Simulacao = () => {
       loanData.amount,
       loanData.months,
       loanData.creditTypeId,
-      loanData.monthlyIncome || 0
+      loanData.monthlyIncome || 0,
     );
 
     if (loanData.monthlyIncome) {
       const limite = loanData.monthlyIncome * 0.3;
       if (monthlyPayment > limite) {
         setValidationError(
-          "A parcela mensal + encargos não pode ultrapassar 30% do rendimento."
+          "A parcela mensal + encargos não pode ultrapassar 30% do rendimento.",
         );
         return;
       }
@@ -86,7 +86,7 @@ const Simulacao = () => {
   const handleCreditTypeChange = (value: string) => {
     const newCreditTypeId = parseInt(value);
     const newCreditType = CREDIT_TYPES.find(
-      (credit) => credit.id === newCreditTypeId
+      (credit) => credit.id === newCreditTypeId,
     )!;
 
     setLoanData({
@@ -343,6 +343,7 @@ const Simulacao = () => {
             totalPayback,
             totalEncargos,
             interestRate,
+            monthlyIncome: loanData.monthlyIncome,
           }}
         />
       )}

@@ -53,7 +53,7 @@ const HeroSection = () => {
   return (
     <section
       id="sobre"
-      className="relative bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-gradient)] min-w-fit"
+      className="relative overflow-hidden bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-gradient)] z-10"
     >
       {/* Background decorative elements */}
       <div className="absolute inset-0 opacity-10">
@@ -119,7 +119,7 @@ const HeroSection = () => {
               variants={itemVariants}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              className="px-8 py-3 bg-[var(--color-secondary)] hover:bg-[var(--color-secondary)/90 text-gray-700 font-medium rounded-lg transition-all duration-300 shadow-lg"
+              className="px-4 py-2 bg-[var(--color-secondary)] hover:bg-[var(--color-secondary)/90 text-gray-700 font-medium rounded-lg transition-all duration-300 shadow-lg"
             >
               <Link href="#simulacao">Simule o seu crédito</Link>
             </motion.button>
@@ -127,7 +127,7 @@ const HeroSection = () => {
               variants={itemVariants}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              className="px-8 py-3 bg-transparent border-2 border-white text-white hover:bg-white/10 font-medium rounded-lg transition-all duration-300"
+              className="px-4 py-2 bg-transparent border-2 border-white text-white hover:bg-white/10 font-medium rounded-lg transition-all duration-300"
             >
               <Link href="#sobre">Conheça nossa história</Link>
             </motion.button>
@@ -139,10 +139,10 @@ const HeroSection = () => {
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.33, 1, 0.68, 1] }}
-          className="relative h-80 md:h-96 rounded-xl overflow-hidden shadow-2xl border-4 border-white/20"
+          className="relative h-80 md:h-96 overflow-hidden shadow-2xl"
         >
           <Image
-            src="/reunion.webp" // Replace with your actual image
+            src="/MCAIXA.jpeg" // Replace with your actual image
             alt="Equipe da Microcrédito em reunião"
             fill
             className="object-cover"
@@ -163,7 +163,7 @@ const HeroSection = () => {
       <motion.div
         animate={{ y: [0, 70, 0] }}
         transition={{ repeat: Infinity, duration: 10 }}
-        className="absolute z-40  bottom-8 left-1/2 transform -translate-x-1/2"
+        className="absolute z-50  bottom-8 left-1/2 transform -translate-x-1/2"
       >
         <div className="w-8 h-8 border-r-2 border-b-2 border-secondary rotate-45" />
       </motion.div>

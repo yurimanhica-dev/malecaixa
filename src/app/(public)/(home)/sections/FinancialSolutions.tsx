@@ -1,90 +1,86 @@
 "use client";
 
-import Image from "next/image";
+import { motion } from "framer-motion";
+import Lottie from "lottie-react";
 import Link from "next/link";
+import login from "../../../assets/lotties/login.json";
 
-const CreditoTipo = () => {
+const CreditoJa = () => {
   return (
     <section
-      id=""
-      className="py-20 bg-gradient-to-br from-gray-900 to-primary overflow-hidden"
+      id="credito-ja"
+      className="relative py-20 overflow-hidden bg-[#f5a623]"
     >
-      <div className="container mx-auto px-4 max-w-6xl">
-        {/* Header */}
-        <div className="text-center mb-14">
-          <h2 className="text-4xl md:text-5xl font-black text-secondary mb-4">
-            Crédito JÁ
-          </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Uma solução rápida, simples e acessível para trabalhadores do{" "}
-            <span className="font-semibold text-secondary">Sector Privado</span>{" "}
-            que precisam de liquidez imediata.
-          </p>
-        </div>
+      <div className="relative container mx-auto px-4 max-w-6xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mb-10 text-white"
+        >
+          <span className="inline-block mb-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase border border-black/15 bg-black/10">
+            Nossa Solução Financeira
+          </span>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Imagem */}
-          <div className="relative">
-            <div className="rounded-3xl overflow-hidden shadow-2xl">
-              <div className="aspect-[6/7] relative">
-                <Image
-                  src="/2149034565.jpg"
-                  alt="Crédito Já"
-                  fill
-                  className="object-cover"
-                  quality={100}
-                  priority
-                />
-                {/* <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent" /> */}
-              </div>
-            </div>
-          </div>
-
-          {/* Conteúdo */}
-          <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-white">
-              O que é o Crédito Já?
-            </h3>
-
-            <p className="text-gray-300 leading-relaxed">
-              O <span className="text-white font-semibold">Crédito Já</span> é
-              um financiamento rápido destinado a funcionários do sector
-              privado. Projetado para ajudar em situações urgentes, permite que
-              receba o valor na sua conta com total segurança e sem burocracias
-              desnecessárias.
-            </p>
-
-            <div className="grid grid-cols-2 gap-4 mt-6">
-              <div className="bg-white/10 rounded-xl p-4 text-center">
-                <div className="text-2xl font-bold text-secondary">100%</div>
-                <p className="text-gray-300 text-sm mt-1">Digital</p>
-              </div>
-              <div className="bg-white/10 rounded-xl p-4 text-center">
-                <div className="text-2xl font-bold text-secondary">24h</div>
-                <p className="text-gray-300 text-sm mt-1">Resposta</p>
-              </div>
-              <div className="bg-white/10 rounded-xl p-4 text-center">
-                <div className="text-2xl font-bold text-secondary">21+</div>
-                <p className="text-gray-300 text-sm mt-1">Idade mínima</p>
-              </div>
-              <div className="bg-white/10 rounded-xl p-4 text-center">
-                <div className="text-2xl font-bold text-secondary">0%</div>
-                <p className="text-gray-300 text-sm mt-1">Avanço</p>
-              </div>
-            </div>
-            <div>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-10 items-start">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+          >
+            <div className="rounded-2xl border border-black/10 bg-black/10 backdrop-blur-sm p-6">
+              <p className="text-lg font-semibold tracking-widest uppercase text-white mb-4">
+                Crédito Já
+              </p>
+              <p className="text-white mb-4 leading-relaxed">
+                A solução de crédito que ajuda colaboradores do sector privado a
+                obter financiamento de forma rápida e segura. Sem burocracia,
+                com aprovação simples e condições feitas à sua medida.
+              </p>
+              <p className="text-white mb-6 leading-relaxed">
+                Descubra quanto pode receber em segundos, sem compromisso e sem
+                custos.
+              </p>
               <Link
                 href="/#simulacao"
-                className="block w-full text-center bg-secondary text-white text-lg py-4 rounded-full font-bold hover:bg-secondary/90 transition-all"
+                className="inline-flex items-center gap-2 bg-[#0b1120] text-white text-sm font-bold px-6 py-3 rounded-lg hover:bg-[#1b2849] active:scale-[0.97] transition-all duration-200"
               >
-                Simular o Crédito
+                Simular Agora
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
               </Link>
             </div>
-          </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <Lottie
+              animationData={login}
+              loop={true}
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
         </div>
       </div>
     </section>
   );
 };
 
-export default CreditoTipo;
+export default CreditoJa;

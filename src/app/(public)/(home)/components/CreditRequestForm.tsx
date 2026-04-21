@@ -26,6 +26,7 @@ interface CreditRequestFormProps {
     totalPayback: number;
     totalEncargos: number;
     interestRate: number;
+    monthlyIncome?: number;
   };
 }
 
@@ -40,7 +41,7 @@ export default function CreditRequestForm({
     phone: "(+258) ",
     email: "",
     salary: "",
-    monthlyIncome: 0,
+    monthlyIncome: initialData.monthlyIncome || 0,
     amount: initialData.amount,
     months: initialData.months,
   });
@@ -49,13 +50,13 @@ export default function CreditRequestForm({
   const [validationError, setValidationError] = useState("");
 
   const currentCreditType = CREDIT_TYPES.find(
-    (credit) => credit.id === formData.creditTypeId
+    (credit) => credit.id === formData.creditTypeId,
   )!;
 
   const totalPayback = calculateTotalPayback(
     formData.amount,
     formData.months,
-    formData.creditTypeId
+    formData.creditTypeId,
   );
 
   useEffect(() => {
@@ -63,7 +64,7 @@ export default function CreditRequestForm({
       formData.amount,
       formData.months,
       formData.creditTypeId,
-      formData.monthlyIncome
+      formData.monthlyIncome,
     );
     setValidationError(error ?? "");
   }, [
@@ -74,7 +75,7 @@ export default function CreditRequestForm({
   ]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -121,7 +122,7 @@ export default function CreditRequestForm({
         !formData.fullName ||
         !formData.phone ||
         !formData.email ||
-        !formData.salary
+        !formData.monthlyIncome
       ) {
         throw new Error("Por favor, preencha todos os campos obrigatórios");
       }
@@ -133,7 +134,8 @@ export default function CreditRequestForm({
           ...formData,
           amount: Number(formData.amount),
           months: Number(formData.months),
-          salary: Number(formData.salary),
+          salary: Number(formData.monthlyIncome),
+          monthlyIncome: Number(formData.monthlyIncome),
           totalPayback: Number(totalPayback),
           totalEncargos: Number(initialData.totalEncargos),
           monthlyPayment: Number(initialData.monthlyPayment),
@@ -158,7 +160,7 @@ export default function CreditRequestForm({
         phone: "(+258) ",
         email: "",
         salary: "",
-        monthlyIncome: 0,
+        monthlyIncome: initialData.monthlyIncome || 0,
         amount: initialData.amount,
         months: initialData.months,
       });
@@ -175,7 +177,7 @@ export default function CreditRequestForm({
   };
 
   return (
-    <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
       {/* Overlay de fundo com z-index menor */}
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
       {/* Decoração de fundo  */}
@@ -185,7 +187,7 @@ export default function CreditRequestForm({
       </div>
 
       {/* Modal principal com z-index mais alto */}
-      <div className="relative z-[10000] w-full max-w-md bg-white rounded-lg shadow-xl max-h-[90vh] overflow-hidden flex flex-col">
+      <div className="relative z-[100000] w-full max-w-md bg-white rounded-lg shadow-xl max-h-[90vh] overflow-hidden flex flex-col">
         {/* Cabeçalho fixo */}
         <div className="flex items-center justify-center p-4 bg-primary text-white">
           <h3 className="text-xl font-bold uppercase">
@@ -235,7 +237,7 @@ export default function CreditRequestForm({
 
             <div>
               <label className="block  font-medium text-gray-700 mb-1">
-                Contacto Telefónico *
+                Contacto Telefônico *
               </label>
               <input
                 type="tel"

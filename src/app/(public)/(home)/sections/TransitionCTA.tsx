@@ -8,8 +8,8 @@ import ContactSection from "./ContactSection";
 export default function TransitionCTA() {
   return (
     <section
-      id="contactos"
-      className="relative bg-gray-900 text-white py-20 pb-10 overflow-hidden min-w-fit"
+      id="contato"
+      className="relative bg-gray-900 text-white py-20 pb-10 overflow-hidden"
     >
       {/* Decorative elements */}
       <div className="absolute inset-0 opacity-10">

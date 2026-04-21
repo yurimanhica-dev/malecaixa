@@ -78,19 +78,19 @@ export default function MicrocreditHero() {
   }, [currentIndex, isAutoPlaying]);
 
   // Animação de fundo suave
-  const fadeVariants: Variants = {
-    enter: { opacity: 0, scale: 1.1 },
-    center: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 1.2, ease: "easeOut" },
-    },
-    exit: {
-      opacity: 0,
-      scale: 0.95,
-      transition: { duration: 0.8, ease: "easeIn" },
-    },
-  };
+  // const fadeVariants: Variants = {
+  //   enter: { opacity: 0, scale: 1.1 },
+  //   center: {
+  //     opacity: 1,
+  //     scale: 1,
+  //     transition: { duration: 1.2, ease: "easeOut" },
+  //   },
+  //   exit: {
+  //     opacity: 0,
+  //     scale: 0.95,
+  //     transition: { duration: 0.8, ease: "easeIn" },
+  //   },
+  // };
 
   // Animação de conteúdo elegante
   const contentVariants: Variants = {
@@ -99,7 +99,7 @@ export default function MicrocreditHero() {
       x: 0,
       opacity: 1,
       transition: {
-        duration: 0.8,
+        duration: 1.2,
         ease: "easeOut",
         delay: 0.2,
       },
@@ -123,19 +123,19 @@ export default function MicrocreditHero() {
       <AnimatePresence>
         <motion.div
           key={`image-${slides[currentIndex].id}`}
-          variants={fadeVariants}
-          initial="enter"
-          animate="center"
-          exit="exit"
+          // variants={fadeVariants}
+          // initial="enter"
+          // animate="center"
+          // exit="exit"
           className="absolute inset-0 w-full h-full overflow-hidden -z-10"
         >
           <motion.img
             key={`bg-${slides[currentIndex].id}`}
             src={slides[currentIndex].image}
             alt="Imagem de fundo"
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1.05 }}
-            transition={{ duration: 12, ease: "easeInOut" }}
+            // initial={{ scale: 1.1 }}
+            // animate={{ scale: 1.05 }}
+            // transition={{ duration: 12, ease: "easeInOut" }}
             className="parallax-bg"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-transparent z-0" />

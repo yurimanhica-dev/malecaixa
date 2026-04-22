@@ -156,13 +156,13 @@ export default function MicrocreditHero() {
             >
               <div className="grid grid-cols-1 gap-8 items-center">
                 <div>
-                  <h1 className="text-5xl md:text-5xl lg:text-6xl max-w-md lg:max-w-3xl uppercase font-bold font-sans text-white">
+                  <h1 className="text-4xl md:text-5xl lg:text-7xl max-w-md lg:max-w-3xl uppercase font-bold font-sans text-white">
                     {slides[currentIndex].title}
                   </h1>
                 </div>
                 <hr className="border-t max-w-5xl border-gray-300" />
                 <div>
-                  <p className="text-base md:text-lg lg:text-xl text-gray-100 mb-4 max-w-xl">
+                  <p className="lg:text-lg text-gray-100 mb-4 max-w-xl">
                     {slides[currentIndex].description}
                   </p>
                 </div>

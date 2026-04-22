@@ -4,26 +4,42 @@ import nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
 
 export async function POST(request: Request) {
-  const formData = await request.json();
+  const formData = await request.formData();
 
   // Extrair dados do formulário
-  const {
-    creditTypeId,
-    fullName,
-    phone,
-    email,
-    salary,
-    monthlyIncome,
-    amount,
-    months,
-    totalPayback,
-    totalEncargos,
-    monthlyPayment,
-    interestRate,
-  } = formData;
+  const creditTypeId = parseInt(formData.get("creditTypeId") as string);
+  const fullName = formData.get("fullName") as string;
+  const phone = formData.get("phone") as string;
+  const email = formData.get("email") as string;
+  const salary = parseFloat(formData.get("salary") as string);
+  const monthlyIncome = parseFloat(formData.get("monthlyIncome") as string);
+  const amount = parseFloat(formData.get("amount") as string);
+  const months = parseInt(formData.get("months") as string);
+  const totalPayback = parseFloat(formData.get("totalPayback") as string);
+  const totalEncargos = parseFloat(formData.get("totalEncargos") as string);
+  const monthlyPayment = parseFloat(formData.get("monthlyPayment") as string);
+  const interestRate = parseFloat(formData.get("interestRate") as string);
+
+  // Coletar múltiplos arquivos de comprovativo
+  const proofDocuments: File[] = [];
+  let index = 0;
+  while (true) {
+    const file = formData.get(`proofDocument_${index}`) as File;
+    if (!file) break;
+    proofDocuments.push(file);
+    index++;
+  }
 
   // Validação básica
-  if (!fullName || !phone || !email || !salary || !amount || !months) {
+  if (
+    !fullName ||
+    !phone ||
+    !email ||
+    !salary ||
+    !amount ||
+    !months ||
+    proofDocuments.length === 0
+  ) {
     return NextResponse.json(
       { error: "Todos os campos obrigatórios devem ser preenchidos" },
       { status: 400 },
@@ -547,6 +563,12 @@ export async function POST(request: Request) {
     to: process.env.CREDIT_TEAM_EMAIL || process.env.EMAIL_USER,
     subject: `[Solicitação de Crédito] ${fullName} - ${creditType.name}`,
     html: adminEmailHtml,
+    attachments: await Promise.all(
+      proofDocuments.map(async (file) => ({
+        filename: file.name,
+        content: Buffer.from(await file.arrayBuffer()),
+      })),
+    ),
   };
 
   // Configurar e-mail de confirmação para o cliente

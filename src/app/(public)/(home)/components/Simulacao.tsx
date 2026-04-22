@@ -24,6 +24,7 @@ interface LoanData {
   amount: number;
   months: number;
   monthlyIncome?: number;
+  proofDocument?: File[] | null;
 }
 
 const Simulacao = () => {
@@ -32,6 +33,7 @@ const Simulacao = () => {
     amount: CREDIT_TYPES[0].minAmount,
     months: CREDIT_TYPES[0].minMonths,
     monthlyIncome: 0,
+    proofDocument: [],
   });
 
   const [validationError, setValidationError] = useState<string | null>(null);
@@ -146,19 +148,52 @@ const Simulacao = () => {
             Rendimento Mensal (MZN) *
           </label>
           <input
-            type="number"
+            type="text"
             name="monthlyIncome"
-            value={loanData.monthlyIncome}
-            onChange={(e) =>
+            value={loanData.monthlyIncome || ""}
+            onChange={(e) => {
+              const value = e.target.value.replace(/\D/g, "");
               setLoanData({
                 ...loanData,
-                monthlyIncome: Number(e.target.value),
-              })
-            }
+                monthlyIncome: value ? Number(value) : 0,
+              });
+            }}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
             placeholder="Ex: 25000"
             required
           />
+        </div>
+
+        {/* Comprovativo de Colaborador Privado */}
+        <div>
+          <label
+            htmlFor="proofDocument"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Comprovativo de Colaborador Privado *
+          </label>
+          <input
+            type="file"
+            id="proofDocument"
+            accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+            multiple
+            onChange={(e) => {
+              const files = Array.from(e.target.files || []);
+              setLoanData({
+                ...loanData,
+                proofDocument: files,
+              });
+            }}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary-dark"
+            required
+          />
+          <p className="text-xs text-gray-500 mt-1">
+            Aceita: PDF, JPG, PNG, DOC, DOCX (máx. 5MB)
+          </p>
+          <p className="text-xs text-gray-500 mt-1">
+            Seleciona vários documentos simultaneamente caso queira enviar mais
+            de um comprovativo.
+          </p>
         </div>
 
         {/* Valor do Empréstimo */}
@@ -317,11 +352,18 @@ const Simulacao = () => {
         {/* Botão para solicitar crédito */}
         <button
           onClick={() => setShowRequestForm(true)}
-          disabled={!!validationError || !loanData.monthlyIncome}
+          disabled={
+            !!validationError ||
+            !loanData.monthlyIncome ||
+            !loanData.proofDocument ||
+            loanData.proofDocument.length === 0
+          }
           className={`w-full ${
             !!validationError ||
             (loanData.monthlyIncome &&
-              monthlyPayment / loanData.monthlyIncome > 0.3)
+              monthlyPayment / loanData.monthlyIncome > 0.3) ||
+            !loanData.proofDocument ||
+            loanData.proofDocument.length === 0
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-gradient-to-r from-[#009FEB] to-[#0066CC]"
           } text-white py-3 rounded-lg font-semibold flex items-center justify-center space-x-2 transition-all shadow-md hover:shadow-lg active:scale-[0.98]`}
@@ -344,6 +386,7 @@ const Simulacao = () => {
             totalEncargos,
             interestRate,
             monthlyIncome: loanData.monthlyIncome,
+            proofDocument: loanData.proofDocument,
           }}
         />
       )}

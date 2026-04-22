@@ -46,7 +46,7 @@ const LoanSection = () => {
   ];
 
   return (
-    <section id="simulacao" className="relative bg-white pb-24 ">
+    <section className="relative bg-white pb-24 ">
       {/* Background gradient elements */}
       <div className="absolute inset-0 overflow-hidden opacity-10">
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-[var(--color-primary)] rounded-full filter blur-[100px]" />

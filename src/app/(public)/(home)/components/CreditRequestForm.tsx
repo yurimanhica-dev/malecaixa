@@ -27,6 +27,7 @@ interface CreditRequestFormProps {
     totalEncargos: number;
     interestRate: number;
     monthlyIncome?: number;
+    proofDocument?: File[] | null;
   };
 }
 
@@ -122,25 +123,45 @@ export default function CreditRequestForm({
         !formData.fullName ||
         !formData.phone ||
         !formData.email ||
-        !formData.monthlyIncome
+        !formData.monthlyIncome ||
+        !initialData.proofDocument ||
+        initialData.proofDocument.length === 0
       ) {
         throw new Error("Por favor, preencha todos os campos obrigatórios");
       }
 
+      const formDataToSend = new FormData();
+      formDataToSend.append("creditTypeId", formData.creditTypeId.toString());
+      formDataToSend.append("institution", formData.institution);
+      formDataToSend.append("fullName", formData.fullName);
+      formDataToSend.append("phone", formData.phone);
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("salary", formData.monthlyIncome.toString());
+      formDataToSend.append("monthlyIncome", formData.monthlyIncome.toString());
+      formDataToSend.append("amount", formData.amount.toString());
+      formDataToSend.append("months", formData.months.toString());
+      formDataToSend.append("totalPayback", totalPayback.toString());
+      formDataToSend.append(
+        "totalEncargos",
+        initialData.totalEncargos.toString(),
+      );
+      formDataToSend.append(
+        "monthlyPayment",
+        initialData.monthlyPayment.toString(),
+      );
+      formDataToSend.append(
+        "interestRate",
+        initialData.interestRate.toString(),
+      );
+      if (initialData.proofDocument && initialData.proofDocument.length > 0) {
+        initialData.proofDocument.forEach((file, index) => {
+          formDataToSend.append(`proofDocument_${index}`, file);
+        });
+      }
+
       const response = await fetch("/api/credit-request", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          amount: Number(formData.amount),
-          months: Number(formData.months),
-          salary: Number(formData.monthlyIncome),
-          monthlyIncome: Number(formData.monthlyIncome),
-          totalPayback: Number(totalPayback),
-          totalEncargos: Number(initialData.totalEncargos),
-          monthlyPayment: Number(initialData.monthlyPayment),
-          interestRate: Number(initialData.interestRate),
-        }),
+        body: formDataToSend,
       });
 
       if (!response.ok) {
@@ -271,15 +292,16 @@ export default function CreditRequestForm({
                 Rendimento Mensal (MZN) *
               </label>
               <input
-                type="number"
+                type="text"
                 name="monthlyIncome" // ✅ importante
-                value={formData.monthlyIncome}
-                onChange={(e) =>
+                value={formData.monthlyIncome || ""}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, "");
                   setFormData({
                     ...formData,
-                    monthlyIncome: Number(e.target.value),
-                  })
-                }
+                    monthlyIncome: value ? Number(value) : 0,
+                  });
+                }}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg  focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
                 placeholder="Ex: 25000"
                 required

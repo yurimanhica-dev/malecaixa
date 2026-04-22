@@ -35,15 +35,28 @@ const Solucoes = () => {
               <p className="text-lg font-semibold tracking-widest uppercase text-white mb-4">
                 Crédito Já
               </p>
-              <p className="text-white mb-4 leading-relaxed">
-                A solução de crédito que ajuda colaboradores do sector privado a
-                obter financiamento de forma rápida e segura. Sem burocracia,
-                com aprovação simples e condições feitas à sua medida.
-              </p>
-              <p className="text-white mb-6 leading-relaxed">
-                Descubra quanto pode receber em segundos, sem compromisso e sem
-                custos.
-              </p>
+              <div className="space-y-4 text-white">
+                <p className="leading-relaxed">
+                  A solução de crédito que ajuda colaboradores do sector privado
+                  a obter financiamento de forma rápida e segura. Sem
+                  burocracia, com aprovação simples e condições feitas à sua
+                  medida.
+                </p>
+                <p className="font-semibold text-white">
+                  Condições para Aderir
+                </p>
+                <ul className="mb-4 space-y-2">
+                  <li className="">✔ Ser colaborador do sector privado</li>
+                  <li className="">✔ Ter renda fixa</li>
+                  <li className="">✔ Ter conta bancária</li>
+                  <li className="">✔ Idade acima de 18 anos</li>
+                  <li className="">✔ Residir em Moçambique</li>
+                </ul>
+                <p className="mb-6 text-white leading-relaxed">
+                  Descubra quanto pode receber em segundos, sem compromisso e
+                  sem custos.
+                </p>
+              </div>
               <Link
                 href="/#simulacao"
                 className="inline-flex items-center gap-2 bg-[#0b1120] text-white text-sm font-bold px-6 py-3 rounded-lg hover:bg-[#1b2849] active:scale-[0.97] transition-all duration-200"
@@ -65,18 +78,13 @@ const Solucoes = () => {
             </div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
+          <div className="flex justify-center items-center">
             <Lottie
               animationData={login}
-              loop={true}
-              className="w-full h-full object-cover"
+              loop
+              className="w-full max-w-md lg:max-w-lg"
             />
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

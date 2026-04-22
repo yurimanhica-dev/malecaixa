@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const LearnMoreButton = () => {
+const Simulate = () => {
   return (
     <Link href="#simulacao" className="flex">
       <button
@@ -26,4 +26,4 @@ const LearnMoreButton = () => {
   );
 };
 
-export default LearnMoreButton;
+export default Simulate;

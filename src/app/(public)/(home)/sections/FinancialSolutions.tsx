@@ -5,10 +5,10 @@ import Lottie from "lottie-react";
 import Link from "next/link";
 import login from "../../../assets/lotties/login.json";
 
-const CreditoJa = () => {
+const Solucoes = () => {
   return (
     <section
-      id="credito-ja"
+      id="solucoes"
       className="relative py-20 overflow-hidden bg-[#f5a623]"
     >
       <div className="relative container mx-auto px-4 max-w-6xl">
@@ -83,4 +83,4 @@ const CreditoJa = () => {
   );
 };
 
-export default CreditoJa;
+export default Solucoes;

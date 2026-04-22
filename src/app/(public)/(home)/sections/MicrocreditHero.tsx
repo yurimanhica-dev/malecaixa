@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
-import LearnMoreButton from "../components/LearnMoreButton";
+import Simulate from "../components/LearnMoreButton";
 
 interface Slide {
   id: number;
@@ -31,7 +31,7 @@ export default function MicrocreditHero() {
     },
     {
       id: 2,
-      image: "/77655.jpg",
+      image: "/bggreen.webp",
       title: "Seu Plano, Nosso Apoio",
       description:
         "Oferecemos soluções de microcrédito com condições justas, prazos flexíveis e aprovação simplificada. Ideal para quem precisa impulsionar os seus planos com financiamento ágil, seguro e transparente.",
@@ -117,7 +117,7 @@ export default function MicrocreditHero() {
   return (
     <section
       id="home"
-      className="relative h-[85vh] min-h-fit w-full overflow-hidden flex flex-col justify-between"
+      className="relative h-[100vh] w-full flex flex-col justify-between"
     >
       {/* Fundo com overlay gradiente */}
       <AnimatePresence>
@@ -143,7 +143,7 @@ export default function MicrocreditHero() {
       </AnimatePresence>
 
       {/* Conteúdo centralizado (sem absolute) */}
-      <div className="flex-1 flex items-center">
+      <div className="flex-1 flex items-center mt-12 md:mt-16 c-space">
         <div className="max-w-7xl c-space mx-auto w-full">
           <AnimatePresence mode="wait">
             <motion.div
@@ -169,7 +169,7 @@ export default function MicrocreditHero() {
               </div>
 
               <div className="mt-6">
-                <LearnMoreButton />
+                <Simulate />
               </div>
             </motion.div>
           </AnimatePresence>

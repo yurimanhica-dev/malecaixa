@@ -142,7 +142,7 @@ const HeroSection = () => {
           className="relative h-80 md:h-96 overflow-hidden shadow-2xl"
         >
           <Image
-            src="/MCAIXA.jpeg" // Replace with your actual image
+            src="/MCAIXA.jpeg"
             alt="Equipe da Microcrédito em reunião"
             fill
             className="object-cover"

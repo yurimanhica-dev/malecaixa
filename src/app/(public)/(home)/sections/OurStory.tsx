@@ -58,8 +58,7 @@ const OurStory = () => {
               className="mt-2 md:mt-2 p-2 md:p-3 bg-primary shadow-md shadow-primary/20 backdrop-blur-sm"
             >
               <blockquote className="text-gray-100 text-lg leading-relaxed border-l-4 border-secondary pl-4 md:pl-6">
-                &ldquo;Financiando o futuro de quem precisa{""}
-                <span className="text-secondary text-2xl">.</span>&rdquo;
+                Financiando o futuro de quem precisa
               </blockquote>
             </motion.div>
 

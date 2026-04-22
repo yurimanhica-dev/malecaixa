@@ -54,7 +54,7 @@
     "@types/react-dom": "^19",
     "@types/recharts": "^1.8.29",
     "eslint": "^9",
-    "eslint-config-next": "8",
+    "eslint-config-next": "15.3.4",
     "tailwindcss": "^4.1.11",
     "typescript": "^5"
   }
